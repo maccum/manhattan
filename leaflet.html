@@ -29,12 +29,25 @@
     var bounds = L.latLngBounds(corner1, corner2)
 
     L.tileLayer('file:///Users/maccum/manhattan/gnuplots/{z}/{x}/{y}.png', {
-      maxZoom: 1, minZoom:0, crs: L.CRS.Simple, bounds: bounds,
+      maxNativeZoom: 1, maxZoom: 5, minZoom:0, crs: L.CRS.Simple, bounds: bounds,
     }).addTo(map);
 
     var circle = L.circle([-128, 128], {radius: .1, color: '#9b0085', fillOpacity: 1.0}).addTo(map)
     var circle = L.circle([0, 0], {radius: .1, color: 'black', fillOpacity: 1.0}).addTo(map)
     var circle = L.circle([-256, 256], {radius: .1, color: 'blue', fillOpacity: 1.0}).addTo(map)
+
+    //var circle = L.circle([-(256-((1.2616800515679323/6)*256)), ((756986/(2*Math.pow(10,8)))*256)], {radius: .0001, color: 'black', fillOpacity: 1.0}).addTo(map)
+
+    function getCoordinates(pvalue, position) {
+        return [
+            -(256 - ((pvalue/6)*256)),
+            ((position/(2*Math.pow(10,8)))*256)
+        ]
+    }
+
+    var circle = L.circle(getCoordinates(3.19014811870111, 12593395), 
+    {radius: .0001, color: 'black', fillOpacity: 1.0}).addTo(map)
+
 
     map.fitBounds(bounds);
     console.log('map center: '+map.getCenter());
