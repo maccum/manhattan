@@ -1,0 +1,40 @@
+set terminal pngcairo size 256,256 enhanced
+set lmargin screen 0
+set rmargin screen 1
+set tmargin screen 0
+set bmargin screen 1
+set datafile separator ","
+unset tics
+unset border
+
+set style fill transparent solid 0.25 noborder
+
+set output 'gnuplot_test.png'
+set xrange[0:2*10**8]
+set yrange[0:6]
+plot 'contig4.csv' using 1:2:(1500000) with circles lc rgb "blue" notitle
+
+set output 'gnuplots/0/0/0.png'
+set xrange[0:2*10**8]
+set yrange[0:6]
+plot 'contig4.csv'using 1:2:(1500000) with circles lc rgb "blue" notitle
+
+set output 'gnuplots/1/0/0.png'
+set xrange[0:1*10**8]
+set yrange[3:6]
+plot 'contig4.csv' using 1:2:(1500000) with circles lc rgb "red" notitle
+
+set output 'gnuplots/1/0/1.png'
+set xrange[0:1*10**8]
+set yrange[0:3]
+plot 'contig4.csv' using 1:2:(1500000) with circles lc rgb "green" notitle
+
+set output 'gnuplots/1/1/0.png'
+set xrange[1*10**8:2*10**8]
+set yrange[3:6]
+plot 'contig4.csv' using 1:2:(1500000) with circles lc rgb "purple" notitle
+
+set output 'gnuplots/1/1/1.png'
+set xrange[1*10**8:2*10**8]
+set yrange[0:3]
+plot 'contig4.csv' using 1:2:(1500000) with circles lc rgb "orange" notitle
