@@ -1,0 +1,24 @@
+set terminal pngcairo size 256,256 enhanced
+set lmargin screen 0
+set rmargin screen 1
+set tmargin screen 0
+set bmargin screen 1
+set datafile separator ","
+unset tics
+unset border
+
+set style fill transparent solid 0.25 noborder
+
+set palette defined ( 1 "#F73A12", 2 "#BFF712", 3 "#F7B912", 4  "#F78112", \
+5 "#1DA14F", 6 "#651DA1", 7 "#26DAE3", 8 "#768CCC", \
+9 "#CF19EC", 10 "#A11D7F", 11 "#EC195C", 12 "#19EC43", \
+13 "#30666F", 14 "#F7CA48", 15 "#48F770", 16 "#7A48F7", \
+17 "#F74863", 18 "#322C2D", 19 "#B9C147", 20 "#B7B0B1", \
+21 "#64C1B9", 22 "#349C21", 23 "#2D396E", 24 "#5CAEC8")
+
+set output 'caffeine_all.png'
+set xrange[0:4*10**9]
+set yrange[4*10**(-6):12]
+plot 'jupyter_folder/manhattan_tutorial.csv' using 2:3:1 with circles linecolor palette notitle
+
+# :(1500000) with circles lc rgb "blue" notitle
