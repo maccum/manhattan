@@ -10,7 +10,7 @@ set datafile separator ","
 set style fill transparent solid 0.25 noborder
 set style circle radius 15000000
 
-set palette defined ( 1 "#F73A12", 2 "#BFF712", 3 "#F7B912", 4  "#F78112", \
+set palette defined (1 "#F73A12", 2 "#BFF712", 3 "#F7B912", 4  "#F78112", \
 5 "#1DA14F", 6 "#651DA1", 7 "#26DAE3", 8 "#768CCC", \
 9 "#CF19EC", 10 "#A11D7F", 11 "#EC195C", 12 "#19EC43", \
 13 "#30666F", 14 "#F7CA48", 15 "#48F770", 16 "#7A48F7", \
@@ -18,9 +18,12 @@ set palette defined ( 1 "#F73A12", 2 "#BFF712", 3 "#F7B912", 4  "#F78112", \
 21 "#64C1B9", 22 "#349C21", 23 "#2D396E", 24 "#5CAEC8")
 
 set output 'caffeine_all.png'
-#set xrange[-.0000000000000000001 : 3.09*10**9]
-#set yrange[-.5 : 11.5]
+set cbrange[1: 24]
+set xrange[900000 : 3.09*10**9]
+set yrange[.000004 : 11.5]
 #unset autoscale
+
+
 plot 'jupyter_folder/manhattan_tutorial.csv' using 2:3:1 with circles linecolor palette #notitle
 
 # :(1500000) with circles lc rgb "blue" notitle
