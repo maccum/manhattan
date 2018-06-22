@@ -1,3 +1,4 @@
 50.assoc.tsv.gz.tsv
 jupyter_folder/data
 jupyter_folder/.ipynb_checkpoints
+jupyter_folder/hail.log
