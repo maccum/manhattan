@@ -2,3 +2,4 @@
 jupyter_folder/data
 jupyter_folder/.ipynb_checkpoints
 jupyter_folder/hail.log
+.DS_Store

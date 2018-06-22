@@ -34,7 +34,8 @@
 
         var map = L.map('map', {
             crs: L.CRS.Simple,
-            maxBounds: bounds
+            maxBounds: bounds,
+            scrollWheelZoom: true
         });
 
         var old = '../manhattan/caffeine/{z}/{x}/{y}.png'
