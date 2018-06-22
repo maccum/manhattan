@@ -44,6 +44,7 @@
             minNativeZoom: 2,
             crs: L.CRS.Simple, 
             bounds: bounds,
+            //maxBounds: L.latLngBounds([-Infinity, 0], [Infinity, 256])
         }).addTo(map);
 
         function getCoordinates(pvalue, position) {
