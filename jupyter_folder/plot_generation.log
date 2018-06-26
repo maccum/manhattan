@@ -3,3 +3,4 @@ Plot ../matplotlib/2/0/3.png already exists. Not regenerated.
 Plot ../matplotlib/2/1/3.png already exists. Not regenerated.
 Plot ../matplotlib/2/2/3.png already exists. Not regenerated.
 Plot ../matplotlib/2/3/3.png already exists. Not regenerated.
+INFO: generating plots for zoom level : 2INFO : generated plot ../matplotlib/2/0/3.pngINFO : generated plot ../matplotlib/2/1/3.pngINFO : generated plot ../matplotlib/2/2/3.pngINFO : generated plot ../matplotlib/2/3/3.png
