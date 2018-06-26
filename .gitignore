@@ -1,5 +1,7 @@
-50.assoc.tsv.gz.tsv
+50.assoc.tsv.gz
 jupyter_folder/data
 jupyter_folder/.ipynb_checkpoints
 jupyter_folder/hail.log
 .DS_Store
+
+standing_height/standing_height.mt
