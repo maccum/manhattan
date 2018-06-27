@@ -2,10 +2,7 @@ import hail as hl
 import hail.expr.aggregators as agg
 import os
 import math
-from math import log, isnan, abs
-import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
 
 class Generator:
 
