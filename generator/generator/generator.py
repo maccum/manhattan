@@ -43,7 +43,7 @@ class Generator:
         new_span = new_max - new_min
         old_min, old_max = old_range[0], old_range[1]
         old_span = old_max - old_min
-        assert(old_min < new_min and old_min >= 0 and old_max > 0)
+        assert(old_min < old_max and old_min >= 0 and old_max > 0)
         
         new_value = (((value - old_min) / old_span) * new_span) + new_min
         return new_value
@@ -60,10 +60,12 @@ class Generator:
         new_value = (((value- old_min) / old_span) * new_span) + new_min
         return new_value
 
+    # y ranges from -256 to -192, x ranges from 0 to 256
     def getGraphCoordinates(self, neg_log_pval, position):
         #max_neg_log_pval = 11.5
         #max_position = (3.05 * 10**9)
         y = -(64 - ((neg_log_pval / self.max_nlp) * 64))-192
+        #y = (((neg_log_pval - 0) / self.max_nlp) * 256) - 256
         x = ((position / self.max_position) * 256)
         return [y, x]
 
@@ -83,22 +85,25 @@ class Generator:
             if not os.path.exists(zoom_directory+"/"+str(c)):
                 os.makedirs(zoom_directory+"/"+str(c))
 
-    def filterTableByPixel(self, table, pos_range, pval_range):
-        graph_coord_expr = self.getGraphCoordinates(table.neg_log_pval, table.global_position)
+    def filterTableByPixel(self, table, pos_range, nlp_range):
+        #graph_coord_expr = self.getGraphCoordinates(table.neg_log_pval, table.global_position)
         
-        old_y_range = [self.mapValueOntoDecreasingNegativeRange(pval_range[0]), 
-        self.mapValueOntoDecreasingNegativeRange(pval_range[1])]
-        old_x_range = [self.mapValueOntoIncreasingPositiveRange(pos_range[0]),
-        self.mapValueOntoIncreasingPositiveRange(pos_range[1])]
+        #old_y_range = [self.mapValueOntoDecreasingNegativeRange(nlp_range[0]), 
+        #self.mapValueOntoDecreasingNegativeRange(nlp_range[1])]
+        #old_x_range = [self.mapValueOntoIncreasingPositiveRange(pos_range[0]),
+        #self.mapValueOntoIncreasingPositiveRange(pos_range[1])]
 
-        new_x_range = [0,256]
-        new_y_range = [0,-256]
+        #new_x_range = [0,256]
+        #new_y_range = [0,-256]
 
-        tile_coord_expr = self.getRoundedTileCoordinatesFromGraphCoordinates(
-            graph_coord_expr, old_y_range, old_x_range, new_y_range, new_x_range
-        )
+        #tile_coord_expr = self.getRoundedTileCoordinatesFromGraphCoordinates(
+        #    graph_coord_expr, old_y_range, old_x_range, new_y_range, new_x_range
+        #)
 
-        with_coords = table.annotate(tile_coord = tile_coord_expr)
+        expr = [self.mapValueOntoDecreasingNegativeRange(table.neg_log_pval, nlp_range, [0, -256]),
+        self.mapValueOntoIncreasingPositiveRange(table.global_position, pos_range, [0, 256]) ]
+
+        with_coords = table.annotate(tile_coord = expr)
         return with_coords.key_by('tile_coord').distinct()
 
     def generateTileImage(self, filepath, x_range, y_range):
@@ -152,13 +157,15 @@ class Generator:
         log = open("plot_generation.log", write_method)
         log.write("INFO: generating plots for zoom level : "+ str(zoom)+"\n")
 
-        total_tiles = 4**zoom
+        total_tiles = 4**zoom # includes tiles not generated outsize view
         num_cols = int(math.sqrt(total_tiles))
         num_rows = int(num_cols/4)
         total_rows = num_cols
 
         max_position = self.ht.aggregate(agg.max(self.ht.global_position))
         max_neg_log_pval = self.ht.aggregate(agg.max(self.ht.neg_log_pval))
+
+        iteration = 1
                         
         for c in range(0, num_cols):
             for r in range(total_rows-num_rows, total_rows):
@@ -175,6 +182,9 @@ class Generator:
                     log.write("INFO : generated plot "+filepath+"\n")
                 else:
                     log.write("Plot "+filepath+" already exists. Not regenerated.\n")
+                
+                self.progress(iteration, num_cols * num_rows, prefix='Zoom level: '+str(zoom))
+                iteration = iteration + 1
         
         log.close()
     
@@ -182,3 +192,13 @@ class Generator:
         self.generate(zoom_min, new_log_file=True)
         for zoom in range(zoom_min+1, zoom_max+1):
             self.generate(zoom, new_log_file=False)
+
+    def progress(self, i, total, prefix = 'Zoom Level', suffix = 'Complete', decimals = 1, length = 50, fill = '█'):
+        # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
+        percent = ("{0:." + str(decimals) + "f}").format(100 * (i / float(total)))
+        filledLength = int(length * i // total)
+        bar = fill * filledLength + '-' * (length - filledLength)
+        print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = '\r')
+        # Print New Line on Complete
+        if i == total: 
+            print()
