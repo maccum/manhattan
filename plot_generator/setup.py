@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='tile_generator',
+setup(name='generator',
       version='0.1',
       description='plot generator for leaflet tiles',
       url='',

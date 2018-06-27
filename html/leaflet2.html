@@ -45,7 +45,8 @@
         });
 
         var old = '../manhattan/caffeine/{z}/{x}/{y}.png'
-        L.tileLayer('../matplotlib/{z}/{x}/{y}.png', {
+        var old2 = '../matplotlib/{z}/{x}/{y}.png'
+        L.tileLayer('../caffeine_plots/{z}/{x}/{y}.png', {
             maxNativeZoom: 6, 
             //maxZoom: 2, 
             //minZoom: 2, 
@@ -55,9 +56,9 @@
             //maxBounds: L.latLngBounds([-Infinity, 0], [Infinity, 256])
         }).addTo(map);
 
-        function getCoordinates(pvalue, position) {
+        function getCoordinates(neg_log_pval, position) {
             return [
-                -(64 - ((pvalue / 11.5) * 64))-192,
+                -(64 - ((neg_log_pval / 11.5) * 64))-192,
                 ((position / (3.05 * Math.pow(10, 9))) * 256)
             ]
         }
