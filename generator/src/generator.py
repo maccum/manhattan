@@ -6,10 +6,14 @@ import matplotlib.pyplot as plt
 
 class Generator:
 
-    def __init__(self, root_folder, table_path, regenerate):
+    def __init__(self, root_folder, table_path, regenerate, max_position=None, max_nlp=None):
         self.root_folder = root_folder
         self.regenerate = regenerate
         self.ht = hl.read_table(table_path)
+        if (max_position is None or max_nlp is None):
+            self.max_position, self.max_nlp = self.getMaxValues()
+        else:
+            self.max_position, self.max_nlp = max_position, max_nlp
         self.colors = {1 : "#F73A12", 2 : "#BFF712", 3 : "#F7B912", 4 : "#F78112", 
                 5 : "#1DA14F", 6 : "#651DA1", 7 : "#26DAE3", 8 : "#768CCC", 
                 9 : "#CF19EC", 10 : "#A11D7F", 11 : "#EC195C", 12 : "#19EC43", 
@@ -17,14 +21,20 @@ class Generator:
                 17 : "#F74863", 18 : "#322C2D", 19 : "#B9C147", 20 : "#B7B0B1", 
                 21 : "#64C1B9", 22 : "#349C21", 23 : "#2D396E", 24 : "#5CAEC8"}
 
-        assert(self.checkSchema(self.ht))
+        assert(self.checkSchema(), "Table bad schema.")
 
     def checkSchema(self):
-        row_schema = self.ht.row
-        assert(row_schema.contains('global_position'), "Table missing global_position field.")
-        assert(row_schema.contains('neg_log_pval'), "Table missing neg_log_pval field.")
-        assert(row_schema.contains('color'), "Table missing color field.")
+        row_fields = list(self.ht.row)
+        if ('global_position' not in row_fields 
+        or 'neg_log_pval' not in row_fields 
+        or 'color' not in row_fields): 
+            return False
         return True
+
+    def getMaxValues(self):
+        max_position = self.ht.aggregate(agg.max(self.ht.global_position))
+        max_nlp = self.ht.aggregate(agg.max(self.ht.neg_log_pval))
+        return (max_position, max_nlp)
 
     # map positive value from positive range onto positive range
     def mapValueOntoIncreasingPositiveRange(self, value, old_range, new_range):
@@ -42,17 +52,19 @@ class Generator:
     def mapValueOntoDecreasingNegativeRange(self, value, old_range, new_range):
         new_max, new_min = new_range[0], new_range[1]
         assert(new_max > new_min and new_max <=0 and new_min < 0)
-        old_max, old_min = old_range[0], old_range[1]
-        assert(old_max > old_min and old_max <= 0 and old_min < 0)
+        old_min, old_max = old_range[0], old_range[1]
+        assert(old_max > old_min and old_max > 0 and old_min >= 0)
         new_span = abs(new_min)-abs(new_max)
-        old_span = abs(old_min)-abs(old_max)
+        old_span = abs(old_max)-abs(old_min)
         
         new_value = (((value- old_min) / old_span) * new_span) + new_min
         return new_value
 
     def getGraphCoordinates(self, neg_log_pval, position):
-        y = -(64 - ((neg_log_pval / 11.5) * 64))-192
-        x = ((position / (3.05 * 10**9)) * 256)
+        #max_neg_log_pval = 11.5
+        #max_position = (3.05 * 10**9)
+        y = -(64 - ((neg_log_pval / self.max_nlp) * 64))-192
+        x = ((position / self.max_position) * 256)
         return [y, x]
 
     def getRoundedTileCoordinatesFromGraphCoordinates(self, coords, old_y_range, old_x_range, new_y_range, new_x_range):

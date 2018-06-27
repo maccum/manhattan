@@ -1,7 +1,7 @@
-2018-06-27 14:13:04 SparkContext: INFO: Running Spark version 2.2.0
-2018-06-27 14:13:04 NativeCodeLoader: WARN: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-2018-06-27 14:13:04 SparkContext: INFO: Submitted application: Hail
-2018-06-27 14:13:04 SparkContext: INFO: Spark configuration:
+2018-06-27 14:59:56 SparkContext: INFO: Running Spark version 2.2.0
+2018-06-27 14:59:56 NativeCodeLoader: WARN: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2018-06-27 14:59:56 SparkContext: INFO: Submitted application: Hail
+2018-06-27 14:59:56 SparkContext: INFO: Spark configuration:
 spark.app.name=Hail
 spark.driver.extraClassPath=/Users/maccum/hail/build/libs/hail-all-spark.jar
 spark.driver.memory=8G
@@ -14,74 +14,74 @@ spark.master=local[*]
 spark.serializer=org.apache.spark.serializer.KryoSerializer
 spark.submit.deployMode=client
 spark.ui.showConsoleProgress=false
-2018-06-27 14:13:04 SecurityManager: INFO: Changing view acls to: maccum
-2018-06-27 14:13:04 SecurityManager: INFO: Changing modify acls to: maccum
-2018-06-27 14:13:04 SecurityManager: INFO: Changing view acls groups to: 
-2018-06-27 14:13:04 SecurityManager: INFO: Changing modify acls groups to: 
-2018-06-27 14:13:04 SecurityManager: INFO: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(maccum); groups with view permissions: Set(); users  with modify permissions: Set(maccum); groups with modify permissions: Set()
-2018-06-27 14:13:04 Utils: INFO: Successfully started service 'sparkDriver' on port 62716.
-2018-06-27 14:13:04 SparkEnv: INFO: Registering MapOutputTracker
-2018-06-27 14:13:04 SparkEnv: INFO: Registering BlockManagerMaster
-2018-06-27 14:13:04 BlockManagerMasterEndpoint: INFO: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
-2018-06-27 14:13:04 BlockManagerMasterEndpoint: INFO: BlockManagerMasterEndpoint up
-2018-06-27 14:13:04 DiskBlockManager: INFO: Created local directory at /private/var/folders/sb/_knnc68j2tx24w7pqktd64pn5d__pn/T/blockmgr-9a6ac999-4755-44ef-be23-899b6a8be579
-2018-06-27 14:13:04 MemoryStore: INFO: MemoryStore started with capacity 4.1 GB
-2018-06-27 14:13:05 SparkEnv: INFO: Registering OutputCommitCoordinator
-2018-06-27 14:13:05 log: INFO: Logging initialized @1733ms
-2018-06-27 14:13:05 Server: INFO: jetty-9.3.z-SNAPSHOT
-2018-06-27 14:13:05 Server: INFO: Started @1811ms
-2018-06-27 14:13:05 Utils: WARN: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
-2018-06-27 14:13:05 Utils: WARN: Service 'SparkUI' could not bind on port 4041. Attempting port 4042.
-2018-06-27 14:13:05 Utils: WARN: Service 'SparkUI' could not bind on port 4042. Attempting port 4043.
-2018-06-27 14:13:05 AbstractConnector: INFO: Started ServerConnector@252afc24{HTTP/1.1,[http/1.1]}{0.0.0.0:4043}
-2018-06-27 14:13:05 Utils: INFO: Successfully started service 'SparkUI' on port 4043.
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@757488a0{/jobs,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@22c19223{/jobs/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@2e7179b3{/jobs/job,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@59153227{/jobs/job/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@4705aa6d{/stages,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@54f19d52{/stages/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@217cf890{/stages/stage,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@7bd5443f{/stages/stage/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@3bc9b4f5{/stages/pool,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@b3d532d{/stages/pool/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@2ab12dd8{/storage,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@51f1c68b{/storage/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@64170ebd{/storage/rdd,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@29d788ef{/storage/rdd/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@6b3fdb97{/environment,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@668659e9{/environment/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@4e052f36{/executors,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@704dc215{/executors/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@5146ab86{/executors/threadDump,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@6f860d28{/executors/threadDump/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@570ed321{/static,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@702cf791{/,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@5bfc4318{/api,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@33ff04de{/jobs/job/kill,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@61eefc73{/stages/stage/kill,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 SparkUI: INFO: Bound SparkUI to 0.0.0.0, and started at http://10.1.7.107:4043
-2018-06-27 14:13:05 Executor: INFO: Starting executor ID driver on host localhost
-2018-06-27 14:13:05 Utils: INFO: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 62718.
-2018-06-27 14:13:05 NettyBlockTransferService: INFO: Server created on 10.1.7.107:62718
-2018-06-27 14:13:05 BlockManager: INFO: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
-2018-06-27 14:13:05 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.1.7.107, 62718, None)
-2018-06-27 14:13:05 BlockManagerMasterEndpoint: INFO: Registering block manager 10.1.7.107:62718 with 4.1 GB RAM, BlockManagerId(driver, 10.1.7.107, 62718, None)
-2018-06-27 14:13:05 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.1.7.107, 62718, None)
-2018-06-27 14:13:05 BlockManager: INFO: Initialized BlockManager: BlockManagerId(driver, 10.1.7.107, 62718, None)
-2018-06-27 14:13:05 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@5af1c8a5{/metrics/json,null,AVAILABLE,@Spark}
-2018-06-27 14:13:05 Hail: INFO: SparkUI: http://10.1.7.107:4043
-2018-06-27 14:13:05 Hail: INFO: Running Hail version devel-3e72697c3f47
-2018-06-27 14:13:06 root: INFO: in Table.value: pre-opt:
+2018-06-27 14:59:56 SecurityManager: INFO: Changing view acls to: maccum
+2018-06-27 14:59:56 SecurityManager: INFO: Changing modify acls to: maccum
+2018-06-27 14:59:56 SecurityManager: INFO: Changing view acls groups to: 
+2018-06-27 14:59:56 SecurityManager: INFO: Changing modify acls groups to: 
+2018-06-27 14:59:56 SecurityManager: INFO: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(maccum); groups with view permissions: Set(); users  with modify permissions: Set(maccum); groups with modify permissions: Set()
+2018-06-27 14:59:57 Utils: INFO: Successfully started service 'sparkDriver' on port 63800.
+2018-06-27 14:59:57 SparkEnv: INFO: Registering MapOutputTracker
+2018-06-27 14:59:57 SparkEnv: INFO: Registering BlockManagerMaster
+2018-06-27 14:59:57 BlockManagerMasterEndpoint: INFO: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+2018-06-27 14:59:57 BlockManagerMasterEndpoint: INFO: BlockManagerMasterEndpoint up
+2018-06-27 14:59:57 DiskBlockManager: INFO: Created local directory at /private/var/folders/sb/_knnc68j2tx24w7pqktd64pn5d__pn/T/blockmgr-c7d8289a-3053-42bb-ac21-a053c2adab19
+2018-06-27 14:59:57 MemoryStore: INFO: MemoryStore started with capacity 4.1 GB
+2018-06-27 14:59:57 SparkEnv: INFO: Registering OutputCommitCoordinator
+2018-06-27 14:59:57 log: INFO: Logging initialized @1754ms
+2018-06-27 14:59:57 Server: INFO: jetty-9.3.z-SNAPSHOT
+2018-06-27 14:59:57 Server: INFO: Started @1830ms
+2018-06-27 14:59:57 Utils: WARN: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+2018-06-27 14:59:57 Utils: WARN: Service 'SparkUI' could not bind on port 4041. Attempting port 4042.
+2018-06-27 14:59:57 Utils: WARN: Service 'SparkUI' could not bind on port 4042. Attempting port 4043.
+2018-06-27 14:59:57 AbstractConnector: INFO: Started ServerConnector@6c665e15{HTTP/1.1,[http/1.1]}{0.0.0.0:4043}
+2018-06-27 14:59:57 Utils: INFO: Successfully started service 'SparkUI' on port 4043.
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@2c8ef8e1{/jobs,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@494d9e79{/jobs/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@136858db{/jobs/job,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@7f0e5809{/jobs/job/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@7aa83358{/stages,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@59153227{/stages/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@4705aa6d{/stages/stage,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@217cf890{/stages/stage/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@7509ba49{/stages/pool,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@7bd5443f{/stages/pool/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@3bc9b4f5{/storage,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@b3d532d{/storage/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@2ab12dd8{/storage/rdd,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@51f1c68b{/storage/rdd/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@64170ebd{/environment,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@29d788ef{/environment/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@6b3fdb97{/executors,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@668659e9{/executors/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@4e052f36{/executors/threadDump,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@704dc215{/executors/threadDump/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@5146ab86{/static,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@5300b91e{/,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@3922c882{/api,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@79ec6a26{/jobs/job/kill,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@1b416ec4{/stages/stage/kill,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 SparkUI: INFO: Bound SparkUI to 0.0.0.0, and started at http://10.1.7.107:4043
+2018-06-27 14:59:57 Executor: INFO: Starting executor ID driver on host localhost
+2018-06-27 14:59:57 Utils: INFO: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 63801.
+2018-06-27 14:59:57 NettyBlockTransferService: INFO: Server created on 10.1.7.107:63801
+2018-06-27 14:59:57 BlockManager: INFO: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+2018-06-27 14:59:57 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.1.7.107, 63801, None)
+2018-06-27 14:59:57 BlockManagerMasterEndpoint: INFO: Registering block manager 10.1.7.107:63801 with 4.1 GB RAM, BlockManagerId(driver, 10.1.7.107, 63801, None)
+2018-06-27 14:59:57 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.1.7.107, 63801, None)
+2018-06-27 14:59:57 BlockManager: INFO: Initialized BlockManager: BlockManagerId(driver, 10.1.7.107, 63801, None)
+2018-06-27 14:59:57 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@184353bb{/metrics/json,null,AVAILABLE,@Spark}
+2018-06-27 14:59:57 Hail: INFO: SparkUI: http://10.1.7.107:4043
+2018-06-27 14:59:57 Hail: INFO: Running Hail version devel-3e72697c3f47
+2018-06-27 14:59:58 root: INFO: in Table.value: pre-opt:
 (TableUnkey
   (TableRange))
-2018-06-27 14:13:06 root: INFO: in Table.value: post-opt:
+2018-06-27 14:59:58 root: INFO: in Table.value: post-opt:
 (TableUnkey
   (TableRange))
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C0.<init> instruction count: 3
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C0.apply instruction count: 61
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C0.apply instruction count: 12
-2018-06-27 14:13:06 root: INFO: in Table.value: pre-opt:
+2018-06-27 14:59:58 root: INFO: is/hail/codegen/generated/C0.<init> instruction count: 3
+2018-06-27 14:59:58 root: INFO: is/hail/codegen/generated/C0.apply instruction count: 61
+2018-06-27 14:59:58 root: INFO: is/hail/codegen/generated/C0.apply instruction count: 12
+2018-06-27 14:59:58 root: INFO: in Table.value: pre-opt:
 (TableMapRows
   (TableMapGlobals
     (TableMapRows
@@ -101,7 +101,7 @@ spark.ui.showConsoleProgress=false
     (__uid_2
       (GetField __uid_2
         (Ref row)))))
-2018-06-27 14:13:06 root: INFO: in Table.value: post-opt:
+2018-06-27 14:59:59 root: INFO: in Table.value: post-opt:
 (TableMapRows
   (TableMapGlobals
     (TableMapRows
@@ -121,80 +121,81 @@ spark.ui.showConsoleProgress=false
     (__uid_2
       (GetField __uid_2
         (Ref row)))))
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C1.<init> instruction count: 3
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C1.apply instruction count: 88
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C1.apply instruction count: 22
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C2.<init> instruction count: 3
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C2.apply instruction count: 76
-2018-06-27 14:13:06 root: INFO: is/hail/codegen/generated/C2.apply instruction count: 22
-2018-06-27 14:13:06 MemoryStore: INFO: Block broadcast_0 stored as values in memory (estimated size 872.0 B, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_0_piece0 stored as bytes in memory (estimated size 196.0 B, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_0_piece0 in memory on 10.1.7.107:62718 (size: 196.0 B, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 0 from broadcast at BroadcastValue.scala:14
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C3.<init> instruction count: 3
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C3.apply instruction count: 23
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C3.apply instruction count: 22
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C4.<init> instruction count: 3
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C4.apply instruction count: 76
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C4.apply instruction count: 22
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_1 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_1_piece0 stored as bytes in memory (estimated size 120.0 B, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_1_piece0 in memory on 10.1.7.107:62718 (size: 120.0 B, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 1 from broadcast at BroadcastValue.scala:14
-2018-06-27 14:13:07 SparkContext: INFO: Starting job: collect at Table.scala:893
-2018-06-27 14:13:07 DAGScheduler: INFO: Got job 0 (collect at Table.scala:893) with 1 output partitions
-2018-06-27 14:13:07 DAGScheduler: INFO: Final stage: ResultStage 0 (collect at Table.scala:893)
-2018-06-27 14:13:07 DAGScheduler: INFO: Parents of final stage: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Missing parents: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting ResultStage 0 (MapPartitionsRDD[11] at mapPartitions at ContextRDD.scala:137), which has no missing parents
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_2 stored as values in memory (estimated size 14.9 KB, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_2_piece0 stored as bytes in memory (estimated size 7.2 KB, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_2_piece0 in memory on 10.1.7.107:62718 (size: 7.2 KB, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 2 from broadcast at DAGScheduler.scala:1006
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[11] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0))
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Adding task set 0.0 with 1 tasks
-2018-06-27 14:13:07 TaskSetManager: INFO: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor driver, partition 0, PROCESS_LOCAL, 4713 bytes)
-2018-06-27 14:13:07 Executor: INFO: Running task 0.0 in stage 0.0 (TID 0)
-2018-06-27 14:13:07 MemoryStore: INFO: Block rdd_4_0 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added rdd_4_0 in memory on 10.1.7.107:62718 (size: 56.0 B, free: 4.1 GB)
-2018-06-27 14:13:07 Executor: INFO: Finished task 0.0 in stage 0.0 (TID 0). 1585 bytes result sent to driver
-2018-06-27 14:13:07 TaskSetManager: INFO: Finished task 0.0 in stage 0.0 (TID 0) in 124 ms on localhost (executor driver) (1/1)
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Removed TaskSet 0.0, whose tasks have all completed, from pool 
-2018-06-27 14:13:07 DAGScheduler: INFO: ResultStage 0 (collect at Table.scala:893) finished in 0.136 s
-2018-06-27 14:13:07 DAGScheduler: INFO: Job 0 finished: collect at Table.scala:893, took 0.208841 s
-2018-06-27 14:13:07 root: INFO: interpret: PRE-OPT
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C1.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C1.apply instruction count: 88
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C1.apply instruction count: 22
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C2.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C2.apply instruction count: 76
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C2.apply instruction count: 22
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_0 stored as values in memory (estimated size 872.0 B, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_0_piece0 stored as bytes in memory (estimated size 196.0 B, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_0_piece0 in memory on 10.1.7.107:63801 (size: 196.0 B, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 0 from broadcast at BroadcastValue.scala:14
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C3.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C3.apply instruction count: 23
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C3.apply instruction count: 22
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C4.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C4.apply instruction count: 76
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C4.apply instruction count: 22
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_1 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_1_piece0 stored as bytes in memory (estimated size 120.0 B, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_1_piece0 in memory on 10.1.7.107:63801 (size: 120.0 B, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 1 from broadcast at BroadcastValue.scala:14
+2018-06-27 14:59:59 SparkContext: INFO: Starting job: collect at Table.scala:893
+2018-06-27 14:59:59 DAGScheduler: INFO: Got job 0 (collect at Table.scala:893) with 1 output partitions
+2018-06-27 14:59:59 DAGScheduler: INFO: Final stage: ResultStage 0 (collect at Table.scala:893)
+2018-06-27 14:59:59 DAGScheduler: INFO: Parents of final stage: List()
+2018-06-27 14:59:59 DAGScheduler: INFO: Missing parents: List()
+2018-06-27 14:59:59 DAGScheduler: INFO: Submitting ResultStage 0 (MapPartitionsRDD[11] at mapPartitions at ContextRDD.scala:137), which has no missing parents
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_2 stored as values in memory (estimated size 14.9 KB, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_2_piece0 stored as bytes in memory (estimated size 7.2 KB, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_2_piece0 in memory on 10.1.7.107:63801 (size: 7.2 KB, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 2 from broadcast at DAGScheduler.scala:1006
+2018-06-27 14:59:59 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[11] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0))
+2018-06-27 14:59:59 TaskSchedulerImpl: INFO: Adding task set 0.0 with 1 tasks
+2018-06-27 14:59:59 TaskSetManager: INFO: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor driver, partition 0, PROCESS_LOCAL, 4713 bytes)
+2018-06-27 14:59:59 Executor: INFO: Running task 0.0 in stage 0.0 (TID 0)
+2018-06-27 14:59:59 MemoryStore: INFO: Block rdd_4_0 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added rdd_4_0 in memory on 10.1.7.107:63801 (size: 56.0 B, free: 4.1 GB)
+2018-06-27 14:59:59 Executor: INFO: Finished task 0.0 in stage 0.0 (TID 0). 1585 bytes result sent to driver
+2018-06-27 14:59:59 TaskSetManager: INFO: Finished task 0.0 in stage 0.0 (TID 0) in 122 ms on localhost (executor driver) (1/1)
+2018-06-27 14:59:59 TaskSchedulerImpl: INFO: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+2018-06-27 14:59:59 DAGScheduler: INFO: ResultStage 0 (collect at Table.scala:893) finished in 0.134 s
+2018-06-27 14:59:59 DAGScheduler: INFO: Job 0 finished: collect at Table.scala:893, took 0.203970 s
+2018-06-27 14:59:59 root: INFO: interpret: PRE-OPT
 (TableWrite table.ht overwrite
   (TableParallelize))
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Removed broadcast_2_piece0 on 10.1.7.107:62718 in memory (size: 7.2 KB, free: 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_3 stored as values in memory (estimated size 237.1 KB, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_3_piece0 stored as bytes in memory (estimated size 23.0 KB, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_3_piece0 in memory on 10.1.7.107:62718 (size: 23.0 KB, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 3 from broadcast at RichContextRDD.scala:20
-2018-06-27 14:13:07 SparkContext: INFO: Starting job: collect at ContextRDD.scala:143
-2018-06-27 14:13:07 DAGScheduler: INFO: Got job 1 (collect at ContextRDD.scala:143) with 2 output partitions
-2018-06-27 14:13:07 DAGScheduler: INFO: Final stage: ResultStage 1 (collect at ContextRDD.scala:143)
-2018-06-27 14:13:07 DAGScheduler: INFO: Parents of final stage: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Missing parents: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting ResultStage 1 (MapPartitionsRDD[16] at mapPartitions at ContextRDD.scala:137), which has no missing parents
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_4 stored as values in memory (estimated size 7.4 KB, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_4_piece0 stored as bytes in memory (estimated size 4.1 KB, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_4_piece0 in memory on 10.1.7.107:62718 (size: 4.1 KB, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 4 from broadcast at DAGScheduler.scala:1006
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting 2 missing tasks from ResultStage 1 (MapPartitionsRDD[16] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0, 1))
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Adding task set 1.0 with 2 tasks
-2018-06-27 14:13:07 TaskSetManager: INFO: Starting task 0.0 in stage 1.0 (TID 1, localhost, executor driver, partition 0, PROCESS_LOCAL, 4903 bytes)
-2018-06-27 14:13:07 TaskSetManager: INFO: Starting task 1.0 in stage 1.0 (TID 2, localhost, executor driver, partition 1, PROCESS_LOCAL, 4903 bytes)
-2018-06-27 14:13:07 Executor: INFO: Running task 1.0 in stage 1.0 (TID 2)
-2018-06-27 14:13:07 Executor: INFO: Running task 0.0 in stage 1.0 (TID 1)
-2018-06-27 14:13:07 Executor: INFO: Finished task 0.0 in stage 1.0 (TID 1). 808 bytes result sent to driver
-2018-06-27 14:13:07 Executor: INFO: Finished task 1.0 in stage 1.0 (TID 2). 808 bytes result sent to driver
-2018-06-27 14:13:07 TaskSetManager: INFO: Finished task 0.0 in stage 1.0 (TID 1) in 48 ms on localhost (executor driver) (1/2)
-2018-06-27 14:13:07 TaskSetManager: INFO: Finished task 1.0 in stage 1.0 (TID 2) in 42 ms on localhost (executor driver) (2/2)
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Removed TaskSet 1.0, whose tasks have all completed, from pool 
-2018-06-27 14:13:07 DAGScheduler: INFO: ResultStage 1 (collect at ContextRDD.scala:143) finished in 0.050 s
-2018-06-27 14:13:07 DAGScheduler: INFO: Job 1 finished: collect at ContextRDD.scala:143, took 0.058627 s
-2018-06-27 14:13:07 Hail: INFO: wrote 4 items in 2 partitions
-2018-06-27 14:13:07 root: INFO: in Table.value: pre-opt:
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Removed broadcast_2_piece0 on 10.1.7.107:63801 in memory (size: 7.2 KB, free: 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_3 stored as values in memory (estimated size 237.1 KB, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_3_piece0 stored as bytes in memory (estimated size 23.0 KB, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_3_piece0 in memory on 10.1.7.107:63801 (size: 23.0 KB, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 3 from broadcast at RichContextRDD.scala:20
+2018-06-27 14:59:59 SparkContext: INFO: Starting job: collect at ContextRDD.scala:143
+2018-06-27 14:59:59 DAGScheduler: INFO: Got job 1 (collect at ContextRDD.scala:143) with 2 output partitions
+2018-06-27 14:59:59 DAGScheduler: INFO: Final stage: ResultStage 1 (collect at ContextRDD.scala:143)
+2018-06-27 14:59:59 DAGScheduler: INFO: Parents of final stage: List()
+2018-06-27 14:59:59 DAGScheduler: INFO: Missing parents: List()
+2018-06-27 14:59:59 DAGScheduler: INFO: Submitting ResultStage 1 (MapPartitionsRDD[16] at mapPartitions at ContextRDD.scala:137), which has no missing parents
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_4 stored as values in memory (estimated size 7.4 KB, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_4_piece0 stored as bytes in memory (estimated size 4.1 KB, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_4_piece0 in memory on 10.1.7.107:63801 (size: 4.1 KB, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 4 from broadcast at DAGScheduler.scala:1006
+2018-06-27 14:59:59 DAGScheduler: INFO: Submitting 2 missing tasks from ResultStage 1 (MapPartitionsRDD[16] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0, 1))
+2018-06-27 14:59:59 TaskSchedulerImpl: INFO: Adding task set 1.0 with 2 tasks
+2018-06-27 14:59:59 TaskSetManager: INFO: Starting task 0.0 in stage 1.0 (TID 1, localhost, executor driver, partition 0, PROCESS_LOCAL, 4903 bytes)
+2018-06-27 14:59:59 TaskSetManager: INFO: Starting task 1.0 in stage 1.0 (TID 2, localhost, executor driver, partition 1, PROCESS_LOCAL, 4903 bytes)
+2018-06-27 14:59:59 Executor: INFO: Running task 0.0 in stage 1.0 (TID 1)
+2018-06-27 14:59:59 Executor: INFO: Running task 1.0 in stage 1.0 (TID 2)
+2018-06-27 14:59:59 Executor: INFO: Finished task 1.0 in stage 1.0 (TID 2). 808 bytes result sent to driver
+2018-06-27 14:59:59 Executor: INFO: Finished task 0.0 in stage 1.0 (TID 1). 808 bytes result sent to driver
+2018-06-27 14:59:59 TaskSetManager: INFO: Finished task 1.0 in stage 1.0 (TID 2) in 40 ms on localhost (executor driver) (1/2)
+2018-06-27 14:59:59 TaskSetManager: INFO: Finished task 0.0 in stage 1.0 (TID 1) in 45 ms on localhost (executor driver) (2/2)
+2018-06-27 14:59:59 TaskSchedulerImpl: INFO: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+2018-06-27 14:59:59 DAGScheduler: INFO: ResultStage 1 (collect at ContextRDD.scala:143) finished in 0.046 s
+2018-06-27 14:59:59 DAGScheduler: INFO: Job 1 finished: collect at ContextRDD.scala:143, took 0.055848 s
+2018-06-27 14:59:59 Hail: INFO: wrote 4 items in 2 partitions
+2018-06-27 14:59:59 CodecPool: INFO: Got brand-new decompressor [.gz]
+2018-06-27 14:59:59 root: INFO: in Table.value: pre-opt:
 (TableMapRows
   (TableMapGlobals
     (TableMapRows
@@ -214,7 +215,7 @@ spark.ui.showConsoleProgress=false
     (__uid_4
       (GetField __uid_4
         (Ref row)))))
-2018-06-27 14:13:07 root: INFO: in Table.value: post-opt:
+2018-06-27 14:59:59 root: INFO: in Table.value: post-opt:
 (TableMapRows
   (TableMapGlobals
     (TableMapRows
@@ -234,86 +235,208 @@ spark.ui.showConsoleProgress=false
     (__uid_4
       (GetField __uid_4
         (Ref row)))))
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C5.<init> instruction count: 3
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C5.apply instruction count: 88
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C5.apply instruction count: 22
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C6.<init> instruction count: 3
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C6.apply instruction count: 76
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C6.apply instruction count: 22
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_5 stored as values in memory (estimated size 872.0 B, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_5_piece0 stored as bytes in memory (estimated size 196.0 B, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_5_piece0 in memory on 10.1.7.107:62718 (size: 196.0 B, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 5 from broadcast at BroadcastValue.scala:14
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C7.<init> instruction count: 3
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C7.apply instruction count: 23
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C7.apply instruction count: 22
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C8.<init> instruction count: 3
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C8.apply instruction count: 76
-2018-06-27 14:13:07 root: INFO: is/hail/codegen/generated/C8.apply instruction count: 22
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_6 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_6_piece0 stored as bytes in memory (estimated size 120.0 B, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_6_piece0 in memory on 10.1.7.107:62718 (size: 120.0 B, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 6 from broadcast at BroadcastValue.scala:14
-2018-06-27 14:13:07 SparkContext: INFO: Starting job: collect at Table.scala:893
-2018-06-27 14:13:07 DAGScheduler: INFO: Got job 2 (collect at Table.scala:893) with 1 output partitions
-2018-06-27 14:13:07 DAGScheduler: INFO: Final stage: ResultStage 2 (collect at Table.scala:893)
-2018-06-27 14:13:07 DAGScheduler: INFO: Parents of final stage: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Missing parents: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting ResultStage 2 (MapPartitionsRDD[21] at mapPartitions at ContextRDD.scala:137), which has no missing parents
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_7 stored as values in memory (estimated size 14.9 KB, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_7_piece0 stored as bytes in memory (estimated size 7.2 KB, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_7_piece0 in memory on 10.1.7.107:62718 (size: 7.2 KB, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 7 from broadcast at DAGScheduler.scala:1006
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 2 (MapPartitionsRDD[21] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0))
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Adding task set 2.0 with 1 tasks
-2018-06-27 14:13:07 TaskSetManager: INFO: Starting task 0.0 in stage 2.0 (TID 3, localhost, executor driver, partition 0, PROCESS_LOCAL, 4713 bytes)
-2018-06-27 14:13:07 Executor: INFO: Running task 0.0 in stage 2.0 (TID 3)
-2018-06-27 14:13:07 BlockManager: INFO: Found block rdd_4_0 locally
-2018-06-27 14:13:07 Executor: INFO: Finished task 0.0 in stage 2.0 (TID 3). 974 bytes result sent to driver
-2018-06-27 14:13:07 TaskSetManager: INFO: Finished task 0.0 in stage 2.0 (TID 3) in 21 ms on localhost (executor driver) (1/1)
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Removed TaskSet 2.0, whose tasks have all completed, from pool 
-2018-06-27 14:13:07 DAGScheduler: INFO: ResultStage 2 (collect at Table.scala:893) finished in 0.022 s
-2018-06-27 14:13:07 DAGScheduler: INFO: Job 2 finished: collect at Table.scala:893, took 0.036650 s
-2018-06-27 14:13:07 root: INFO: interpret: PRE-OPT
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C5.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C5.apply instruction count: 88
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C5.apply instruction count: 22
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C6.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C6.apply instruction count: 76
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C6.apply instruction count: 22
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_5 stored as values in memory (estimated size 872.0 B, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_5_piece0 stored as bytes in memory (estimated size 196.0 B, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_5_piece0 in memory on 10.1.7.107:63801 (size: 196.0 B, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 5 from broadcast at BroadcastValue.scala:14
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C7.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C7.apply instruction count: 23
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C7.apply instruction count: 22
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C8.<init> instruction count: 3
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C8.apply instruction count: 76
+2018-06-27 14:59:59 root: INFO: is/hail/codegen/generated/C8.apply instruction count: 22
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_6 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_6_piece0 stored as bytes in memory (estimated size 120.0 B, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_6_piece0 in memory on 10.1.7.107:63801 (size: 120.0 B, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 6 from broadcast at BroadcastValue.scala:14
+2018-06-27 14:59:59 SparkContext: INFO: Starting job: collect at Table.scala:893
+2018-06-27 14:59:59 DAGScheduler: INFO: Got job 2 (collect at Table.scala:893) with 1 output partitions
+2018-06-27 14:59:59 DAGScheduler: INFO: Final stage: ResultStage 2 (collect at Table.scala:893)
+2018-06-27 14:59:59 DAGScheduler: INFO: Parents of final stage: List()
+2018-06-27 14:59:59 DAGScheduler: INFO: Missing parents: List()
+2018-06-27 14:59:59 DAGScheduler: INFO: Submitting ResultStage 2 (MapPartitionsRDD[21] at mapPartitions at ContextRDD.scala:137), which has no missing parents
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_7 stored as values in memory (estimated size 14.9 KB, free 4.1 GB)
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_7_piece0 stored as bytes in memory (estimated size 7.2 KB, free 4.1 GB)
+2018-06-27 14:59:59 BlockManagerInfo: INFO: Added broadcast_7_piece0 in memory on 10.1.7.107:63801 (size: 7.2 KB, free: 4.1 GB)
+2018-06-27 14:59:59 SparkContext: INFO: Created broadcast 7 from broadcast at DAGScheduler.scala:1006
+2018-06-27 14:59:59 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 2 (MapPartitionsRDD[21] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0))
+2018-06-27 14:59:59 TaskSchedulerImpl: INFO: Adding task set 2.0 with 1 tasks
+2018-06-27 14:59:59 TaskSetManager: INFO: Starting task 0.0 in stage 2.0 (TID 3, localhost, executor driver, partition 0, PROCESS_LOCAL, 4713 bytes)
+2018-06-27 14:59:59 Executor: INFO: Running task 0.0 in stage 2.0 (TID 3)
+2018-06-27 14:59:59 BlockManager: INFO: Found block rdd_4_0 locally
+2018-06-27 14:59:59 Executor: INFO: Finished task 0.0 in stage 2.0 (TID 3). 974 bytes result sent to driver
+2018-06-27 14:59:59 TaskSetManager: INFO: Finished task 0.0 in stage 2.0 (TID 3) in 21 ms on localhost (executor driver) (1/1)
+2018-06-27 14:59:59 TaskSchedulerImpl: INFO: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+2018-06-27 14:59:59 DAGScheduler: INFO: ResultStage 2 (collect at Table.scala:893) finished in 0.021 s
+2018-06-27 14:59:59 DAGScheduler: INFO: Job 2 finished: collect at Table.scala:893, took 0.034514 s
+2018-06-27 14:59:59 root: INFO: interpret: PRE-OPT
 (TableWrite table.ht overwrite
   (TableParallelize))
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_8 stored as values in memory (estimated size 237.1 KB, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_8_piece0 stored as bytes in memory (estimated size 23.0 KB, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_8_piece0 in memory on 10.1.7.107:62718 (size: 23.0 KB, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 8 from broadcast at RichContextRDD.scala:20
-2018-06-27 14:13:07 SparkContext: INFO: Starting job: collect at ContextRDD.scala:143
-2018-06-27 14:13:07 DAGScheduler: INFO: Got job 3 (collect at ContextRDD.scala:143) with 2 output partitions
-2018-06-27 14:13:07 DAGScheduler: INFO: Final stage: ResultStage 3 (collect at ContextRDD.scala:143)
-2018-06-27 14:13:07 DAGScheduler: INFO: Parents of final stage: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Missing parents: List()
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting ResultStage 3 (MapPartitionsRDD[26] at mapPartitions at ContextRDD.scala:137), which has no missing parents
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_9 stored as values in memory (estimated size 7.4 KB, free 4.1 GB)
-2018-06-27 14:13:07 MemoryStore: INFO: Block broadcast_9_piece0 stored as bytes in memory (estimated size 4.1 KB, free 4.1 GB)
-2018-06-27 14:13:07 BlockManagerInfo: INFO: Added broadcast_9_piece0 in memory on 10.1.7.107:62718 (size: 4.1 KB, free: 4.1 GB)
-2018-06-27 14:13:07 SparkContext: INFO: Created broadcast 9 from broadcast at DAGScheduler.scala:1006
-2018-06-27 14:13:07 DAGScheduler: INFO: Submitting 2 missing tasks from ResultStage 3 (MapPartitionsRDD[26] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0, 1))
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Adding task set 3.0 with 2 tasks
-2018-06-27 14:13:07 TaskSetManager: INFO: Starting task 0.0 in stage 3.0 (TID 4, localhost, executor driver, partition 0, PROCESS_LOCAL, 4903 bytes)
-2018-06-27 14:13:07 TaskSetManager: INFO: Starting task 1.0 in stage 3.0 (TID 5, localhost, executor driver, partition 1, PROCESS_LOCAL, 4903 bytes)
-2018-06-27 14:13:07 Executor: INFO: Running task 0.0 in stage 3.0 (TID 4)
-2018-06-27 14:13:07 Executor: INFO: Running task 1.0 in stage 3.0 (TID 5)
-2018-06-27 14:13:07 Executor: INFO: Finished task 0.0 in stage 3.0 (TID 4). 808 bytes result sent to driver
-2018-06-27 14:13:07 TaskSetManager: INFO: Finished task 0.0 in stage 3.0 (TID 4) in 45 ms on localhost (executor driver) (1/2)
-2018-06-27 14:13:07 Executor: INFO: Finished task 1.0 in stage 3.0 (TID 5). 808 bytes result sent to driver
-2018-06-27 14:13:07 TaskSetManager: INFO: Finished task 1.0 in stage 3.0 (TID 5) in 44 ms on localhost (executor driver) (2/2)
-2018-06-27 14:13:07 TaskSchedulerImpl: INFO: Removed TaskSet 3.0, whose tasks have all completed, from pool 
-2018-06-27 14:13:07 DAGScheduler: INFO: ResultStage 3 (collect at ContextRDD.scala:143) finished in 0.048 s
-2018-06-27 14:13:07 DAGScheduler: INFO: Job 3 finished: collect at ContextRDD.scala:143, took 0.055764 s
-2018-06-27 14:13:07 Hail: INFO: wrote 4 items in 2 partitions
-2018-06-27 14:13:07 SparkContext: INFO: Invoking stop() from shutdown hook
-2018-06-27 14:13:08 AbstractConnector: INFO: Stopped Spark@252afc24{HTTP/1.1,[http/1.1]}{0.0.0.0:4043}
-2018-06-27 14:13:08 SparkUI: INFO: Stopped Spark web UI at http://10.1.7.107:4043
-2018-06-27 14:13:08 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
-2018-06-27 14:13:08 MemoryStore: INFO: MemoryStore cleared
-2018-06-27 14:13:08 BlockManager: INFO: BlockManager stopped
-2018-06-27 14:13:08 BlockManagerMaster: INFO: BlockManagerMaster stopped
-2018-06-27 14:13:08 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
-2018-06-27 14:13:08 SparkContext: INFO: Successfully stopped SparkContext
-2018-06-27 14:13:08 ShutdownHookManager: INFO: Shutdown hook called
-2018-06-27 14:13:08 ShutdownHookManager: INFO: Deleting directory /private/var/folders/sb/_knnc68j2tx24w7pqktd64pn5d__pn/T/spark-e90ebda0-ffae-47de-b57a-6ad5f44bd97c
-2018-06-27 14:13:08 ShutdownHookManager: INFO: Deleting directory /private/var/folders/sb/_knnc68j2tx24w7pqktd64pn5d__pn/T/spark-e90ebda0-ffae-47de-b57a-6ad5f44bd97c/pyspark-32efe111-bd9f-48b6-861e-ee299ffe0eeb
+2018-06-27 14:59:59 MemoryStore: INFO: Block broadcast_8 stored as values in memory (estimated size 237.1 KB, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_8_piece0 stored as bytes in memory (estimated size 23.0 KB, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_8_piece0 in memory on 10.1.7.107:63801 (size: 23.0 KB, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 8 from broadcast at RichContextRDD.scala:20
+2018-06-27 15:00:00 SparkContext: INFO: Starting job: collect at ContextRDD.scala:143
+2018-06-27 15:00:00 DAGScheduler: INFO: Got job 3 (collect at ContextRDD.scala:143) with 2 output partitions
+2018-06-27 15:00:00 DAGScheduler: INFO: Final stage: ResultStage 3 (collect at ContextRDD.scala:143)
+2018-06-27 15:00:00 DAGScheduler: INFO: Parents of final stage: List()
+2018-06-27 15:00:00 DAGScheduler: INFO: Missing parents: List()
+2018-06-27 15:00:00 DAGScheduler: INFO: Submitting ResultStage 3 (MapPartitionsRDD[26] at mapPartitions at ContextRDD.scala:137), which has no missing parents
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_9 stored as values in memory (estimated size 7.4 KB, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_9_piece0 stored as bytes in memory (estimated size 4.1 KB, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_9_piece0 in memory on 10.1.7.107:63801 (size: 4.1 KB, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 9 from broadcast at DAGScheduler.scala:1006
+2018-06-27 15:00:00 DAGScheduler: INFO: Submitting 2 missing tasks from ResultStage 3 (MapPartitionsRDD[26] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0, 1))
+2018-06-27 15:00:00 TaskSchedulerImpl: INFO: Adding task set 3.0 with 2 tasks
+2018-06-27 15:00:00 TaskSetManager: INFO: Starting task 0.0 in stage 3.0 (TID 4, localhost, executor driver, partition 0, PROCESS_LOCAL, 4903 bytes)
+2018-06-27 15:00:00 TaskSetManager: INFO: Starting task 1.0 in stage 3.0 (TID 5, localhost, executor driver, partition 1, PROCESS_LOCAL, 4903 bytes)
+2018-06-27 15:00:00 Executor: INFO: Running task 1.0 in stage 3.0 (TID 5)
+2018-06-27 15:00:00 Executor: INFO: Running task 0.0 in stage 3.0 (TID 4)
+2018-06-27 15:00:00 Executor: INFO: Finished task 0.0 in stage 3.0 (TID 4). 808 bytes result sent to driver
+2018-06-27 15:00:00 Executor: INFO: Finished task 1.0 in stage 3.0 (TID 5). 808 bytes result sent to driver
+2018-06-27 15:00:00 TaskSetManager: INFO: Finished task 0.0 in stage 3.0 (TID 4) in 37 ms on localhost (executor driver) (1/2)
+2018-06-27 15:00:00 TaskSetManager: INFO: Finished task 1.0 in stage 3.0 (TID 5) in 35 ms on localhost (executor driver) (2/2)
+2018-06-27 15:00:00 TaskSchedulerImpl: INFO: Removed TaskSet 3.0, whose tasks have all completed, from pool 
+2018-06-27 15:00:00 DAGScheduler: INFO: ResultStage 3 (collect at ContextRDD.scala:143) finished in 0.039 s
+2018-06-27 15:00:00 DAGScheduler: INFO: Job 3 finished: collect at ContextRDD.scala:143, took 0.045617 s
+2018-06-27 15:00:00 Hail: INFO: wrote 4 items in 2 partitions
+2018-06-27 15:00:00 CodecPool: INFO: Got brand-new decompressor [.gz]
+2018-06-27 15:00:00 root: INFO: in Table.value: pre-opt:
+(TableMapRows
+  (TableMapGlobals
+    (TableMapRows
+      (TableMapGlobals
+        (TableLiteral)
+        (InsertFields
+          (Ref global)
+          (__uid_5
+            (GetField __uid_5
+              (Ref value)))))
+      (MakeStruct
+        (__uid_6
+          (GetField __uid_5
+            (Ref global)))))
+    (MakeStruct))
+  (MakeStruct
+    (__uid_6
+      (GetField __uid_6
+        (Ref row)))))
+2018-06-27 15:00:00 root: INFO: in Table.value: post-opt:
+(TableMapRows
+  (TableMapGlobals
+    (TableMapRows
+      (TableMapGlobals
+        (TableLiteral)
+        (InsertFields
+          (Ref global)
+          (__uid_5
+            (GetField __uid_5
+              (Ref value)))))
+      (MakeStruct
+        (__uid_6
+          (GetField __uid_5
+            (Ref global)))))
+    (MakeStruct))
+  (MakeStruct
+    (__uid_6
+      (GetField __uid_6
+        (Ref row)))))
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C9.<init> instruction count: 3
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C9.apply instruction count: 88
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C9.apply instruction count: 22
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C10.<init> instruction count: 3
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C10.apply instruction count: 76
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C10.apply instruction count: 22
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_10 stored as values in memory (estimated size 872.0 B, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_10_piece0 stored as bytes in memory (estimated size 196.0 B, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_10_piece0 in memory on 10.1.7.107:63801 (size: 196.0 B, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 10 from broadcast at BroadcastValue.scala:14
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C11.<init> instruction count: 3
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C11.apply instruction count: 23
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C11.apply instruction count: 22
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C12.<init> instruction count: 3
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C12.apply instruction count: 76
+2018-06-27 15:00:00 root: INFO: is/hail/codegen/generated/C12.apply instruction count: 22
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_11 stored as values in memory (estimated size 56.0 B, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_11_piece0 stored as bytes in memory (estimated size 120.0 B, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_11_piece0 in memory on 10.1.7.107:63801 (size: 120.0 B, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 11 from broadcast at BroadcastValue.scala:14
+2018-06-27 15:00:00 SparkContext: INFO: Starting job: collect at Table.scala:893
+2018-06-27 15:00:00 DAGScheduler: INFO: Got job 4 (collect at Table.scala:893) with 1 output partitions
+2018-06-27 15:00:00 DAGScheduler: INFO: Final stage: ResultStage 4 (collect at Table.scala:893)
+2018-06-27 15:00:00 DAGScheduler: INFO: Parents of final stage: List()
+2018-06-27 15:00:00 DAGScheduler: INFO: Missing parents: List()
+2018-06-27 15:00:00 DAGScheduler: INFO: Submitting ResultStage 4 (MapPartitionsRDD[31] at mapPartitions at ContextRDD.scala:137), which has no missing parents
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_12 stored as values in memory (estimated size 14.9 KB, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_12_piece0 stored as bytes in memory (estimated size 7.2 KB, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_12_piece0 in memory on 10.1.7.107:63801 (size: 7.2 KB, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 12 from broadcast at DAGScheduler.scala:1006
+2018-06-27 15:00:00 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 4 (MapPartitionsRDD[31] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0))
+2018-06-27 15:00:00 TaskSchedulerImpl: INFO: Adding task set 4.0 with 1 tasks
+2018-06-27 15:00:00 TaskSetManager: INFO: Starting task 0.0 in stage 4.0 (TID 6, localhost, executor driver, partition 0, PROCESS_LOCAL, 4713 bytes)
+2018-06-27 15:00:00 Executor: INFO: Running task 0.0 in stage 4.0 (TID 6)
+2018-06-27 15:00:00 BlockManager: INFO: Found block rdd_4_0 locally
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_5_piece0 on 10.1.7.107:63801 in memory (size: 196.0 B, free: 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_1_piece0 on 10.1.7.107:63801 in memory (size: 120.0 B, free: 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_3_piece0 on 10.1.7.107:63801 in memory (size: 23.0 KB, free: 4.1 GB)
+2018-06-27 15:00:00 Executor: INFO: Finished task 0.0 in stage 4.0 (TID 6). 1017 bytes result sent to driver
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_8_piece0 on 10.1.7.107:63801 in memory (size: 23.0 KB, free: 4.1 GB)
+2018-06-27 15:00:00 TaskSetManager: INFO: Finished task 0.0 in stage 4.0 (TID 6) in 101 ms on localhost (executor driver) (1/1)
+2018-06-27 15:00:00 TaskSchedulerImpl: INFO: Removed TaskSet 4.0, whose tasks have all completed, from pool 
+2018-06-27 15:00:00 DAGScheduler: INFO: ResultStage 4 (collect at Table.scala:893) finished in 0.102 s
+2018-06-27 15:00:00 DAGScheduler: INFO: Job 4 finished: collect at Table.scala:893, took 0.110199 s
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_4_piece0 on 10.1.7.107:63801 in memory (size: 4.1 KB, free: 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_0_piece0 on 10.1.7.107:63801 in memory (size: 196.0 B, free: 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_9_piece0 on 10.1.7.107:63801 in memory (size: 4.1 KB, free: 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_6_piece0 on 10.1.7.107:63801 in memory (size: 120.0 B, free: 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Removed broadcast_7_piece0 on 10.1.7.107:63801 in memory (size: 7.2 KB, free: 4.1 GB)
+2018-06-27 15:00:00 root: INFO: interpret: PRE-OPT
+(TableWrite table.ht overwrite
+  (TableParallelize))
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_13 stored as values in memory (estimated size 237.1 KB, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_13_piece0 stored as bytes in memory (estimated size 23.0 KB, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_13_piece0 in memory on 10.1.7.107:63801 (size: 23.0 KB, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 13 from broadcast at RichContextRDD.scala:20
+2018-06-27 15:00:00 SparkContext: INFO: Starting job: collect at ContextRDD.scala:143
+2018-06-27 15:00:00 DAGScheduler: INFO: Got job 5 (collect at ContextRDD.scala:143) with 2 output partitions
+2018-06-27 15:00:00 DAGScheduler: INFO: Final stage: ResultStage 5 (collect at ContextRDD.scala:143)
+2018-06-27 15:00:00 DAGScheduler: INFO: Parents of final stage: List()
+2018-06-27 15:00:00 DAGScheduler: INFO: Missing parents: List()
+2018-06-27 15:00:00 DAGScheduler: INFO: Submitting ResultStage 5 (MapPartitionsRDD[36] at mapPartitions at ContextRDD.scala:137), which has no missing parents
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_14 stored as values in memory (estimated size 7.4 KB, free 4.1 GB)
+2018-06-27 15:00:00 MemoryStore: INFO: Block broadcast_14_piece0 stored as bytes in memory (estimated size 4.1 KB, free 4.1 GB)
+2018-06-27 15:00:00 BlockManagerInfo: INFO: Added broadcast_14_piece0 in memory on 10.1.7.107:63801 (size: 4.1 KB, free: 4.1 GB)
+2018-06-27 15:00:00 SparkContext: INFO: Created broadcast 14 from broadcast at DAGScheduler.scala:1006
+2018-06-27 15:00:00 DAGScheduler: INFO: Submitting 2 missing tasks from ResultStage 5 (MapPartitionsRDD[36] at mapPartitions at ContextRDD.scala:137) (first 15 tasks are for partitions Vector(0, 1))
+2018-06-27 15:00:00 TaskSchedulerImpl: INFO: Adding task set 5.0 with 2 tasks
+2018-06-27 15:00:00 TaskSetManager: INFO: Starting task 0.0 in stage 5.0 (TID 7, localhost, executor driver, partition 0, PROCESS_LOCAL, 4903 bytes)
+2018-06-27 15:00:00 TaskSetManager: INFO: Starting task 1.0 in stage 5.0 (TID 8, localhost, executor driver, partition 1, PROCESS_LOCAL, 4903 bytes)
+2018-06-27 15:00:00 Executor: INFO: Running task 1.0 in stage 5.0 (TID 8)
+2018-06-27 15:00:00 Executor: INFO: Running task 0.0 in stage 5.0 (TID 7)
+2018-06-27 15:00:00 Executor: INFO: Finished task 1.0 in stage 5.0 (TID 8). 808 bytes result sent to driver
+2018-06-27 15:00:00 Executor: INFO: Finished task 0.0 in stage 5.0 (TID 7). 808 bytes result sent to driver
+2018-06-27 15:00:00 TaskSetManager: INFO: Finished task 1.0 in stage 5.0 (TID 8) in 29 ms on localhost (executor driver) (1/2)
+2018-06-27 15:00:00 TaskSetManager: INFO: Finished task 0.0 in stage 5.0 (TID 7) in 32 ms on localhost (executor driver) (2/2)
+2018-06-27 15:00:00 TaskSchedulerImpl: INFO: Removed TaskSet 5.0, whose tasks have all completed, from pool 
+2018-06-27 15:00:00 DAGScheduler: INFO: ResultStage 5 (collect at ContextRDD.scala:143) finished in 0.032 s
+2018-06-27 15:00:00 DAGScheduler: INFO: Job 5 finished: collect at ContextRDD.scala:143, took 0.039789 s
+2018-06-27 15:00:00 Hail: INFO: wrote 4 items in 2 partitions
+2018-06-27 15:00:00 CodecPool: INFO: Got brand-new decompressor [.gz]
+2018-06-27 15:00:00 SparkContext: INFO: Invoking stop() from shutdown hook
+2018-06-27 15:00:00 AbstractConnector: INFO: Stopped Spark@6c665e15{HTTP/1.1,[http/1.1]}{0.0.0.0:4043}
+2018-06-27 15:00:00 SparkUI: INFO: Stopped Spark web UI at http://10.1.7.107:4043
+2018-06-27 15:00:00 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2018-06-27 15:00:00 MemoryStore: INFO: MemoryStore cleared
+2018-06-27 15:00:00 BlockManager: INFO: BlockManager stopped
+2018-06-27 15:00:00 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2018-06-27 15:00:00 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2018-06-27 15:00:00 SparkContext: INFO: Successfully stopped SparkContext
+2018-06-27 15:00:00 ShutdownHookManager: INFO: Shutdown hook called
+2018-06-27 15:00:00 ShutdownHookManager: INFO: Deleting directory /private/var/folders/sb/_knnc68j2tx24w7pqktd64pn5d__pn/T/spark-3be01180-82aa-4b2f-bfbc-8bf1d4d4e35c/pyspark-190c163c-bb1e-47e3-aace-e905b07fcd93
+2018-06-27 15:00:00 ShutdownHookManager: INFO: Deleting directory /private/var/folders/sb/_knnc68j2tx24w7pqktd64pn5d__pn/T/spark-3be01180-82aa-4b2f-bfbc-8bf1d4d4e35c
