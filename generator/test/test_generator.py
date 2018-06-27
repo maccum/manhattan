@@ -1,6 +1,6 @@
 import unittest
 import hail as hl
-import generator as g
+import generator
 
 class GeneratorTestSuite(unittest.TestCase):
     def setUp(self):
@@ -14,7 +14,7 @@ class GeneratorTestSuite(unittest.TestCase):
         ht = hl.Table.parallelize(rows, schema, key='global_position')
         table_path = "table.ht"
         ht.write(table_path, overwrite=True)
-        self.gen = g.Generator("root_folder", table_path, regenerate=False)
+        self.gen = generator.Generator("root_folder", table_path, regenerate=False)
 
     def test_check_schema(self):
         self.assertTrue(self.gen.checkSchema())
