@@ -10,3 +10,5 @@ standing_height/
 manhattan.iml
 *.DS_Store
 
+data/
+plots/
