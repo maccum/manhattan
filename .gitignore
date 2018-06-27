@@ -6,3 +6,8 @@ jupyter_folder/hail.log
 .DS_Store
 
 standing_height/
+.idea/
+manhattan.iml
+*.DS_Store
+
+plot_generator/test/__pycache__
