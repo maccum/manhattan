@@ -10,6 +10,7 @@ class Generator:
         self.root_folder = root_folder
         self.regenerate = regenerate
         self.ht = hl.read_table(table_path)
+        self.empty_zones = []
         if (max_position is None or max_nlp is None):
             self.max_position, self.max_nlp = self.getMaxValues()
         else:
@@ -127,6 +128,26 @@ class Generator:
         plt.savefig(filepath, dpi=100)
         #plt.show()
         plt.close()
+
+    def checkEmpty(self, zxy, gp_range, nlp_range):
+        zone = Zone(gp_range, nlp_range)
+        if self.empty_zones.contains(zone):
+            # don't generate image
+            # zone already in empty zones, no need to add it
+            self.emptyZone(zxy, zone)
+        else if not gp_range:
+            # don't generate image
+            # add zone to empty zones
+            assert(not nlp_range)
+            self.empty_zones = self.empty_zones.append(zone)
+        else:
+            # generate image
+            pass
+
+    # don't generate image
+    # add zxy to list of empty tiles
+    def emptyZone(self, zxy, zone):
+        self.empty_tiles = self.empty_tiles.append(zxy)
 
     def calculateXRange(self, column, tile_width, parent_min):
         x_min = tile_width * column + parent_min
