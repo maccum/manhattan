@@ -12,3 +12,6 @@ manhattan.iml
 
 data/
 plots/
+
+*.pyc
+*.iml
