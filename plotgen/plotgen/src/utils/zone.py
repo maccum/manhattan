@@ -26,8 +26,12 @@ class Zone(object):
 class Zones:
 
     def __init__(self, *zones):
-        self.zones = zones
+        self.zones = []
+        self.zones.extend(zones)
 
     def contains(self, zone):
         return any(z.contains(zone) for z in self.zones)
+    
+    def append(self, zone):
+        self.zones.append(zone)
 

@@ -56,3 +56,8 @@ class ZonesTestSuite(unittest.TestCase):
         self.assertTrue(self.zs.contains(x1))
         self.assertFalse(self.zs.contains(x2))
         self.assertFalse(self.zs.contains(x3))
+        
+    def test_zones_append(self):
+        z = Zone([0, 3], [2,9])
+        self.zs.append(z)
+        self.assertTrue(self.zs.contains(z))

@@ -9,6 +9,7 @@ import hail.expr.aggregators as agg
 from plotgen.src.hail_processor.table_utils import TableUtils
 import plotgen.src.utils.constants as constants
 from plotgen.src.utils.progress import progress
+from plotgen.src.utils.zone import Zone, Zones
 
 class PlotGenerator:
 
@@ -16,7 +17,9 @@ class PlotGenerator:
         self.root_folder = root_folder
         self.regenerate = regenerate
         self.ht = hl.read_table(table_path)
-        self.empty_zones = []
+
+        self.empty_zones = Zones()
+        self.empty_tiles = []
 
         if x_axis_range is None or y_axis_range is None:
             # axis limits should be set slightly outside the range of x and y values
@@ -72,16 +75,21 @@ class PlotGenerator:
 
     # filter table to the desired zone on the map
     def filter_by_coordinates(self, gp_range, nlp_range):
+        assert(len(gp_range)==2 and len(nlp_range)==2)
         return self.ht.filter(
-            hl.interval(gp_range[0], gp_range[1], includes_start=True, includes_end=True).contains(self.ht.global_position) &
-            hl.interval(nlp_range[0], nlp_range[1], includes_start=True, includes_end=True).contains(self.ht.neg_log_pval)
+            hl.interval(hl.int64(gp_range[0]), hl.int64(gp_range[1]),
+                        includes_start=True, includes_end=True).contains(self.ht.global_position) &
+            hl.interval(hl.float64(nlp_range[0]), hl.float64(nlp_range[1]),
+                        includes_start=True, includes_end=True).contains(self.ht.neg_log_pval)
         )
 
     # filter table to have one row per pixel for this tile
-    def filter_by_pixel(self, table, gp_range, nlp_range):
+    @staticmethod
+    def filter_by_pixel(table, gp_range, nlp_range):
+        assert(len(gp_range)==2 and len(nlp_range)==2)
         pixel_coordinates_on_tile = [
-            self.map_value_onto_range(table.neg_log_pval, nlp_range, [0, 256]),
-            self.map_value_onto_range(table.global_position, gp_range, [0, 256])
+            hl.floor(PlotGenerator.map_value_onto_range(table.neg_log_pval, nlp_range, [0, 256])),
+            hl.floor(PlotGenerator.map_value_onto_range(table.global_position, gp_range, [0, 256]))
         ]
         # fixme : key_by(...).distinct() very slow :(
         return table.annotate(tile_coordinates = pixel_coordinates_on_tile).key_by('tile_coordinates').distinct()
@@ -99,13 +107,25 @@ class PlotGenerator:
         return global_positions, neg_log_pvals, colors
 
     def generate_tile_image(self, zcr, x_range, y_range):
+        zone = Zone(x_range, y_range)
+
+        if self.empty_zones.contains(zone):
+            # tile will be empty; don't bother filtering table
+            self.empty_tiles.append(zcr)
+            return
+
         filtered_by_coordinates = self.filter_by_coordinates(x_range, y_range)
 
         filtered_by_pixel = self.filter_by_pixel(filtered_by_coordinates, x_range, y_range)
 
-        gp, nlp, colors = self.collectValues(filtered_by_pixel)
+        gp, nlp, colors = self.collect_values(filtered_by_pixel)
 
-        fig = plt.figure(figsize=(2.56, 2.56)) # ensure 256 * 256 pixel size by setting dpi=100
+        if not gp:
+            assert not nlp
+            self.empty_tiles.append(zcr)
+            self.empty_zones.append(zone)
+
+        fig = plt.figure(figsize=(2.56, 2.56)) # ensure 256 * 256 pixel size by setting dpi=100 when saving fig
         ax=fig.add_axes([0,0,1,1])
         ax.set_axis_off()
         ax.scatter(gp, nlp, c=colors, s=4)
@@ -116,12 +136,12 @@ class PlotGenerator:
         #plt.show()
         plt.close()
 
-    def generate(self, zoom, new_log_file=False):
+    def generate(self, zoom, new_log_file=False, log_file_path='plot_generation.log'):
         self.make_directories(self.root_folder, zoom)
 
         write_method = 'w' if new_log_file else 'a'
-        log = open("plot_generation.log", write_method)
-        log.write("INFO: generating plots for zoom level : "+ str(zoom)+"\n")
+        log = open(log_file_path, write_method)
+        log.write("ZOOM: generating plots for zoom level : "+ str(zoom)+".\n")
 
         # method assumes that map view is restricted to bottom 4th of rows (because manhattan plot is be wide and squat)
         total_tiles = 4**zoom # includes tiles outside view that will not be generated
@@ -141,16 +161,16 @@ class PlotGenerator:
 
                 if (not os.path.isfile(self.construct_file_path(zcr))) or self.regenerate:
                     self.generate_tile_image(self.construct_file_path(zcr), [x_min, x_max], [y_min, y_max])
-                    log.write("INFO : generated plot "+self.construct_file_path(zcr)+"\n")
+                    log.write("GEN : generated plot <"+self.construct_file_path(zcr)+">.\n")
                 else:
-                    log.write("Plot "+self.construct_file_path(zcr)+" already exists. Not regenerated.\n")
+                    log.write("SKIP: plot <"+self.construct_file_path(zcr)+"> already exists; not regenerated.\n")
 
                 progress(iteration, total_tiles_to_generate, prefix='Zoom level: '+str(zoom))
                 iteration = iteration + 1
 
         log.close()
 
-    def generate_all(self, zoom_min, zoom_max):
-        self.generate(zoom_min, new_log_file=True)
+    def generate_all(self, zoom_min, zoom_max, log_file_path='plot_generation.log'):
+        self.generate(zoom_min, new_log_file=True, log_file_path=log_file_path)
         for zoom in range(zoom_min+1, zoom_max+1):
-            self.generate(zoom, new_log_file=False)
+            self.generate(zoom, new_log_file=False, log_file_path=log_file_path)
