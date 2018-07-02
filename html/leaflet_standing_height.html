@@ -21,8 +21,18 @@
         body {
             background-color: grey;
         }
+        #zoom-level { 
+            height: 40px; 
+            position: fixed; 
+            bottom:0%;
+            width:100%; 
+            background-color: 'white';
+            opacity: 1;
+        }
 
-        .leaflet-tile { border: solid black 5px; }
+        /*.leaflet-tile {
+            border:5px solid transparent;
+        } */   
     </style>
 
 </head>
@@ -30,6 +40,8 @@
 <body>
     <h1>plot of standing height gwas</h1>
     <div id="map"></div>
+    <div id="zoom-level"></div>
+
 
     <script>
 
@@ -43,14 +55,16 @@
             scrollWheelZoom: true
         });
 
-        L.tileLayer('../plots/sh_plots/{z}/{x}/{y}.png', {
-            maxNativeZoom: 5, 
+        var old = '../plots/sh_plots/{z}/{x}/{y}.png'
+        L.tileLayer('../plots/new_standing_height_plots/{z}/{x}/{y}.png', {
+            maxNativeZoom: 7, 
             //maxZoom: 2, 
             //minZoom: 2, 
             minNativeZoom: 2,
             crs: L.CRS.Simple, 
             bounds: bounds,
             //maxBounds: L.latLngBounds([-Infinity, 0], [Infinity, 256])
+            errorTileUrl: 'file:///Users/maccum/hail-logo-256-256.png',
         }).addTo(map);
 
         function getCoordinates(neg_log_pval, position) {
@@ -62,6 +76,12 @@
 
         map.fitBounds(bounds);
         console.log('map center: ' + map.getCenter());
+
+
+        document.getElementById('zoom-level').innerHTML = 'Zoom:'+map.getZoom();
+        map.on('zoom', function() {
+            document.getElementById('zoom-level').innerHTML = 'Zoom:'+map.getZoom();
+        });
     </script>
 </body>
 

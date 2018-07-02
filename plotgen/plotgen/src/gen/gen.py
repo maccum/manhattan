@@ -2,6 +2,9 @@ import os
 
 import math
 import matplotlib.pyplot as plt
+import datetime
+import signal
+import sys
 
 import hail as hl
 import hail.expr.aggregators as agg
@@ -14,12 +17,15 @@ from plotgen.src.utils.zone import Zone, Zones
 class PlotGenerator:
 
     def __init__(self, root_folder, regenerate, table_path, x_axis_range=None, y_axis_range=None):
+
         self.root_folder = root_folder
         self.regenerate = regenerate
         self.ht = hl.read_table(table_path)
 
         self.empty_zones = Zones()
         self.empty_tiles = []
+
+        self.log = None
 
         if x_axis_range is None or y_axis_range is None:
             # axis limits should be set slightly outside the range of x and y values
@@ -69,7 +75,7 @@ class PlotGenerator:
         return min_nlp, max_nlp
 
     def construct_file_path(self, zcr):
-        assert(len(zcr) == 3)
+        assert len(zcr) == 3
         zoom, c, r = zcr[0], zcr[1], zcr[2]
         return self.root_folder+"/"+str(zoom)+"/"+str(c)+"/"+str(r)+".png"
 
@@ -112,6 +118,7 @@ class PlotGenerator:
         if self.empty_zones.contains(zone):
             # tile will be empty; don't bother filtering table
             self.empty_tiles.append(zcr)
+            self.log.write("EMPTY "+self.date()+": empty plot <"+self.construct_file_path(zcr)+">.\n")
             return
 
         filtered_by_coordinates = self.filter_by_coordinates(x_range, y_range)
@@ -122,8 +129,13 @@ class PlotGenerator:
 
         if not gp:
             assert not nlp
+            # tile is empty; add to empty list
             self.empty_tiles.append(zcr)
             self.empty_zones.append(zone)
+            self.log.write("EMPTY "+self.date()+": empty plot <"+self.construct_file_path(zcr)+">.\n")
+            return
+
+        self.log.write("GEN "+self.date()+": generated plot <"+self.construct_file_path(zcr)+">.\n")
 
         fig = plt.figure(figsize=(2.56, 2.56)) # ensure 256 * 256 pixel size by setting dpi=100 when saving fig
         ax=fig.add_axes([0,0,1,1])
@@ -132,16 +144,24 @@ class PlotGenerator:
         ax.set_ylim(y_range)
         ax.set_xlim(x_range)
 
-        plt.savefig(self.construct_file_path(zcr), dpi=100)
+        tile_file_path = self.construct_file_path(zcr)
+        plt.savefig(tile_file_path, dpi=100)
         #plt.show()
         plt.close()
 
+    @staticmethod
+    def date():
+        return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     def generate(self, zoom, new_log_file=False, log_file_path='plot_generation.log'):
+        signal.signal(signal.SIGINT, self.catch)
+        signal.signal(signal.SIGUSR1, self.catch)
+
         self.make_directories(self.root_folder, zoom)
 
         write_method = 'w' if new_log_file else 'a'
-        log = open(log_file_path, write_method)
-        log.write("ZOOM: generating plots for zoom level : "+ str(zoom)+".\n")
+        self.log = open(log_file_path, write_method)
+        self.log.write("ZOOM "+self.date()+": generating plots for zoom level : "+ str(zoom)+".\n")
 
         # method assumes that map view is restricted to bottom 4th of rows (because manhattan plot is be wide and squat)
         total_tiles = 4**zoom # includes tiles outside view that will not be generated
@@ -160,17 +180,21 @@ class PlotGenerator:
                 zcr = [zoom, c, r]
 
                 if (not os.path.isfile(self.construct_file_path(zcr))) or self.regenerate:
-                    self.generate_tile_image(self.construct_file_path(zcr), [x_min, x_max], [y_min, y_max])
-                    log.write("GEN : generated plot <"+self.construct_file_path(zcr)+">.\n")
+                    self.generate_tile_image(zcr, [x_min, x_max], [y_min, y_max])
+                    progress(iteration, total_tiles_to_generate, prefix='Zoom level: '+str(zoom))
                 else:
-                    log.write("SKIP: plot <"+self.construct_file_path(zcr)+"> already exists; not regenerated.\n")
+                    self.log.write("SKIP "+self.date()+": plot <"+self.construct_file_path(zcr)+"> already exists; not regenerated.\n")
 
-                progress(iteration, total_tiles_to_generate, prefix='Zoom level: '+str(zoom))
+                #progress(iteration, total_tiles_to_generate, prefix='Zoom level: '+str(zoom))
                 iteration = iteration + 1
 
-        log.close()
+        self.log.close()
 
     def generate_all(self, zoom_min, zoom_max, log_file_path='plot_generation.log'):
         self.generate(zoom_min, new_log_file=True, log_file_path=log_file_path)
         for zoom in range(zoom_min+1, zoom_max+1):
             self.generate(zoom, new_log_file=False, log_file_path=log_file_path)
+
+    def catch(self, signum, frame):
+        if self.log is not None:
+            self.log.flush()
