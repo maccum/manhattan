@@ -11,7 +11,7 @@ manhattan.iml
 *.DS_Store
 
 data/
-plots/
+/plots/
 
 *.pyc
 *.iml
