@@ -13,3 +13,5 @@ manhattan.iml
 # ignore hail tables and generated plots
 /data/
 /plots/
+
+plotgen/plotgen/test/test_resources/
