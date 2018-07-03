@@ -1,5 +1,3 @@
-
-
 def progress(i, total, prefix = 'Zoom Level', suffix = 'Complete', decimals = 1, length = 50, fill = '█'):
     # https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
     percent = ("{0:." + str(decimals) + "f}").format(100 * (i / float(total)))
