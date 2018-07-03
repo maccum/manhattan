@@ -52,7 +52,8 @@
         var map = L.map('map', {
             crs: L.CRS.Simple,
             maxBounds: bounds,
-            scrollWheelZoom: true
+            scrollWheelZoom: true,
+            zoomSnap: 0,
         });
 
         var old = '../plots/sh_plots/{z}/{x}/{y}.png'
@@ -63,24 +64,36 @@
             minNativeZoom: 2,
             crs: L.CRS.Simple, 
             bounds: bounds,
-            //maxBounds: L.latLngBounds([-Infinity, 0], [Infinity, 256])
+            maxBounds: L.latLngBounds([-Infinity, 0], [Infinity, 256]),
             errorTileUrl: 'file:///Users/maccum/hail-logo-256-256.png',
         }).addTo(map);
 
+        // assumes zero axis (not correct)
         function getCoordinates(neg_log_pval, position) {
             return [
                 -(64 - ((neg_log_pval / 11.5) * 64))-192,
                 ((position / (3.05 * Math.pow(10, 9))) * 256)
             ]
         }
+    
 
         map.fitBounds(bounds);
         console.log('map center: ' + map.getCenter());
 
+        var bounds = map.getBounds()
+        console.log('bounds: '+bounds.getWest()+ " "+bounds.getEast()+" "+bounds.getNorth()+" "+bounds.getSouth())
+        
 
         document.getElementById('zoom-level').innerHTML = 'Zoom:'+map.getZoom();
         map.on('zoom', function() {
             document.getElementById('zoom-level').innerHTML = 'Zoom:'+map.getZoom();
+            var bounds = map.getBounds()
+            console.log('bounds: '+bounds.getWest()+ " "+bounds.getEast()+" "+bounds.getNorth()+" "+bounds.getSouth())
+
+            /*map.fitBounds([
+                [-192, bounds.getWest()],
+                [-256, bounds.getEast()]
+            ]);*/
         });
     </script>
 </body>
