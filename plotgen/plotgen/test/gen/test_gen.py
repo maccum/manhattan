@@ -9,13 +9,13 @@ import hail as hl
 
 class PlotGeneratorSuite(unittest.TestCase):
     def setUp(self):
-        self.temp_path = 'plotgen/test/test_resources/temp'
+        self.temp_path = 'test_resources/temp'
         
         # example 1 (random)
         self.global_positions = random.sample(range(1, 300), 10)
         self.neg_log_pvals = list(np.random.uniform(0, 200, 10))
         self.colors = random.choices(list(constants.colors.values()), k=10)
-        self.random_table_path = 'plotgen/test/test_resources/random_table.ht'
+        self.random_table_path = 'test_resources/random_table.ht'
         rows = []
         for i in range(len(self.global_positions)):
             row = {'global_position': self.global_positions[i], 'neg_log_pval': self.neg_log_pvals[i],
@@ -23,7 +23,7 @@ class PlotGeneratorSuite(unittest.TestCase):
             rows.append(row)
         ht = hl.Table.parallelize(rows, hl.tstruct(global_position=hl.tint64, neg_log_pval=hl.tfloat64, color=hl.tstr))
         ht.write(self.random_table_path, overwrite=True)
-        self.pg = PlotGenerator('plotgen/test/test_resources/plot_root_folder', regenerate=False,
+        self.pg = PlotGenerator('test_resources/plot_root_folder', regenerate=False,
                            table_path=self.random_table_path)
 
         # example 2
@@ -34,7 +34,7 @@ class PlotGeneratorSuite(unittest.TestCase):
             row = {'global_position': global_positions[i], 'neg_log_pval': neg_log_pvals[i], 'color': '#F73A12'}
             rows.append(row)
 
-        self.table_path = 'plotgen/test/test_resources/table.ht'
+        self.table_path = 'test_resources/table.ht'
         ht = hl.Table.parallelize(rows, hl.tstruct(global_position=hl.tint64, neg_log_pval=hl.tfloat64, color=hl.tstr))
         ht.write(self.table_path, overwrite=True)
 
