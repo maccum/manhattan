@@ -1,5 +1,5 @@
 import unittest
-from slippyplot.src.plotgen.zone import Zone, Zones
+from src.plotgen.zone import Zone, Zones
 
 class ZoneTestSuite(unittest.TestCase):
     def setUp(self):

@@ -1,7 +1,7 @@
 import unittest
 import hail as hl
 
-from slippyplot.src.plotgen.table_utils import TableUtils
+from src.plotgen.table_utils import TableUtils
 
 class TableUtilsSuite(unittest.TestCase):
     def setUp(self):

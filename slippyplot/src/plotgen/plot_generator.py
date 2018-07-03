@@ -6,10 +6,10 @@ import signal
 
 import hail as hl
 
-from slippyplot.src.plotgen.table_utils import TableUtils
-import slippyplot.src.plotgen.constants as constants
-from slippyplot.src.plotgen.progress import progress
-from slippyplot.src.plotgen.zone import Zone, Zones
+from src.plotgen.table_utils import TableUtils
+import src.plotgen.constants as constants
+from src.plotgen.progress import progress
+from src.plotgen.zone import Zone, Zones
 
 
 class PlotGenerator:

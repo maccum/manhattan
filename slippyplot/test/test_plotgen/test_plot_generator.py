@@ -4,8 +4,8 @@ import numpy as np
 
 import hail as hl
 
-from slippyplot.src.plotgen.plot_generator import PlotGenerator
-import slippyplot.src.plotgen.constants as constants
+from src.plotgen.plot_generator import PlotGenerator
+import src.plotgen.constants as constants
 
 
 class PlotGeneratorSuite(unittest.TestCase):
