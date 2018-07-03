@@ -1,18 +1,15 @@
-50.assoc.tsv.gz
-50.assoc.tsv
-jupyter_folder/data
-jupyter_folder/.ipynb_checkpoints
-jupyter_folder/hail.log
-.DS_Store
-
-standing_height/
-.idea/
-manhattan.iml
 *.DS_Store
-
-data/
-plots/
-
 *.pyc
 *.iml
-/plotgen/plotgen/test/test_resources
+*.ipynb_checkpoints
+hail.log
+.idea/
+manhattan.iml
+
+# ignore standing height data
+50.assoc.tsv.gz
+50.assoc.tsv
+
+# ignore hail tables and generated plots
+/data/
+/plots/
