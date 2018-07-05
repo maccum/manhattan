@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Slippy Plot</title>
     <style>
-        svg { 
+        svg {
             border: 1px solid black;
+            background: #dee0e2;
         }
+
+        g {
+            background-color: 'grey';
+        }
+
         /*rect:hover {
             fill: #ace63c;
         }*/
+
         .tile {
-            cursor: move; /*changes display of cursor */
+            cursor: move;
+            /*changes display of cursor */
+        }
+
+        .zoom-2 {
+            display: inline;
+        }
+
+        .zoom-3 {
+            display: none;
+        }
+
+        .zoom-button {
+            display: block;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
+
 <body>
 
-<h1>Slippy Plot</h1>
+    <h1>Slippy Plot</h1>
 
-<p>A slippy map for scalable visualization of graphs.</p>
+    <p>A slippy map for scalable visualization of graphs.</p>
+    <p>Zoom:
+        <span id="zoom">2</span>
+    </p>
 
-<svg 
-        width="1024" height="256" 
-        xmlns="http://www.w3.org/2000/svg"
-        onload="makeDraggable(evt)"
->
-    <g id="container">
-        <title>Test SVG Image</title>
-        <!--<rect class="tile" fill="#42d1f4" stroke="#d12b19" stroke-width="5"
+    <input class="zoom-button" type="button" name="decrease" value="-" onclick="zoomOut()"/>
+    <input class="zoom-button" type="button" name="increase" value="+" onclick="zoomIn()"/>
+
+    <svg width="1024" height="256" xmlns="http://www.w3.org/2000/svg" onload="makeDraggable(evt)">
+        <g id="container">
+            <title>Test SVG Image</title>
+            <!--<rect class="tile" fill="#42d1f4" stroke="#d12b19" stroke-width="5"
               x="0" y="0" width="256" height="256"/>
 
         <rect class="tile" fill="#e2df2f" stroke="#d12b19" stroke-width="5"
@@ -39,14 +65,23 @@
 
         <rect class="tile" fill="#7442f4" stroke="#d12b19" stroke-width="5"
               x="768" y="0" width="256" height="256"/>-->
+            <image class="tile zoom-2" x="0" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/0.png" />
+            <image class="tile zoom-2" x="256" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/1.png" />
+            <image class="tile zoom-2" x="512" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/2.png" />
+            <image class="tile zoom-2" x="768" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/3.png" />
 
-        <image class="tile" x="0" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/0/3.png"/>     
-        <image class="tile" x="256" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/1/3.png"/>
-        <image class="tile" x="512" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/2/3.png"/>
-        <image class="tile" x="768" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/3/3.png"/>
-    </g>
-</svg>
+            <image class="tile zoom-3" x="0" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/0.png" />
+            <image class="tile zoom-3" x="256" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/1.png" />
+            <image class="tile zoom-3" x="512" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/2.png" />
+            <image class="tile zoom-3" x="768" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/3.png" />
+            <image class="tile zoom-3" x="1024" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/4.png" />
+            <image class="tile zoom-3" x="1280" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/5.png" />
+            <image class="tile zoom-3" x="1536" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/6.png" />
+            <image class="tile zoom-3" x="1792" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/7.png" />
+        </g>
+    </svg>
 
-<script type="text/javascript" src="../scripts/drag.js"></script>
+    <script type="text/javascript" src="../scripts/drag.js"></script>
 </body>
+
 </html>

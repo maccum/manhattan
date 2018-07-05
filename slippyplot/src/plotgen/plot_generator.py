@@ -6,10 +6,10 @@ import signal
 
 import hail as hl
 
-from src.plotgen.table_utils import TableUtils
-import src.plotgen.constants as constants
-from src.plotgen.progress import progress
-from src.plotgen.zone import Zone, Zones
+from slippyplot.src.plotgen.table_utils import TableUtils
+import slippyplot.src.plotgen.constants as constants
+from slippyplot.src.plotgen.progress import progress
+from slippyplot.src.plotgen.zone import Zone, Zones
 
 
 class PlotGenerator:
@@ -75,6 +75,8 @@ class PlotGenerator:
     def construct_file_path(self, zcr):
         assert len(zcr) == 3
         zoom, c, r = zcr[0], zcr[1], zcr[2]
+        if (r==-1):
+            return self.root_folder+"/"+str(zoom)+"/"+str(c)+".png"
         return self.root_folder+"/"+str(zoom)+"/"+str(c)+"/"+str(r)+".png"
 
     # filter table to the desired zone on the map
@@ -151,15 +153,18 @@ class PlotGenerator:
     def date():
         return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    def start_log(self, log_file_path, new_log_file, zoom):
+        write_method = 'w' if new_log_file else 'a'
+        self.log = open(log_file_path, write_method)
+        self.log.write("ZOOM "+self.date()+": generating plots for zoom level : "+ str(zoom)+".\n")
+
     def generate(self, zoom, new_log_file=False, log_file_path='plot_generation.log'):
         signal.signal(signal.SIGINT, self.catch)
         signal.signal(signal.SIGUSR1, self.catch)
 
         self.make_directories(self.root_folder, zoom)
 
-        write_method = 'w' if new_log_file else 'a'
-        self.log = open(log_file_path, write_method)
-        self.log.write("ZOOM "+self.date()+": generating plots for zoom level : "+ str(zoom)+".\n")
+        self.start_log(log_file_path, new_log_file, zoom)
 
         # method assumes that map view is restricted to bottom 4th of rows (because manhattan plot is be wide and squat)
         total_tiles = 4**zoom # includes tiles outside view that will not be generated
@@ -187,6 +192,30 @@ class PlotGenerator:
                 iteration = iteration + 1
 
         self.log.close()
+
+    def generate_svg(self, zoom, new_log_file=False, log_file_path='plot_generation.log'):
+        signal.signal(signal.SIGINT, self.catch)
+
+        zoom_directory = self.root_folder+"/"+str(zoom)
+        if not os.path.exists(zoom_directory):
+            os.makedirs(zoom_directory)
+
+        self.start_log(log_file_path, new_log_file, zoom)
+
+        num_cols = 2**zoom
+        iteration = 1
+        for c in range(0, num_cols):
+            (x_min, x_max) = self.calculate_gp_range(c, num_cols)
+            #(y_min, y_max) = self.y_axis_range[0], self.y_axis_range[1]
+
+            tile_path = zoom_directory+"/"+str(c)+".png"
+            if (not os.path.isfile(tile_path)) or self.regenerate:
+                zcr = [zoom, c, -1]
+                self.generate_tile_image(zcr, [x_min, x_max], self.y_axis_range)
+                progress(iteration, num_cols, prefix='Zoom level: '+str(zoom))
+
+            iteration = iteration+1
+        self.log.close
 
     def generate_all(self, zoom_min, zoom_max, log_file_path='plot_generation.log'):
         self.generate(zoom_min, new_log_file=True, log_file_path=log_file_path)
