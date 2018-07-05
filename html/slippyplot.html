@@ -7,10 +7,10 @@
         svg { 
             border: 1px solid black;
         }
-        rect:hover {
+        /*rect:hover {
             fill: #ace63c;
-        }
-        .draggable {
+        }*/
+        .tile {
             cursor: move; /*changes display of cursor */
         }
     </style>
@@ -26,74 +26,27 @@
         xmlns="http://www.w3.org/2000/svg"
         onload="makeDraggable(evt)"
 >
-    <g>
+    <g id="container">
         <title>Test SVG Image</title>
-        <rect class="draggable" fill="#42d1f4" stroke="#000000" stroke-width="5"
-              x="0" y="0" width="256" height="256" id="svg_1"/>
+        <!--<rect class="tile" fill="#42d1f4" stroke="#d12b19" stroke-width="5"
+              x="0" y="0" width="256" height="256"/>
 
-        <rect class="draggable" fill="#ff7f00" stroke="#000000" stroke-width="5"
-              x="256" y="0" width="256" height="256" id="svg_2"/>
+        <rect class="tile" fill="#e2df2f" stroke="#d12b19" stroke-width="5"
+              x="256" y="0" width="256" height="256"/>
 
-        <rect class="draggable" fill="#d14274" stroke="#000000" stroke-width="5"
-              x="512" y="0" width="256" height="256" id="svg_2"/>
+        <rect class="tile" fill="#d14274" stroke="#d12b19" stroke-width="5"
+              x="512" y="0" width="256" height="256"/>
 
-        <rect class="draggable" fill="#7442f4" stroke="#000000" stroke-width="5"
-              x="768" y="0" width="256" height="256" id="svg_2"/>
+        <rect class="tile" fill="#7442f4" stroke="#d12b19" stroke-width="5"
+              x="768" y="0" width="256" height="256"/>-->
+
+        <image class="tile" x="0" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/0/3.png"/>     
+        <image class="tile" x="256" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/1/3.png"/>
+        <image class="tile" x="512" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/2/3.png"/>
+        <image class="tile" x="768" y = "0" width="256" height="256" xlink:href="../plots/new_caffeine_plots/2/3/3.png"/>
     </g>
 </svg>
 
-<script>
-    function makeDraggable(evt) {
-        var svg = evt.target;
-        svg.addEventListener('mousedown', startDrag, false);
-        svg.addEventListener('mousemove', drag, false);
-        svg.addEventListener('mouseup', endDrag, false);
-
-        function getMousePosition(evt) {
-          var CTM = svg.getScreenCTM();
-          return {
-            x: (evt.clientX - CTM.e) / CTM.a,
-            y: (evt.clientY - CTM.f) / CTM.d
-          };
-        }
-
-        var selectedElement, offset, transform;
-
-        function startDrag(evt) {
-          if (evt.target.classList.contains('draggable')) {
-            selectedElement = evt.target;
-            offset = getMousePosition(evt);
-
-            // ensure the first transform on the element is a translate transform
-            var transforms = selectedElement.transform.baseVal;
-
-            if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
-              // create a transform that translates by (0, 0)
-              var translate = svg.createSVGTransform();
-              translate.setTranslate(0, 0);
-              selectedElement.transform.baseVal.insertItemBefore(translate, 0);
-            }
-
-            // get initial translation
-            transform = transforms.getItem(0);
-            offset.x -= transform.matrix.e;
-            offset.y -= transform.matrix.f;
-          }
-        }
-
-        function drag(evt) {
-          if (selectedElement) {
-            var coord = getMousePosition(evt);
-            transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
-          }
-        }
-
-        function endDrag(evt) {
-          selectedElement = false;
-        }
-        
-    }
-</script>
-
+<script type="text/javascript" src="../scripts/drag.js"></script>
 </body>
 </html>
