@@ -68,9 +68,7 @@ function onWheel(evt) {
     if (evt.deltaX > 1) {
         zoomIn();
     } else if (evt.deltaX < 0) {
-      
         zoomOut();
-        
     } else {
         console.log("no zoom");
     }
