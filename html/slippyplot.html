@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slippy Plot</title>
+    <style>
+        svg { 
+            border: 1px solid black;
+        }
+        rect:hover {
+            fill: #ace63c;
+        }
+        .draggable {
+            cursor: move; /*changes display of cursor */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Slippy Plot</h1>
+
+<p>A slippy map for scalable visualization of graphs.</p>
+
+<svg 
+        width="1024" height="256" 
+        xmlns="http://www.w3.org/2000/svg"
+        onload="makeDraggable(evt)"
+>
+    <g>
+        <title>Test SVG Image</title>
+        <rect class="draggable" fill="#42d1f4" stroke="#000000" stroke-width="5"
+              x="0" y="0" width="256" height="256" id="svg_1"/>
+
+        <rect class="draggable" fill="#ff7f00" stroke="#000000" stroke-width="5"
+              x="256" y="0" width="256" height="256" id="svg_2"/>
+
+        <rect class="draggable" fill="#d14274" stroke="#000000" stroke-width="5"
+              x="512" y="0" width="256" height="256" id="svg_2"/>
+
+        <rect class="draggable" fill="#7442f4" stroke="#000000" stroke-width="5"
+              x="768" y="0" width="256" height="256" id="svg_2"/>
+    </g>
+</svg>
+
+<script>
+    function makeDraggable(evt) {
+        var svg = evt.target;
+        svg.addEventListener('mousedown', startDrag, false);
+        svg.addEventListener('mousemove', drag, false);
+        svg.addEventListener('mouseup', endDrag, false);
+
+        function getMousePosition(evt) {
+          var CTM = svg.getScreenCTM();
+          return {
+            x: (evt.clientX - CTM.e) / CTM.a,
+            y: (evt.clientY - CTM.f) / CTM.d
+          };
+        }
+
+        var selectedElement, offset, transform;
+
+        function startDrag(evt) {
+          if (evt.target.classList.contains('draggable')) {
+            selectedElement = evt.target;
+            offset = getMousePosition(evt);
+
+            // ensure the first transform on the element is a translate transform
+            var transforms = selectedElement.transform.baseVal;
+
+            if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+              // create a transform that translates by (0, 0)
+              var translate = svg.createSVGTransform();
+              translate.setTranslate(0, 0);
+              selectedElement.transform.baseVal.insertItemBefore(translate, 0);
+            }
+
+            // get initial translation
+            transform = transforms.getItem(0);
+            offset.x -= transform.matrix.e;
+            offset.y -= transform.matrix.f;
+          }
+        }
+
+        function drag(evt) {
+          if (selectedElement) {
+            var coord = getMousePosition(evt);
+            transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
+          }
+        }
+
+        function endDrag(evt) {
+          selectedElement = false;
+        }
+        
+    }
+</script>
+
+</body>
+</html>
