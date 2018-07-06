@@ -16,26 +16,13 @@ function makeDraggable(evt) {
 
     function startDrag(evt) {
         evt.preventDefault();
-        //console.log("start drag");
         var g = document.getElementById("container")
         if (evt.target.classList.contains('tile')) {
-            //selectedElement = evt.target;
             selectedElement = g;
-            //console.log("selectedElement: " + selectedElement)
             offset = getMousePosition(evt);
 
-            // ensure the first transform on the element is a translate transform
-            var transforms = selectedElement.transform.baseVal;
+            transform = addTranslateTransform(svg, selectedElement, offset);
 
-            if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
-                // create a transform that translates by (0, 0)
-                var translate = svg.createSVGTransform();
-                translate.setTranslate(0, 0);
-                selectedElement.transform.baseVal.insertItemBefore(translate, 0);
-            }
-
-            // get initial translation
-            transform = transforms.getItem(0);
             offset.x -= transform.matrix.e;
             //offset.y -= transform.matrix.f;
         }
@@ -57,6 +44,21 @@ function makeDraggable(evt) {
 
 }
 
+function addTranslateTransform(svg, elt, offset) {
+    // ensure the first transform on the element is a translate transform
+    var transforms = elt.transform.baseVal;
+    if (transforms.length ===  0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+        // create a transform that translates by (0, 0)
+        var translate = svg.createSVGTransform();
+        translate.setTranslate(0, 0);
+        elt.transform.baseVal.insertItemBefore(translate, 0);
+    }
+
+    // get initial translation
+    transform = transforms.getItem(0);
+    return transform;
+}
+
 document.getElementById("container").addEventListener("wheel", onWheel);
 var zoom = 2;
 var zoomMax = 7;
@@ -67,20 +69,36 @@ var zooms = ['zoom-2', 'zoom-3'];
 var distanceZoomIn = 0;
 var distanceZoomOut = 0;
 
+var recentlyZoomed = false;
+
 function onWheel(evt) {
-    if (evt.deltaX > 0) {
-        distanceZoomIn += evt.deltaX;
+    var horizontal = evt.deltaX;
+    var vertical = evt.deltaY;
+
+    console.log("vertical: "+vertical);
+    console.log("horizontal: "+horizontal);
+
+    if (vertical < 0) {
+        distanceZoomIn += vertical;
         distanceZoomOut = 0;
-        if (distanceZoomIn > 20) {
+        if (distanceZoomIn < -20 && !recentlyZoomed) {
+            recentlyZoomed = true;
             distanceZoomIn = 0;
             zoomIn();
+            setTimeout(function() {
+                recentlyZoomed = false;
+            }, 1000);
         }
-    } else if (evt.deltaX < 0) {
-        distanceZoomOut += evt.deltaX;
+    } else if (vertical > 0) {
+        distanceZoomOut += vertical;
         distanceZoomIn = 0;
-        if (distanceZoomOut < -20) {
+        if (distanceZoomOut > 20 && !recentlyZoomed) {
+            recentlyZoomed = true;
             distanceZoomOut = 0;
             zoomOut();
+            setTimeout(function() {
+                recentlyZoomed = false;
+            }, 1000);
         }
     } else {
         //console.log("no zoom");
