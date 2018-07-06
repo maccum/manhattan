@@ -14,5 +14,6 @@ manhattan.iml
 /data/
 /plots/
 
-plotgen/plotgen/test/test_resources/
+slippyplot/test/test_resources/
 slippyplot/test/test_plotgen/test_resources
+/out/
