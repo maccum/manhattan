@@ -51,8 +51,8 @@
     <input class="zoom-button" type="button" name="decrease" value="-" onclick="zoomOut()"/>
     <input class="zoom-button" type="button" name="increase" value="+" onclick="zoomIn()"/>
 
-    <svg width="1024" height="256" xmlns="http://www.w3.org/2000/svg" onload="makeDraggable(evt)">
-        <g id="container">
+    <svg id="slippy-plot" width="1024" height="256" xmlns="http://www.w3.org/2000/svg" onload="makeDraggable(evt)">
+        <g id="container" x="0" y="0">
             <title>Test SVG Image</title>
             <!--<rect class="tile" fill="#42d1f4" stroke="#d12b19" stroke-width="5"
               x="0" y="0" width="256" height="256"/>

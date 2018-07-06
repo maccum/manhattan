@@ -21,7 +21,7 @@ function makeDraggable(evt) {
             selectedElement = g;
             offset = getMousePosition(evt);
 
-            transform = addTranslateTransform(svg, selectedElement, offset);
+            transform = addTranslateTransformIfNotExists(svg, selectedElement);
 
             offset.x -= transform.matrix.e;
             //offset.y -= transform.matrix.f;
@@ -32,23 +32,22 @@ function makeDraggable(evt) {
         if (selectedElement) {
             evt.preventDefault();
             var coord = getMousePosition(evt);
-            transform.setTranslate(coord.x - offset.x, /*coord.y - offset.y*/0);
+            moveElement(selectedElement, coord.x - offset.x);
         }
     }
 
     function endDrag(evt) {
         evt.preventDefault();
-        //console.log("endDrag");
         selectedElement = false;
     }
-
 }
 
-function addTranslateTransform(svg, elt, offset) {
+function addTranslateTransformIfNotExists(svg, elt) {
     // ensure the first transform on the element is a translate transform
     var transforms = elt.transform.baseVal;
     if (transforms.length ===  0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
         // create a transform that translates by (0, 0)
+        console.log("adding first transform");
         var translate = svg.createSVGTransform();
         translate.setTranslate(0, 0);
         elt.transform.baseVal.insertItemBefore(translate, 0);
@@ -57,6 +56,19 @@ function addTranslateTransform(svg, elt, offset) {
     // get initial translation
     transform = transforms.getItem(0);
     return transform;
+}
+
+function moveElement(elt, horizontalPos) {
+    var svg = document.getElementById("slippy-plot")
+    //var transform = elt.transform.baseVal.getItem(0);
+    var transform = addTranslateTransformIfNotExists(svg, elt);
+    transform.setTranslate(horizontalPos, 0);
+}
+
+function moveElementByAmount(elt, horizontalShift) {
+    var svg = document.getElementById("slippy-plot")
+    var transform = addTranslateTransformIfNotExists(svg, elt);
+    transform.setTranslate(horizontalShift+transform.matrix.e, 0);
 }
 
 document.getElementById("container").addEventListener("wheel", onWheel);
@@ -72,12 +84,27 @@ var distanceZoomOut = 0;
 var recentlyZoomed = false;
 
 function onWheel(evt) {
+    evt.preventDefault();
     var horizontal = evt.deltaX;
     var vertical = evt.deltaY;
 
-    console.log("vertical: "+vertical);
-    console.log("horizontal: "+horizontal);
+    //console.log("vertical: "+vertical);
+    //console.log("horizontal: "+horizontal);
 
+    if (Math.abs(vertical) >= Math.abs(horizontal)) {
+        zoomOnVerticalScroll(vertical);
+    } else {
+        shiftOnHorizontalScroll(horizontal);
+    }
+}
+
+function shiftOnHorizontalScroll(horizontal) {
+    var g = document.getElementById("container")
+    console.log("horizontal: "+horizontal);
+    moveElementByAmount(g, horizontal);
+}
+
+function zoomOnVerticalScroll(vertical) {
     if (vertical < 0) {
         distanceZoomIn += vertical;
         distanceZoomOut = 0;
@@ -103,31 +130,43 @@ function onWheel(evt) {
     } else {
         //console.log("no zoom");
     }
-
-    //console.log("change in X: "+evt.deltaX)
 }
 
 function zoomIn() {
     if (zoom < zoomMax) {
         zoom = zoom+1;
-        changeZoom();
+        changeZoom(zoom-1);
     }
 }
 
 function zoomOut() {
     if (zoom > zoomMin) {
         zoom = zoom-1;
-        changeZoom();
+        changeZoom(zoom+1);
     }
 }
 
-function changeZoom() {
+function changeZoom(oldZoom) {
     $("#zoom").text(zoom);
     var zoomID = "zoom-"+zoom;
+
+    changePositionToMatchZoom(oldZoom, zoom);
+
     for (var i = 0; i < zooms.length; i++) {
         $("."+zooms[i]).hide();
     }
     $("."+zoomID).show();
+}
+
+function changePositionToMatchZoom(oldZoom, newZoom) {
+    var g = document.getElementById("container");
+    var svg = document.getElementById("slippy-plot");
+    //g.transform.baseVal.consolidate();
+    var transform = addTranslateTransformIfNotExists(svg, g);
+    var currentX = transform.matrix.e;
+
+    var newTopLeftX = getNewContainerPosition(currentX, oldZoom, newZoom);
+    transform.setTranslate(newTopLeftX, 0);
 }
 
 function createZoomLayer(zoom) {
@@ -159,10 +198,36 @@ function createZoomLayer(zoom) {
     $(".zoom-"+zoom).hide();
     zooms.push("zoom-"+zoom)
     console.log(zooms)
-    //d3.select("#container").append(newElement);
 }
 
 createZoomLayer(4);
 createZoomLayer(5);
 createZoomLayer(6);
 createZoomLayer(7);
+
+
+function getXRange(zoom) {
+    return [0, 256*Math.pow(2, zoom)]
+}
+
+function mapValueOntoRange(value, oldRange, newRange) {
+    var oldSpan = oldRange[1] - oldRange[0];
+    var newSpan = newRange[1] - newRange[0];
+    var distanceToValue = value - oldRange[0];
+    var percentSpanToValue = distanceToValue / oldSpan;
+    var distanceToNewValue = percentSpanToValue * newSpan;
+    var newValue = newRange[0] + distanceToNewValue;
+    return newValue;
+}
+
+function getNewContainerPosition(oldTopLeftX, oldZoom, newZoom) {
+    // get center of current view
+
+    var oldCenterX = Math.abs(oldTopLeftX)+512;
+    var oldXRange = getXRange(oldZoom);
+    var newXRange = getXRange(newZoom);
+    var newCenterX = mapValueOntoRange(oldCenterX, oldXRange, newXRange);
+    var newTopLeftX = newCenterX - 512;
+    console.log("new negative top left x: "+(-newTopLeftX));
+    return -newTopLeftX;
+}
