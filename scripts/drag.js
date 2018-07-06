@@ -16,12 +16,12 @@ function makeDraggable(evt) {
 
     function startDrag(evt) {
         evt.preventDefault();
-        console.log("start drag");
+        //console.log("start drag");
         var g = document.getElementById("container")
         if (evt.target.classList.contains('tile')) {
             //selectedElement = evt.target;
             selectedElement = g;
-            console.log("selectedElement: " + selectedElement)
+            //console.log("selectedElement: " + selectedElement)
             offset = getMousePosition(evt);
 
             // ensure the first transform on the element is a translate transform
@@ -51,7 +51,7 @@ function makeDraggable(evt) {
 
     function endDrag(evt) {
         evt.preventDefault();
-        console.log("endDrag");
+        //console.log("endDrag");
         selectedElement = false;
     }
 
@@ -64,16 +64,29 @@ var zoomMin = 2;
 
 var zooms = ['zoom-2', 'zoom-3'];
 
+var distanceZoomIn = 0;
+var distanceZoomOut = 0;
+
 function onWheel(evt) {
-    if (evt.deltaX > 1) {
-        zoomIn();
+    if (evt.deltaX > 0) {
+        distanceZoomIn += evt.deltaX;
+        distanceZoomOut = 0;
+        if (distanceZoomIn > 20) {
+            distanceZoomIn = 0;
+            zoomIn();
+        }
     } else if (evt.deltaX < 0) {
-        zoomOut();
+        distanceZoomOut += evt.deltaX;
+        distanceZoomIn = 0;
+        if (distanceZoomOut < -20) {
+            distanceZoomOut = 0;
+            zoomOut();
+        }
     } else {
-        console.log("no zoom");
+        //console.log("no zoom");
     }
 
-    console.log("change in X: "+evt.deltaX)
+    //console.log("change in X: "+evt.deltaX)
 }
 
 function zoomIn() {

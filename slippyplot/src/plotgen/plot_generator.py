@@ -11,7 +11,6 @@ import slippyplot.src.plotgen.constants as constants
 from slippyplot.src.plotgen.progress import progress
 from slippyplot.src.plotgen.zone import Zone, Zones
 
-
 class PlotGenerator:
 
     def __init__(self, root_folder, regenerate, table_path, x_axis_range=None, y_axis_range=None):
