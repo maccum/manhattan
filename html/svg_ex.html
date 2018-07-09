@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>SVG</title>
+    <style>
+        svg {
+            border: 1px solid black;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+
+    <svg width='1024' height='256'>
+        <svg id="zoom-2-svg">
+            <g id='zoom-2-group'>
+                <image class="tile zoom-2" x="0" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/0.png" />
+                <image class="tile zoom-2" x="256" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/1.png" />
+                <image class="tile zoom-2" x="512" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/2.png" />
+                <image class="tile zoom-2" x="768" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/3.png" />
+            </g>
+        </svg>
+    </svg>
+
+    <script>
+        //var imgs = Array.from(document.getElementsByClassName('zoom-2'));
+        var s = document.getElementById("zoom-2-svg");
+        var g = document.getElementById("zoom-2-group");
+        function scale() {
+            /*for (img of imgs) {
+                img.setAttribute("transform", "scale(.5,1)");
+            }*/
+            g.setAttribute("transform", "scale(.5,1)");
+        }
+        scale();
+
+
+        function scaleSlowly() {
+            var i = .5;
+            var interval = setInterval(function () {
+                if (i - 1.0 < .001) {
+                    /*for (img of imgs) {
+                        img.setAttribute("transform", "scale(" + i + ",1)");
+                    }*/
+                    g.setAttribute("transform", "scale(" + i + ",1)");
+                    var desiredCenter = positionCenterOfElementAtPoint(s, [512, 128]);
+                    s.setAttribute("x", desiredCenter[0]);
+                    s.setAttribute("y", desiredCenter[1]);
+                    //console.log(i);
+                    i = i + .001;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 10);
+        }
+        scaleSlowly();
+        function moveG() {
+            g.setAttribute("transform", "translate(50, 50)");
+        }
+        //moveG();
+
+        function getCenter(svgRect) {
+            var boundingBox = svgRect.getBBox();
+            return [boundingBox.x + (boundingBox.width/2), boundingBox.y + (boundingBox.height/2)];
+        }
+
+        function getTopLeft(svgRect) {
+            var boundingBox = svgRect.getBBox();
+            return [boundingBox.x, boundingBox.y];
+        }
+
+        function positionCenterOfElementAtPoint(elt, point) {
+            var boundingBox = elt.getBBox();
+            var desiredX = point[0] - boundingBox.width/2;
+            var desiredY = point[1] - boundingBox.height/2;
+            return [desiredX, desiredY];
+        }
+
+    </script>
+
+
+</body>
+
+
+</html>
