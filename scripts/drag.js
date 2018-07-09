@@ -70,7 +70,7 @@ function moveElementByAmount(elt, horizontalShift) {
     var transform = addTranslateTransformIfNotExists(svg, elt);
     transform.setTranslate(horizontalShift+transform.matrix.e, 0);
 }
-
+/*
 document.getElementById("container").addEventListener("wheel", onWheel);
 var zoom = 2;
 var zoomMax = 7;
@@ -230,4 +230,4 @@ function getNewContainerPosition(oldTopLeftX, oldZoom, newZoom) {
     var newTopLeftX = newCenterX - 512;
     console.log("new negative top left x: "+(-newTopLeftX));
     return -newTopLeftX;
-}
+}*/

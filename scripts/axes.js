@@ -1,5 +1,5 @@
 var x_axis_wrapper = d3
-    .select('#master')
+    .select('#slippyplot-widget')
     .append('svg')
     .attr('id', 'x-axis')
     .attr('width', 1074)
@@ -14,7 +14,7 @@ x_axis_wrapper.append("g").call(x_axis);
 
 
 var y_axis_wrapper = d3
-    .select('#master')
+    .select('#slippyplot-widget')
     .append('svg')
     .attr('id', 'y-axis')
     .attr('width', 70)
