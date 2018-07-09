@@ -17,3 +17,5 @@ manhattan.iml
 slippyplot/test/test_resources/
 slippyplot/test/test_plotgen/test_resources
 /out/
+/temp/
+/jupyter/tutorial_data/
