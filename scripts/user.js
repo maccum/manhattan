@@ -3,7 +3,7 @@ function listenForDrag(evt) {
     var offset, transform;
     var mousePositionOnStartDrag;
     var svg = evt.target;
-    console.log("svg: "+svg);
+    console.log("svg: " + svg);
 
     svg.addEventListener('mousedown', beginDrag, false);
     svg.addEventListener('mousemove', drag, false);
@@ -37,5 +37,17 @@ function listenForDrag(evt) {
     function endDrag(evt) {
         evt.preventDefault();
         isDragging = false;
+    }
+}
+
+function onWheel(evt) {
+    evt.preventDefault();
+    var horizontal = evt.deltaX;
+    var vertical = evt.deltaY;
+
+    if (Math.abs(vertical) >= Math.abs(horizontal)) {
+        zoomModule.zoomOnVerticalScroll(vertical);
+    } else {
+        zoomModule.shiftOnHorizontalScroll(horizontal);
     }
 }

@@ -6,7 +6,7 @@ var zoomModule = {
     distanceZoomOut: 0,
     recentlyZoomed: false,
     zooms: ['zoom-2', 'zoom-3'],
-    onWheel: function (evt) {
+    /*onWheel: function (evt) {
         evt.preventDefault();
         var horizontal = evt.deltaX;
         var vertical = evt.deltaY;
@@ -16,7 +16,7 @@ var zoomModule = {
         } else {
             zoomModule.shiftOnHorizontalScroll(horizontal);
         }
-    },
+    },*/
     shiftOnHorizontalScroll: function (horizontal) {
         //var g = document.getElementById("container")
         //console.log("horizontal: " + horizontal);
