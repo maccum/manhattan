@@ -38,15 +38,27 @@ var zoomModule = {
         }
     },
     zoomIn: function (mousePosition) {
-        if (zoomModule.currentZoomLevel < zoomModule.maxZoomLevel) {
-            zoomModule.currentZoomLevel = zoomModule.currentZoomLevel + 1;
-            zoomModule.changeZoom(zoomModule.currentZoomLevel - 1, mousePosition);
-        }
+        this.zoomIntoPosition(mousePosition);
     },
     zoomOut: function (mousePosition) {
+        this.zoomOutOfPosition(mousePosition);
+    },
+    zoomIntoCenter: function () {
+        zoomModule.zoomIntoPosition({x: 512, y: 0});
+    },
+    zoomOutOfCenter: function () {
+        zoomModule.zoomOutOfPosition({x: 512, y: 0});
+    },
+    zoomIntoPosition: function (positionToZoomInto) {
+        if (zoomModule.currentZoomLevel < zoomModule.maxZoomLevel) {
+            zoomModule.currentZoomLevel = zoomModule.currentZoomLevel + 1;
+            zoomModule.changeZoom(zoomModule.currentZoomLevel - 1, positionToZoomInto);
+        }
+    },
+    zoomOutOfPosition: function (positionToZoomOutOf) {
         if (zoomModule.currentZoomLevel > zoomModule.minZoomLevel) {
             zoomModule.currentZoomLevel = zoomModule.currentZoomLevel - 1;
-            zoomModule.changeZoom(zoomModule.currentZoomLevel + 1, mousePosition);
+            zoomModule.changeZoom(zoomModule.currentZoomLevel + 1, positionToZoomOutOf);
         }
     },
     changeZoom: function (oldZoom, mousePosition) {
@@ -161,5 +173,4 @@ var zoomModule = {
             return {x: mousePosition.x - newZoomLayerCoordinates.x, y: 0};
         }
     },
-    
 };
