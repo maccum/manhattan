@@ -18,8 +18,8 @@ var zoomModule = {
         }
     },
     shiftOnHorizontalScroll: function (horizontal) {
-        var g = document.getElementById("container")
-        console.log("horizontal: " + horizontal);
+        //var g = document.getElementById("container")
+        //console.log("horizontal: " + horizontal);
         dragPlotModule.moveContainerByAmount(horizontal);
     },
     zoomOnVerticalScroll: function (vertical) {
@@ -88,6 +88,16 @@ var zoomModule = {
         //var width = 256 * (Math.pow(2, zoom));
         var x = 0;
 
+        var newSVG = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+        newSVG.setAttribute("id", "zoom-"+zoomLevel+"-svg");
+        newSVG.setAttribute("class", "svg-zoom-layer");
+        newSVG.setAttribute("width", String(columns*256));
+        g.appendChild(newSVG);
+
+        var newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        newGroup.setAttribute("id", "zoom-"+zoomLevel+"-group");
+        newSVG.appendChild(newGroup);
+
         function createTile(c) {
             var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
             newElement.setAttribute("class", "tile zoom-" + zoomLevel);
@@ -100,7 +110,7 @@ var zoomModule = {
             var tilePath = "../plots/svg_tutorial_plots/" + zoomLevel + "/" + c + ".png";
             newElement.setAttributeNS("http://www.w3.org/1999/xlink", "href", tilePath);
 
-            g.appendChild(newElement);
+            newGroup.appendChild(newElement);
         }
 
         for (var c = 0; c < columns; c++) {

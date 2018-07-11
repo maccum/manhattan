@@ -38,6 +38,4 @@ function listenForDrag(evt) {
         evt.preventDefault();
         isDragging = false;
     }
-
-
 }
