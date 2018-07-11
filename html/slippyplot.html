@@ -52,7 +52,7 @@
 
     <svg id="slippyplot-widget" width="1300" height="350" xmlns="http://www.w3.org/2000/svg">
         <rect id="slippyplot-widget-background" width="1300" height="350"></rect>
-        <svg id="slippyplot" width="1024" height="256" x="60" y="30" xmlns="http://www.w3.org/2000/svg" onload="makeDraggable(evt)">
+        <svg id="slippyplot" width="1024" height="256" x="60" y="30" xmlns="http://www.w3.org/2000/svg" onload="listenForDrag(evt)">
             <rect id="slippyplot-background" width="1024" height="256"></rect>
             <g id="container" x="0" y="0">
                 <title>Test SVG Image</title>
@@ -84,6 +84,9 @@
     <script type="text/javascript" src="../scripts/axes.js"></script>
     <script type="text/javascript" src="../scripts/zoom.js"></script>
     <script type="text/javascript" src="../scripts/tile.js"></script>
+    <script type="text/javascript" src="../scripts/user.js"></script>
+    <script type="text/javascript" src="../scripts/main.js"></script>
+
 </body>
 
 </html>

@@ -20,7 +20,7 @@ var zoomModule = {
     shiftOnHorizontalScroll: function (horizontal) {
         var g = document.getElementById("container")
         console.log("horizontal: " + horizontal);
-        moveElementByAmount(g, horizontal);
+        dragPlotModule.moveContainerByAmount(horizontal);
     },
     zoomOnVerticalScroll: function (vertical) {
         if (vertical < 0) {
@@ -75,8 +75,7 @@ var zoomModule = {
     changePositionToMatchZoom: function (oldZoom, newZoom) {
         var g = document.getElementById("container");
         var svg = document.getElementById("slippyplot");
-        //g.transform.baseVal.consolidate();
-        var transform = addTranslateTransformIfNotExists(svg, g);
+        var transform = dragPlotModule.addTranslateTransformIfNotExists();
         var currentX = transform.matrix.e;
 
         var newTopLeftX = zoomModule.getNewContainerPosition(currentX, oldZoom, newZoom);
@@ -130,14 +129,6 @@ var zoomModule = {
         var newXRange = zoomModule.getXRange(newZoom);
         var newCenterX = zoomModule.mapValueOntoRange(oldCenterX, oldXRange, newXRange);
         var newTopLeftX = newCenterX - 512;
-        console.log("new negative top left x: " + (-newTopLeftX));
         return -newTopLeftX;
     }
 };
-
-zoomModule.createZoomLayer(4);
-zoomModule.createZoomLayer(5);
-zoomModule.createZoomLayer(6);
-zoomModule.createZoomLayer(7);
-
-document.getElementById("container").addEventListener("wheel", zoomModule.onWheel);

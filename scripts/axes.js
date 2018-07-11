@@ -12,7 +12,6 @@ var x_axis = d3.axisBottom().scale(scale);
 
 x_axis_wrapper.append("g").call(x_axis);
 
-
 var y_axis_wrapper = d3
     .select('#slippyplot-widget')
     .append('svg')
@@ -29,8 +28,6 @@ var y_axis = d3.axisLeft().scale(y_scale).tickValues([0, 1, 2, 3, 4, 5, 6, 7, 8,
 y_axis_wrapper.append("g")
     .attr("transform", "translate(50, 0)")
     .call(y_axis);
-
-
 
 /* 
 https://stackoverflow.com/questions/29305824/whats-the-idiomatic-way-to-extend-a-native-d3-component-like-d3-svg-axis
