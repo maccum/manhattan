@@ -6,30 +6,18 @@ var zoomModule = {
     distanceZoomOut: 0,
     recentlyZoomed: false,
     zooms: ['zoom-2', 'zoom-3'],
-    /*onWheel: function (evt) {
-        evt.preventDefault();
-        var horizontal = evt.deltaX;
-        var vertical = evt.deltaY;
-
-        if (Math.abs(vertical) >= Math.abs(horizontal)) {
-            zoomModule.zoomOnVerticalScroll(vertical);
-        } else {
-            zoomModule.shiftOnHorizontalScroll(horizontal);
-        }
-    },*/
     shiftOnHorizontalScroll: function (horizontal) {
-        //var g = document.getElementById("container")
-        //console.log("horizontal: " + horizontal);
         dragPlotModule.moveContainerByAmount(horizontal);
     },
-    zoomOnVerticalScroll: function (vertical) {
+    zoomOnVerticalScroll: function (vertical, mousePosition) {
+        console.log("mousePosition: "+mousePosition.x+" "+mousePosition.y);
         if (vertical < 0) {
             zoomModule.distanceZoomIn += vertical;
             zoomModule.distanceZoomOut = 0;
             if (zoomModule.distanceZoomIn < -20 && !zoomModule.recentlyZoomed) {
                 zoomModule.recentlyZoomed = true;
                 zoomModule.distanceZoomIn = 0;
-                zoomModule.zoomIn();
+                zoomModule.zoomIn(mousePosition);
                 setTimeout(function () {
                     zoomModule.recentlyZoomed = false;
                 }, 1000);
@@ -40,7 +28,7 @@ var zoomModule = {
             if (zoomModule.distanceZoomOut > 20 && !zoomModule.recentlyZoomed) {
                 zoomModule.recentlyZoomed = true;
                 zoomModule.distanceZoomOut = 0;
-                zoomModule.zoomOut();
+                zoomModule.zoomOut(mousePosition);
                 setTimeout(function () {
                     zoomModule.recentlyZoomed = false;
                 }, 1000);
@@ -49,37 +37,41 @@ var zoomModule = {
             //console.log("no zoom");
         }
     },
-    zoomIn: function () {
+    zoomIn: function (mousePosition) {
         if (zoomModule.currentZoomLevel < zoomModule.maxZoomLevel) {
             zoomModule.currentZoomLevel = zoomModule.currentZoomLevel + 1;
-            zoomModule.changeZoom(zoomModule.currentZoomLevel - 1);
+            zoomModule.changeZoom(zoomModule.currentZoomLevel - 1, mousePosition);
         }
     },
-    zoomOut: function () {
+    zoomOut: function (mousePosition) {
         if (zoomModule.currentZoomLevel > zoomModule.minZoomLevel) {
             zoomModule.currentZoomLevel = zoomModule.currentZoomLevel - 1;
-            zoomModule.changeZoom(zoomModule.currentZoomLevel + 1);
+            zoomModule.changeZoom(zoomModule.currentZoomLevel + 1, mousePosition);
         }
     },
-    changeZoom: function (oldZoom) {
+    changeZoom: function (oldZoom, mousePosition) {
         $("#zoom").text(zoomModule.currentZoomLevel);
         var zoomID = "zoom-" + zoomModule.currentZoomLevel;
 
-        zoomModule.changePositionToMatchZoom(oldZoom, zoomModule.currentZoomLevel);
+        zoomModule.changePositionToMatchZoom(oldZoom, zoomModule.currentZoomLevel, mousePosition);
 
         for (var i = 0; i < zoomModule.zooms.length; i++) {
             $("." + zoomModule.zooms[i]).hide();
         }
         $("." + zoomID).show();
     },
-    changePositionToMatchZoom: function (oldZoom, newZoom) {
-        var g = document.getElementById("container");
-        var svg = document.getElementById("slippyplot");
+    changePositionToMatchZoom: function (oldZoom, newZoom, mousePosition) {
         var transform = dragPlotModule.addTranslateTransformIfNotExists();
         var currentX = transform.matrix.e;
 
-        var newTopLeftX = zoomModule.getNewContainerPosition(currentX, oldZoom, newZoom);
-        transform.setTranslate(newTopLeftX, 0);
+        //var newTopLeftX = zoomModule.getNewContainerPosition(currentX, oldZoom, newZoom);
+        var currentMousePosInZoomLayerCoords = zoomModule.getMousePositionInCurrentZoomLayerCoordinates(mousePosition, {x: transform.matrix.e, y: 0});
+        console.log("oldZoom: "+oldZoom);
+        var newZoomLayerCoords = zoomModule.getNewZoomLayerCoordiantes(currentMousePosInZoomLayerCoords, oldZoom, newZoom);
+        var newTopLeft = zoomModule.getNewTopLeftToPositionContainerUnderMouse(mousePosition, newZoomLayerCoords);
+
+        transform.setTranslate(newTopLeft.x, 0);
+        //transform.setTranslate(0, 0);
     },
     createZoomLayer: function (zoomLevel) {
         var g = document.getElementById("container");
@@ -122,9 +114,12 @@ var zoomModule = {
         console.log(zoomModule.zooms)
     },
     getXRange: function (zoomLevel) {
-        return [0, 256 * Math.pow(2, zoomModule.currentZoomLevel)]
+        return [0, 256 * Math.pow(2, zoomLevel)]
     },
     mapValueOntoRange: function (value, oldRange, newRange) {
+        console.log("value: "+value);
+        console.log("old range: "+oldRange[0]+"-"+oldRange[1]);
+        console.log("new range: "+newRange[0]+"-"+newRange[1]);
         var oldSpan = oldRange[1] - oldRange[0];
         var newSpan = newRange[1] - newRange[0];
         var distanceToValue = value - oldRange[0];
@@ -133,12 +128,38 @@ var zoomModule = {
         var newValue = newRange[0] + distanceToNewValue;
         return newValue;
     },
-    getNewContainerPosition: function (oldTopLeftX, oldZoom, newZoom) {
+    /*getNewContainerPosition: function (oldTopLeftX, oldZoom, newZoom) {
         var oldCenterX = Math.abs(oldTopLeftX) + 512;
         var oldXRange = zoomModule.getXRange(oldZoom);
         var newXRange = zoomModule.getXRange(newZoom);
         var newCenterX = zoomModule.mapValueOntoRange(oldCenterX, oldXRange, newXRange);
         var newTopLeftX = newCenterX - 512;
         return -newTopLeftX;
-    }
+    },*/
+    getMousePositionInCurrentZoomLayerCoordinates: function (mousePosition, containerPosition) {
+        var x_coord;
+        var y_coord = mousePosition.y;
+        if (containerPosition.x <= 0) {
+            x_coord = mousePosition.x + Math.abs(containerPosition.x);
+        } else {
+            x_coord = mousePosition.x - containerPosition.x;
+        }
+        return {x: x_coord, y: y_coord};
+    },
+    getNewZoomLayerCoordiantes: function (oldZoomLayerCoordinates, oldZoomLevel, newZoomLevel) {
+        var newX = this.mapValueOntoRange(
+            oldZoomLayerCoordinates.x, 
+            zoomModule.getXRange(oldZoomLevel), 
+            zoomModule.getXRange(newZoomLevel));
+        console.log(newX);
+        return {x: newX, y: oldZoomLayerCoordinates.y};
+    },
+    getNewTopLeftToPositionContainerUnderMouse: function (mousePosition, newZoomLayerCoordinates) {
+        if (newZoomLayerCoordinates.x > mousePosition.x) {
+            return {x: -(newZoomLayerCoordinates.x - mousePosition.x), y: 0};
+        } else {
+            return {x: mousePosition.x - newZoomLayerCoordinates.x, y: 0};
+        }
+    },
+    
 };

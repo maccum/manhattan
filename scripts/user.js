@@ -10,11 +10,13 @@ function listenForDrag(evt) {
     svg.addEventListener('mouseup', endDrag, false);
 
     function getMousePosition(evt) {
-        var CTM = svg.getScreenCTM();
+        /*var CTM = svg.getScreenCTM();
         return {
             x: (evt.clientX - CTM.e) / CTM.a,
             y: (evt.clientY - CTM.f) / CTM.d
-        };
+        };*/
+        console.log("svg: "+svg);
+        return getMousePositionWithinObject(evt.clientX, evt.clientY, svg);
     }
 
     function beginDrag(evt) {
@@ -22,6 +24,7 @@ function listenForDrag(evt) {
         if (evt.target.classList.contains('tile')) {
             isDragging = true;
             mousePositionOnStartDrag = getMousePosition(evt);
+            console.log("mouse start pos: "+mousePositionOnStartDrag.x+" "+mousePositionOnStartDrag.y);
             dragPlotModule.beforeDrag(mousePositionOnStartDrag);
         }
     }
@@ -46,8 +49,20 @@ function onWheel(evt) {
     var vertical = evt.deltaY;
 
     if (Math.abs(vertical) >= Math.abs(horizontal)) {
-        zoomModule.zoomOnVerticalScroll(vertical);
+
+        zoomModule.zoomOnVerticalScroll(vertical, {x: evt.clientX, y: evt.clientY});
     } else {
         zoomModule.shiftOnHorizontalScroll(horizontal);
     }
+}
+
+function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
+    console.log("mouseX: "+mouseX);
+    console.log("mosueY: "+mouseY);
+    // get mouse coordiantes relative to the bounding object
+    var ctm = boundingObject.getScreenCTM();
+    return {
+        x: (mouseX - ctm.e) / ctm.a,
+        y: (mouseY - ctm.f) / ctm.d
+    };
 }
