@@ -44,8 +44,8 @@
         <span id="zoom">2</span>
     </p>
 
-    <input class="zoom-button" type="button" name="decrease" value="-" onclick="zoomModule.zoomOutOfCenter()" />
-    <input class="zoom-button" type="button" name="increase" value="+" onclick="zoomModule.zoomIntoCenter()" />
+    <input id="zoom-out-button" class="zoom-button" type="button" name="decrease" value="-" />
+    <input id="zoom-in-button" class="zoom-button" type="button" name="increase" value="+" />
 
     <svg id="slippyplot-widget" width="1300" height="350" xmlns="http://www.w3.org/2000/svg">
         <rect id="slippyplot-widget-background" width="1300" height="350"></rect>
@@ -82,6 +82,7 @@
     <script type="text/javascript" src="../scripts/zoom.js"></script>
     <script type="text/javascript" src="../scripts/tile.js"></script>
     <script type="text/javascript" src="../scripts/user.js"></script>
+    <script type="text/javascript" src="../scripts/position.js"></script>
     <script type="text/javascript" src="../scripts/main.js"></script>
 
 </body>

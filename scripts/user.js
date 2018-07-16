@@ -10,11 +10,6 @@ function listenForDrag(evt) {
     svg.addEventListener('mouseup', endDrag, false);
 
     function getMousePosition(evt) {
-        /*var CTM = svg.getScreenCTM();
-        return {
-            x: (evt.clientX - CTM.e) / CTM.a,
-            y: (evt.clientY - CTM.f) / CTM.d
-        };*/
         console.log("svg: "+svg);
         return getMousePositionWithinObject(evt.clientX, evt.clientY, svg);
     }

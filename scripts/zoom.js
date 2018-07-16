@@ -1,16 +1,22 @@
 var zoomModule = {
     currentZoomLevel: 2,
+    currentZoomScale: 1.0,
     maxZoomLevel: 7,
     minZoomLevel: 2,
     distanceZoomIn: 0,
     distanceZoomOut: 0,
     recentlyZoomed: false,
     zooms: ['zoom-2', 'zoom-3'],
+    getFractionalZoom: function () {
+        // e.g. currentZoomLevel=4 and currentZoomScale=.5005 -> fractionalZoom=3.001
+        var fractionalZoom = this.mapValueOntoRange(this.currentZoomScale, [0.5, 1.0], [this.currentZoomLevel - 1, this.currentZoomLevel]);
+        return fractionalZoom;
+    },
     shiftOnHorizontalScroll: function (horizontal) {
         dragPlotModule.moveContainerByAmount(horizontal);
     },
     zoomOnVerticalScroll: function (vertical, mousePosition) {
-        console.log("mousePosition: "+mousePosition.x+" "+mousePosition.y);
+        console.log("mousePosition: " + mousePosition.x + " " + mousePosition.y);
         if (vertical < 0) {
             zoomModule.distanceZoomIn += vertical;
             zoomModule.distanceZoomOut = 0;
@@ -44,10 +50,10 @@ var zoomModule = {
         this.zoomOutOfPosition(mousePosition);
     },
     zoomIntoCenter: function () {
-        zoomModule.zoomIntoPosition({x: 512, y: 0});
+        zoomModule.zoomIntoPosition({ x: 512, y: 0 });
     },
     zoomOutOfCenter: function () {
-        zoomModule.zoomOutOfPosition({x: 512, y: 0});
+        zoomModule.zoomOutOfPosition({ x: 512, y: 0 });
     },
     zoomIntoPosition: function (positionToZoomInto) {
         if (zoomModule.currentZoomLevel < zoomModule.maxZoomLevel) {
@@ -77,8 +83,8 @@ var zoomModule = {
         var currentX = transform.matrix.e;
 
         //var newTopLeftX = zoomModule.getNewContainerPosition(currentX, oldZoom, newZoom);
-        var currentMousePosInZoomLayerCoords = zoomModule.getMousePositionInCurrentZoomLayerCoordinates(mousePosition, {x: transform.matrix.e, y: 0});
-        console.log("oldZoom: "+oldZoom);
+        var currentMousePosInZoomLayerCoords = zoomModule.getMousePositionInCurrentZoomLayerCoordinates(mousePosition, { x: transform.matrix.e, y: 0 });
+        console.log("oldZoom: " + oldZoom);
         var newZoomLayerCoords = zoomModule.getNewZoomLayerCoordiantes(currentMousePosInZoomLayerCoords, oldZoom, newZoom);
         var newTopLeft = zoomModule.getNewTopLeftToPositionContainerUnderMouse(mousePosition, newZoomLayerCoords);
 
@@ -93,13 +99,13 @@ var zoomModule = {
         var x = 0;
 
         var newSVG = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-        newSVG.setAttribute("id", "zoom-"+zoomLevel+"-svg");
+        newSVG.setAttribute("id", "zoom-" + zoomLevel + "-svg");
         newSVG.setAttribute("class", "svg-zoom-layer");
-        newSVG.setAttribute("width", String(columns*256));
+        newSVG.setAttribute("width", String(columns * 256));
         g.appendChild(newSVG);
 
         var newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-        newGroup.setAttribute("id", "zoom-"+zoomLevel+"-group");
+        newGroup.setAttribute("id", "zoom-" + zoomLevel + "-group");
         newSVG.appendChild(newGroup);
 
         function createTile(c) {
@@ -129,9 +135,6 @@ var zoomModule = {
         return [0, 256 * Math.pow(2, zoomLevel)]
     },
     mapValueOntoRange: function (value, oldRange, newRange) {
-        console.log("value: "+value);
-        console.log("old range: "+oldRange[0]+"-"+oldRange[1]);
-        console.log("new range: "+newRange[0]+"-"+newRange[1]);
         var oldSpan = oldRange[1] - oldRange[0];
         var newSpan = newRange[1] - newRange[0];
         var distanceToValue = value - oldRange[0];
@@ -140,14 +143,6 @@ var zoomModule = {
         var newValue = newRange[0] + distanceToNewValue;
         return newValue;
     },
-    /*getNewContainerPosition: function (oldTopLeftX, oldZoom, newZoom) {
-        var oldCenterX = Math.abs(oldTopLeftX) + 512;
-        var oldXRange = zoomModule.getXRange(oldZoom);
-        var newXRange = zoomModule.getXRange(newZoom);
-        var newCenterX = zoomModule.mapValueOntoRange(oldCenterX, oldXRange, newXRange);
-        var newTopLeftX = newCenterX - 512;
-        return -newTopLeftX;
-    },*/
     getMousePositionInCurrentZoomLayerCoordinates: function (mousePosition, containerPosition) {
         var x_coord;
         var y_coord = mousePosition.y;
@@ -156,21 +151,69 @@ var zoomModule = {
         } else {
             x_coord = mousePosition.x - containerPosition.x;
         }
-        return {x: x_coord, y: y_coord};
+        return { x: x_coord, y: y_coord };
     },
     getNewZoomLayerCoordiantes: function (oldZoomLayerCoordinates, oldZoomLevel, newZoomLevel) {
         var newX = this.mapValueOntoRange(
-            oldZoomLayerCoordinates.x, 
-            zoomModule.getXRange(oldZoomLevel), 
+            oldZoomLayerCoordinates.x,
+            zoomModule.getXRange(oldZoomLevel),
             zoomModule.getXRange(newZoomLevel));
         console.log(newX);
-        return {x: newX, y: oldZoomLayerCoordinates.y};
+        return { x: newX, y: oldZoomLayerCoordinates.y };
     },
     getNewTopLeftToPositionContainerUnderMouse: function (mousePosition, newZoomLayerCoordinates) {
         if (newZoomLayerCoordinates.x > mousePosition.x) {
-            return {x: -(newZoomLayerCoordinates.x - mousePosition.x), y: 0};
+            return { x: -(newZoomLayerCoordinates.x - mousePosition.x), y: 0 };
         } else {
-            return {x: mousePosition.x - newZoomLayerCoordinates.x, y: 0};
+            return { x: mousePosition.x - newZoomLayerCoordinates.x, y: 0 };
         }
     },
 };
+
+var temp = {
+    increaseFractionalZoom: function () {
+        this.currentZoomScale += 5; // .0005 in scale units
+        // todo: floating point math
+        if (this.currentZoomScale == 1) {
+            this.currentZoomLevel++;
+            this.currentZoomScale = 1.0;
+        }
+        this.render();
+    },
+    decreaseFractionalZoom: function () {
+        this.currentZoomScale -= .0005;
+        if (this.currentZoomScale == .5) {
+            this.currentZoomLevel--;
+            this.currentZoomScale = 1.0;
+        }
+        this.render();
+    },
+    increaseAbsoluteZoom: function () {
+        if (this.currentZoomScale == 1.0) {
+            this.currentZoomLevel++;
+        } else {
+            this.currentZoomScale = 1.0;
+        }
+        this.render();
+    },
+    decreaseAbsoluteZoom: function () {
+        this.currentZoomLevel--;
+        this.currentZoomScale = 1.0;
+        this.render();
+    },
+}
+
+/*
+var renderModule = {
+    render: function (zoomLevel, fractionalZoom, positionMeta) {
+        // get topLeft from TopLeft
+        // move container
+        // scale zoom group
+        // display (peel)
+    },
+    peel: function(oldZoom, newZoom) {
+        // hide old zoom
+        // show new zoom
+    }
+}*/
+

@@ -33,3 +33,4 @@ var dragPlotModule = {
         transform.setTranslate(horizontalShift+transform.matrix.e, 0);
     }, 
 };
+
