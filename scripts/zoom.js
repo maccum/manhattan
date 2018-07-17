@@ -1,6 +1,6 @@
 var zoomModule = {
     currentZoomLevel: 2,
-    currentZoomScale: 1.0,
+    currentZoomScale: 10000, // divide by 10,000 to get 0-1 scale zoom
     maxZoomLevel: 7,
     minZoomLevel: 2,
     distanceZoomIn: 0,
@@ -9,7 +9,7 @@ var zoomModule = {
     zooms: ['zoom-2', 'zoom-3'],
     getFractionalZoom: function () {
         // e.g. currentZoomLevel=4 and currentZoomScale=.5005 -> fractionalZoom=3.001
-        var fractionalZoom = this.mapValueOntoRange(this.currentZoomScale, [0.5, 1.0], [this.currentZoomLevel - 1, this.currentZoomLevel]);
+        var fractionalZoom = this.mapValueOntoRange(this.currentZoomScale / 10000, [0.5, 1.0], [this.currentZoomLevel - 1, this.currentZoomLevel]);
         return fractionalZoom;
     },
     shiftOnHorizontalScroll: function (horizontal) {
@@ -99,13 +99,14 @@ var zoomModule = {
         var x = 0;
 
         var newSVG = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-        newSVG.setAttribute("id", "zoom-" + zoomLevel + "-svg");
+        newSVG.setAttribute("id", "zoom-svg-" + zoomLevel);
         newSVG.setAttribute("class", "svg-zoom-layer");
         newSVG.setAttribute("width", String(columns * 256));
         g.appendChild(newSVG);
 
         var newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-        newGroup.setAttribute("id", "zoom-" + zoomLevel + "-group");
+        newGroup.setAttribute("id", "zoom-group-" + zoomLevel);
+        newGroup.setAttribute("class", "zoom-group");
         newSVG.appendChild(newGroup);
 
         function createTile(c) {
@@ -168,40 +169,38 @@ var zoomModule = {
             return { x: mousePosition.x - newZoomLayerCoordinates.x, y: 0 };
         }
     },
-};
 
-var temp = {
     increaseFractionalZoom: function () {
         this.currentZoomScale += 5; // .0005 in scale units
         // todo: floating point math
-        if (this.currentZoomScale == 1) {
+        if (this.currentZoomScale == 10000) {
             this.currentZoomLevel++;
-            this.currentZoomScale = 1.0;
+            this.currentZoomScale = 10000;
         }
-        this.render();
+        //this.render();
     },
     decreaseFractionalZoom: function () {
-        this.currentZoomScale -= .0005;
-        if (this.currentZoomScale == .5) {
+        this.currentZoomScale -= 5;
+        if (this.currentZoomScale == 5000) {
             this.currentZoomLevel--;
-            this.currentZoomScale = 1.0;
+            this.currentZoomScale = 10000;
         }
-        this.render();
+        //this.render();
     },
     increaseAbsoluteZoom: function () {
-        if (this.currentZoomScale == 1.0) {
+        if (this.currentZoomScale == 10000) {
             this.currentZoomLevel++;
         } else {
-            this.currentZoomScale = 1.0;
+            this.currentZoomScale = 10000;
         }
-        this.render();
+        //this.render();
     },
     decreaseAbsoluteZoom: function () {
         this.currentZoomLevel--;
-        this.currentZoomScale = 1.0;
-        this.render();
+        this.currentZoomScale = 10000;
+        //this.render();
     },
-}
+};
 
 /*
 var renderModule = {

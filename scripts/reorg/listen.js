@@ -1,16 +1,13 @@
 function listenForDrag(evt) {
     var isDragging = false;
-    var offset, transform;
-    var mousePositionOnStartDrag;
+    var offset;
     var svg = evt.target;
-    console.log("svg: " + svg);
 
     svg.addEventListener('mousedown', beginDrag, false);
     svg.addEventListener('mousemove', drag, false);
     svg.addEventListener('mouseup', endDrag, false);
 
     function getMousePosition(evt) {
-        console.log("svg: "+svg);
         return getMousePositionWithinObject(evt.clientX, evt.clientY, svg);
     }
 
@@ -18,8 +15,8 @@ function listenForDrag(evt) {
         evt.preventDefault();
         if (evt.target.classList.contains('tile')) {
             isDragging = true;
-            mousePositionOnStartDrag = getMousePosition(evt);
-            dragPlotModule.beforeDrag(mousePositionOnStartDrag);
+            var mousePositionOnStartDrag = getMousePosition(evt);
+            plot.beforeDrag(mousePositionOnStartDrag);
         }
     }
 
@@ -27,7 +24,7 @@ function listenForDrag(evt) {
         if (isDragging) {
             evt.preventDefault();
             var currentMousePosition = getMousePosition(evt);
-            dragPlotModule.dragPlot(currentMousePosition);
+            plot.drag(currentMousePosition);
         }
     }
 
@@ -43,20 +40,29 @@ function onWheel(evt) {
     var vertical = evt.deltaY;
 
     if (Math.abs(vertical) >= Math.abs(horizontal)) {
-
-        zoomModule.zoomOnVerticalScroll(vertical, {x: evt.clientX, y: evt.clientY});
+        plot.zoom({x: evt.clientX, y: evt.clientY}, vertical);
     } else {
-        zoomModule.shiftOnHorizontalScroll(horizontal);
+        plot.shift(horizontal);
     }
 }
 
 function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
     console.log("mouseX: "+mouseX);
     console.log("mosueY: "+mouseY);
-    // get mouse coordiantes relative to the bounding object
+    // get mouse coordinates relative to the bounding object
     var ctm = boundingObject.getScreenCTM();
     return {
         x: (mouseX - ctm.e) / ctm.a,
         y: (mouseY - ctm.f) / ctm.d
     };
 }
+
+
+document.getElementById("plot").addEventListener("wheel", onWheel);
+
+document.getElementById("zoom-in-button").addEventListener("click", function (e) {
+    plot.snapZoomIn({x: 512, y: 128});
+});
+document.getElementById("zoom-out-button").addEventListener("click", function (e) {
+    plot.snapZoomOut({x: 512, y: 128});
+});
