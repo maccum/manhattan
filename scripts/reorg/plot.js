@@ -162,24 +162,26 @@ var plot = {
         render.shift(horizontal);
     },
     increaseFractionalZoom: function () {
-        if (this.scale < 10000) {
+        if (/*this.scale < 10000*/ this.scale < 12000) {
             this.scale += 5; // .0005 in scale units
         }
-        if (this.scale == 10000) {
+        if (/*this.scale == 10000*/ this.scale == 12000) {
             if (this.level < this.maxZoom) {
                 this.level++;
-                this.scale = 5000;
+                //this.scale = 5000;
+                this.scale = 6000;
             }
         }
     },
     decreaseFractionalZoom: function () {
-        if (this.scale > 5000) {
+        if (this.scale > /*5000*/ 6000) {
             this.scale -= 5;
         }
-        if (this.scale == 5000) {
+        if (this.scale == /*5000*/ 6000) {
             if (this.level > this.minZoom) {
                 this.level--;
-                this.scale = 10000;
+                //this.scale = 10000;
+                this.scale = 12000;
             }
         }
     },
