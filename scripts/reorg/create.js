@@ -1,10 +1,17 @@
-function createZoomLayer(level) {
-    //var g = document.getElementById("container");
+function populateLayer(level) {
+    var columns = Math.pow(2, level);
+    var x = 0;
+    for (var c = 0; c < columns; c++) {
+        var tilePath = "../plots/svg_tutorial_plots/" + level + "/" + c + ".png";
+        createTile(level, tilePath, x, 0, 256, 256);
+        x = x + 256
+    }
+}
+
+function createLayer(level) {
     var plot = document.getElementById(selectors.plot);
 
     var columns = Math.pow(2, level);
-    //var width = 256 * (Math.pow(2, zoom));
-    var x = 0;
 
     var newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
     newGroup.setAttribute("id", "layer-" + level);
@@ -16,34 +23,29 @@ function createZoomLayer(level) {
     newSVG.setAttribute("height", "256");
     newGroup.appendChild(newSVG);
 
-    function createTile(c) {
-        var newTile = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-        //newElement.setAttribute("class", "tile zoom-" + zoomLevel);
-        newTile.setAttribute("y", "0");
-        newTile.setAttribute("width", '256');
-        newTile.setAttribute("height", '256');
-
-        newTile.setAttribute("x", String(x));
-        x = x + 256;
-        var tilePath = "../plots/svg_tutorial_plots/" + level + "/" + c + ".png";
-        newTile.setAttributeNS("http://www.w3.org/1999/xlink", "href", tilePath);
-
-        newSVG.appendChild(newTile);
-    }
-
-    for (var c = 0; c < columns; c++) {
-        createTile(c);
-    }
-
-    //$(".zoom-" + zoomLevel).hide();
     render.getLayer(level).hide();
-    //zoomModule.zooms.push("zoom-" + zoomLevel);
     render.layers.push(level);
     console.log(render.layers);
 }
 
+function createTile(level, tilePath, x, y, width, height) {
+    var svgLayer = document.getElementById(selectors.svgLayerID(level));
 
-createZoomLayer(4);
+    var newTile = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+    newTile.setAttribute("y", String(y));
+    newTile.setAttribute("width", String(width));
+    newTile.setAttribute("height", String(height));
+    newTile.setAttribute("x", String(x));
+    newTile.setAttributeNS("http://www.w3.org/1999/xlink", "href", tilePath);
+    svgLayer.appendChild(newTile);
+}
+
+/*createZoomLayer(4);
 createZoomLayer(5);
 createZoomLayer(6);
-createZoomLayer(7);
+createZoomLayer(7);*/
+
+for (var i = 4; i<8; i++) {
+    createLayer(i);
+    populateLayer(i);
+}

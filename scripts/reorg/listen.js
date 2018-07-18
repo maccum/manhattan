@@ -40,7 +40,9 @@ function onWheel(evt) {
     var vertical = evt.deltaY;
 
     if (Math.abs(vertical) >= Math.abs(horizontal)) {
-        plot.zoom({ x: evt.clientX, y: evt.clientY }, vertical);
+        var svg = document.getElementById("plot");
+        var mousePos = getMousePositionWithinObject(evt.clientX, evt.clientY, svg)
+        plot.zoom(/*{ x: evt.clientX, y: evt.clientY }*/mousePos, vertical);
     } else {
         plot.shift(horizontal);
     }
