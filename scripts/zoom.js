@@ -129,8 +129,8 @@ var zoomModule = {
         }
 
         $(".zoom-" + zoomLevel).hide();
-        zoomModule.zooms.push("zoom-" + zoomLevel)
-        console.log(zoomModule.zooms)
+        zoomModule.zooms.push("zoom-" + zoomLevel);
+        console.log(zoomModule.zooms);
     },
     getXRange: function (zoomLevel) {
         return [0, 256 * Math.pow(2, zoomLevel)]

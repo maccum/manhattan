@@ -1,7 +1,7 @@
 var plot = {
     level: 2,
     scale: 10000, // divide scale by factor of 10,000 to get [0.5, 1.0]
-    maxZoom: 3,
+    maxZoom: 7,
     minZoom: 2,
     dragOffset: {
         x: 0,
@@ -96,10 +96,12 @@ var plot = {
     },
     beforeDrag: function(mouseStart) {
         var currentLayer = new Layer(this.level);
-        this.offset.x = mouseStart.x - currentLayer.x;
+        this.dragOffset.x = mouseStart.x - currentLayer.x();
+        console.log("this.dragOffset.x: "+this.dragOffset.x);
     },
     drag: function (mouseCurrent) {
-        render.render({x: mouse.x - this.offset.x, y: 0}, this.scaleInUnits());
+        console.log("draggOffset.x"+this.dragOffset.x);
+        render.render({x: mouseCurrent.x - this.dragOffset.x, y: 0}, this.scaleInUnits());
     },
     shift: function(horizontal) {
         render.shift(horizontal);
@@ -127,16 +129,18 @@ var plot = {
         }
     },
     increaseAbsoluteZoom: function () {
-        if (this.scale < this.maxZoom) {
+        if (this.level < this.maxZoom) {
             if (this.scale == 10000) {
+                console.log("scale is 1");
                 this.level++;
             } else {
+                console.log("scale is not 1");
                 this.scale = 10000;
             }
         }
     },
     decreaseAbsoluteZoom: function () {
-        if (this.scale > this.minZoom) {
+        if (this.level > this.minZoom) {
             this.level--;
             this.scale = 10000;
         }

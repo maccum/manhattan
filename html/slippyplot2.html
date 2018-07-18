@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Slippy Plot</title>
+    <title>Slippy Plot 2</title>
     <style>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,9 +11,7 @@
 
 <body>
 
-    <h1>Slippy Plot</h1>
-
-    <p>A slippy map for scalable visualization of graphs.</p>
+    <h1>Plot</h1>
     <p>Zoom:
         <span id="zoom-div">2</span>
     </p>
@@ -29,7 +27,7 @@
     <svg id="widget" width="1300" height="350">
         <rect width="1300" height="350" fill="#dee0e2" stroke="black"></rect>
         <svg id="plot" width="1024" height="256" x="60" y="30" onload="listenForDrag(evt)">
-            <rect width="1024" height="256" fill="none" stroke="black"></rect>
+            <rect width="1024" height="256" fill="#d1d1e0" stroke="black"></rect>
             <!-- layers go here-->
 
             <g id="layer-2" x="0" y="0" visibility="visible">
@@ -58,12 +56,13 @@
         </svg>
     </svg>
 
-    <script type="text/javascript" src="../scripts/reorg/element.js"></script>
+    <script type="text/javascript" src="../scripts/reorg/layer.js"></script>
     <script type="text/javascript" src="../scripts/reorg/selectors.js"></script>
     <script type="text/javascript" src="../scripts/reorg/render.js"></script>
     <script type="text/javascript" src="../scripts/reorg/point_of_intersection.js"></script>
     <script type="text/javascript" src="../scripts/reorg/plot.js"></script>
     <script type="text/javascript" src="../scripts/reorg/listen.js"></script>
+    <script type="text/javascript" src="../scripts/reorg/create.js"></script>
 
 </body>
 

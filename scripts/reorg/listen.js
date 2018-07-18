@@ -1,4 +1,5 @@
 function listenForDrag(evt) {
+    console.log("listenForDrag");
     var isDragging = false;
     var offset;
     var svg = evt.target;
@@ -13,11 +14,10 @@ function listenForDrag(evt) {
 
     function beginDrag(evt) {
         evt.preventDefault();
-        if (evt.target.classList.contains('tile')) {
-            isDragging = true;
-            var mousePositionOnStartDrag = getMousePosition(evt);
-            plot.beforeDrag(mousePositionOnStartDrag);
-        }
+        console.log("beginDrag");
+        isDragging = true;
+        var mousePositionOnStartDrag = getMousePosition(evt);
+        plot.beforeDrag(mousePositionOnStartDrag);
     }
 
     function drag(evt) {
@@ -40,15 +40,13 @@ function onWheel(evt) {
     var vertical = evt.deltaY;
 
     if (Math.abs(vertical) >= Math.abs(horizontal)) {
-        plot.zoom({x: evt.clientX, y: evt.clientY}, vertical);
+        plot.zoom({ x: evt.clientX, y: evt.clientY }, vertical);
     } else {
         plot.shift(horizontal);
     }
 }
 
 function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
-    console.log("mouseX: "+mouseX);
-    console.log("mosueY: "+mouseY);
     // get mouse coordinates relative to the bounding object
     var ctm = boundingObject.getScreenCTM();
     return {
@@ -61,8 +59,10 @@ function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
 document.getElementById("plot").addEventListener("wheel", onWheel);
 
 document.getElementById("zoom-in-button").addEventListener("click", function (e) {
-    plot.snapZoomIn({x: 512, y: 128});
+    console.log("snap zoom in");
+    plot.snapZoomIn({ x: 512, y: 128 });
 });
 document.getElementById("zoom-out-button").addEventListener("click", function (e) {
-    plot.snapZoomOut({x: 512, y: 128});
+    console.log("snap zoom out");
+    plot.snapZoomOut({ x: 512, y: 128 });
 });
