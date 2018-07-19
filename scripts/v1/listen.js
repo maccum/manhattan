@@ -49,7 +49,6 @@ function onWheel(evt) {
 }
 
 function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
-    // get mouse coordinates relative to the bounding object
     var ctm = boundingObject.getScreenCTM();
     return {
         x: (mouseX - ctm.e) / ctm.a,

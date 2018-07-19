@@ -11,25 +11,14 @@ var plot = {
         return { x: this.scale / 10000, y: 1 };
     },
     zoom: function (focus, vertical) {
-
-        console.log("zooming");
         var currentLayer = new Layer(this.level);
-        var percentageCoordinates = topLeftToPercentage(
+        var percentageCoordinates = position.topLeftToPercentage(
             focus,
             currentLayer.topLeft(),
             this.scaleInUnits(),
             currentLayer.width(),
             currentLayer.height()
         );
-        function str(pt) {
-            return "("+pt.x+","+pt.y+")";
-        }
-        console.log("OLD\n:focus: "+str(focus)
-        +"\ntopLeft:"+str(currentLayer.topLeft())
-        +"\nscale"+str(this.scaleInUnits())
-        +"\nwidth:"+currentLayer.width()
-        +"\nheight:"+currentLayer.height()
-        +"\n% start:"+str(percentageCoordinates));
 
         var howMuch = Math.floor(Math.abs(vertical) / 5);
         for (var i = 0; i < howMuch; i++) {
@@ -40,7 +29,7 @@ var plot = {
             }
         }
         var newLayer = new Layer(this.level);
-        var topLeft = percentageToTopLeft(
+        var topLeft = position.percentageToTopLeft(
             focus,
             percentageCoordinates,
             this.scaleInUnits(),
@@ -48,23 +37,14 @@ var plot = {
             newLayer.height(),
         );
 
-        var p = topLeftToPercentage(focus, newLayer.topLeft(), this.scaleInUnits(), newLayer.width(), newLayer.height());
-        console.log("NEW:\nfocus: "+str(focus)
-        +"\ntopLeft:"+str(newLayer.topLeft())
-        +"\nscale"+str(this.scaleInUnits())
-        +"\nwidth:"+newLayer.width()
-        +"\nheight:"+newLayer.height()
-        +"\n% start:"+str(p));
-
-        render.peel(this.level);
-        render.render(topLeft, this.scaleInUnits());
+        render.pan(this.level, topLeft, this.scaleInUnits());
 
         $("#zoom-div").text(this.level);
         $("#fractional-zoom-div").text(this.scaleInUnits().x);
     },
     snapZoomIn(focus) {
         var currentLayer = new Layer(this.level);
-        var percentageCoordinates = topLeftToPercentage(
+        var percentageCoordinates = position.topLeftToPercentage(
             focus,
             currentLayer.topLeft(),
             this.scaleInUnits(),
@@ -75,48 +55,32 @@ var plot = {
         if (this.level < this.maxZoom) {
             if (this.scale == 10000) {
                 this.increaseFractionalZoom();
+                console.log("fractional zoom"+this.scaleInUnits().x);
             }
             var interval = setInterval(function () {
-                if (/*plot.scale != 10000*/ 10000 - plot.scale > 5) {
+                if (/*plot.scale != 10000*/ Math.abs(10000 - plot.scale) >= 5) {
                     plot.increaseFractionalZoom();
                 } else {
                     plot.scale = 10000;
                     clearInterval(interval);
                 }
                 var newLayer = new Layer(plot.level);
-                var topLeft = percentageToTopLeft(
+                var topLeft = position.percentageToTopLeft(
                     focus,
                     percentageCoordinates,
                     plot.scaleInUnits(),
                     newLayer.width(),
                     newLayer.height(),
                 );
-                render.peel(plot.level);
-                render.render(topLeft, plot.scaleInUnits());
+                render.pan(plot.level, topLeft, plot.scaleInUnits());
                 $("#zoom-div").text(plot.level);
                 $("#fractional-zoom-div").text(plot.scaleInUnits().x);
             }, .1);
         }
-        /*
-        this.increaseAbsoluteZoom();
-
-        var newLayer = new Layer(this.level);
-        var topLeft = percentageToTopLeft(
-            focus,
-            percentageCoordinates,
-            this.scaleInUnits(),
-            newLayer.width(),
-            newLayer.height(),
-        );
-        render.peel(this.level);
-        render.render(topLeft, this.scaleInUnits());
-
-        $("#zoom-div").text(this.level);
-        $("#fractional-zoom-div").text(this.scaleInUnits().x);*/
     },
     snapZoomOut(focus) {
         var currentLayer = new Layer(this.level);
-        var percentageCoordinates = topLeftToPercentage(
+        var percentageCoordinates = position.topLeftToPercentage(
             focus,
             currentLayer.topLeft(),
             this.scaleInUnits(),
@@ -129,7 +93,7 @@ var plot = {
                 this.decreaseFractionalZoom();
             }
             var interval = setInterval(function () {
-                if (/*plot.scale != 10000*/ 10000 - plot.scale > 1) {
+                if (/*plot.scale != 10000*/ Math.abs(10000 - plot.scale) >= 5) {
                     plot.decreaseFractionalZoom();
                 } else {
                     plot.scale = 10000;
@@ -137,15 +101,14 @@ var plot = {
                 }
 
                 var newLayer = new Layer(plot.level);
-                var topLeft = percentageToTopLeft(
+                var topLeft = position.percentageToTopLeft(
                     focus,
                     percentageCoordinates,
                     plot.scaleInUnits(),
                     newLayer.width(),
                     newLayer.height(),
                 );
-                render.peel(plot.level);
-                render.render(topLeft, plot.scaleInUnits());
+                render.pan(plot.level, topLeft, plot.scaleInUnits());
                 $("#zoom-div").text(plot.level);
                 $("#fractional-zoom-div").text(plot.scaleInUnits().x);
             }, .1);

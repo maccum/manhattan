@@ -17,6 +17,10 @@ var render = {
         }
         this.getLayer(this.visible).show();
     },
+    pan: function (level, topLeft, scale) {
+        this.peel(level);
+        this.render(topLeft, scale);
+    },
     shift: function(shift) {
         var visibleLayer = this.getLayer(this.visible);
         visibleLayer.shift(shift);

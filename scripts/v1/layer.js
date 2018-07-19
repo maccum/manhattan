@@ -1,8 +1,8 @@
 class Layer {
     constructor(layer) {
-        this.layer = document.getElementById(selectors.layerID(layer));
-        this.svgLayer = document.getElementById(selectors.svgLayerID(layer));
-        this.svg = document.getElementById(selectors.plot);
+        this.layer = document.getElementById(meta.ids.layer(layer));
+        this.svgLayer = document.getElementById(meta.ids.svgLayer(layer));
+        this.svg = document.getElementById(meta.ids.plot);
     }
 
     transformations() {
