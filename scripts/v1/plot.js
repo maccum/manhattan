@@ -52,12 +52,16 @@ var plot = {
         //$("#fractional-zoom-div").text(this.scaleInUnits().x);
         var visiblesString = "";
         var scalesString = "";
+        var opacityString = "";
+        console.log("%");
         for (key in meta.visibles) {
             visiblesString += " " + key;
             scalesString += " " + meta.visibles[key].scale.x/10000;
+            opacityString += " "+ meta.alpha(key);
         }
         $("#zoom-div").text(visiblesString);
         $("#fractional-zoom-div").text(scalesString);
+        $("#opacity-div").text(opacityString);
     },
     snapZoomIn(focus) {
         var currentLayer = new Layer(this.level);
@@ -149,6 +153,10 @@ var plot = {
     },
     shift: function (horizontal) {
         render.shift(horizontal);
+        for (key in meta.visibles) {
+            var perc = position.topLeftToPercentage({x: 512, y: 128}, meta.visibles[key].layer.topLeft(), meta.visibles[key].scale,  meta.visibles[key].layer.width(),  meta.visibles[key].layer.height())
+            console.log("key: "+key+" "+ perc.x + " "+perc.y);
+        }
     },
     /*increaseFractionalZoom: function () {
         if (this.scale < 12000) {

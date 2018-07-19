@@ -26,6 +26,7 @@ var render = {
 
             visibleLayer.scale(scaleInUnits.x, scaleInUnits.y);
             visibleLayer.translate(topLeft.x, topLeft.y);
+            visibleLayer.fade(meta.alpha(key));
         }
     },
     /*peel: function(level) {

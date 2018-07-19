@@ -104,8 +104,6 @@ var meta = {
     },
     addHidden: function (level) {
         this.hiddens[level] = {layer: new Layer(level)};
-        console.log("adding hidden: "+level);
-        console.log(this.hiddens[level]);
         this.hiddens[level].layer.hide();
     },
     removeVisible: function(level) {
@@ -125,14 +123,11 @@ var meta = {
                 this.visibles[key].scale.x += 10;
             }
             if (this.visibles[key].scale.x >= 18000 && key < this.max) {
-                console.log("removing level: "+key);
                 this.removeVisible(key);
                 this.addHidden(key);
             } else if (this.visibles[key].scale.x == 12000) {
                 var layerToReveal = parseInt(key)+1;
-                console.log("layer to Reveal: "+layerToReveal);
                 if (layerToReveal <= this.max) {
-                    console.log("revealing level: "+layerToReveal);
                     this.addVisible(layerToReveal, {x: 6000, y: 10000});
                     this.removeHidden(layerToReveal);
                 }
@@ -161,12 +156,12 @@ var meta = {
     },
     alpha: function(level) {
         var xScale = this.visibles[level].scale.x;
-        if (xScale == 10000) {
-            return 1;
-        } else if (xScale < 10000) {
-            return this.mapValueOntoRange(xScale, [6000, 10000], [.5, 1]);
+        if (xScale < 9000) {
+            return this.mapValueOntoRange(xScale, [6000, 9000], [.5, 1]);
+        } else if (xScale > 12000) {
+            return this.mapValueOntoRange(xScale, [12000, 19000], [1, .5]);
         } else {
-            return this.mapValueOntoRange(xScale, [10000, 19000], [1, .5]);
+            return 1;
         }
     },
     mapValueOntoRange: function(value, oldRange, newRange) {
