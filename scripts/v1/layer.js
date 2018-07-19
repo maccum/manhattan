@@ -16,28 +16,33 @@ class Layer {
             scale.setScale(1.0,1.0);
             this.layer.transform.baseVal.insertItemBefore(scale, 1);
         } else {
-            //assert(transformations.getItem(0).type === SVGTransform.SVG_TRANSFORM_TRANSLATE);
-            //assert(transformations.getItem(1).type === SVGTransform.SVG_TRANSFORM_SCALE);
+            if (transformations.length !== 2) slippyPlotError("Layer", "expected transformations to be a list of length 2.");
+            if (transformations.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) slippyPlotError("Layer", "first transform is not a Translate.");
+            if (transformations.getItem(1).type !== SVGTransform.SVG_TRANSFORM_SCALE) slippyPlotError("Layer", "second transform is not a Scale.");
         }
         return this.layer.transform.baseVal;
     }
 
     translate(shiftX, shiftY) {
         var translation = this.transformations().getItem(0);
-        //assert(translation.type === SVGTransform.SVG_TRANSFORM_TRANSLATE);
+        if (translation.type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) slippyPlotError("Layer", "first transform is not a Translate.");
         translation.setTranslate(shiftX, shiftY);
     }
 
     scale(scaleX, scaleY) {
         var scale = this.transformations().getItem(1);
-        //assert(scale.type === SVGTransform.SVG_TRANSFORM_SCALE);
+        if (scale.type !== SVGTransform.SVG_TRANSFORM_SCALE) slippyPlotError("Layer", "second transform is not a Scale.");
         scale.setScale(scaleX, scaleY);
     }
 
     shift(shiftX) {
         var translation = this.transformations().getItem(0);
-        //assert(translation.type === SVGTransform.SVG_TRANSFORM_TRANSLATE);
+        if (translation.type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) slippyPlotError("Layer", "first transform is not a Translate.");
         translation.setTranslate(shiftX + translation.matrix.e, translation.matrix.f);
+    }
+
+    fade(opacity) {
+        this.layer.setAttribute("opacity", opacity);
     }
 
     x() {
