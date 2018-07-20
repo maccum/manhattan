@@ -1,0 +1,124 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <svg id="root" width="800" height="700">
+        <rect width="800" height="250" fill="none" stroke="black"></rect>
+
+        <g id="static">
+            <text x="20" y="20">Static images</text>
+        </g>
+
+        <rect width="800" height="250" y="255" fill="none" stroke="black"></rect>
+
+        <g id="animated">
+            <text x="20" y="275">Animations</text>
+        </g>
+
+    </svg>
+
+    <script>
+
+        function makeGraphic(graphicID, parentID, x, y, width, height, opacity, desc, xScale) {
+            var parent = document.getElementById(parentID);
+
+            var text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+            text.textContent = desc;
+            text.setAttribute("y", y + 20);
+            text.setAttribute("x", "360");
+            document.getElementById("static").appendChild(text);
+
+            var group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            group.setAttribute("id", graphicID);
+            group.setAttribute("opacity", opacity);
+            group.setAttribute("transform", "translate(" + x + ", " + y + ") scale(" + String(xScale) + ", 1.0)");
+            parent.appendChild(group);
+
+            var rectangle = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+            rectangle.setAttribute("width", String(width));
+            rectangle.setAttribute("height", String(height));
+            rectangle.setAttribute("x", 0);
+            rectangle.setAttribute("y", 0);
+            rectangle.setAttribute("fill", "white");
+            rectangle.setAttribute("stroke", "black");
+            group.appendChild(rectangle);
+
+            // add circle in center of graphic
+            makeCircle(group, width / 2, height / 2);
+        }
+
+        function makeCircle(parent, cx, cy) {
+            var circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+            circle.setAttribute("r", "15");
+            circle.setAttribute("cx", String(cx));
+            circle.setAttribute("cy", String(cy));
+            circle.setAttribute("fill", "green");
+            parent.appendChild(circle);
+        }
+
+        function element(id) {
+            return document.getElementById(id);
+        }
+
+        function opacity(element) {
+            return parseFloat(element.getAttribute("opacity"));
+        }
+
+        makeGraphic("static1", "static", 30, 30, 160, 40, 1, "1 circle, 100% opacity", 1.0);
+
+        makeGraphic("static2", "static", 30, 80, 160, 40, .5, "2 circles, 50% opacity", 1.0);
+        makeGraphic("static3", "static", 30, 80, 320, 40, .5, "", .5);
+
+        makeGraphic("static4", "static", 30, 125, 160, 40, .8, "2 circles, 80% bottom : 20% top", 1.0);
+        makeGraphic("static5", "static", 30, 125, 320, 40, .2, "", .5);
+
+        makeGraphic("static6", "static", 30, 170, 160, 40, .20, "2 circles, 20% bottom : 80% top", 1.0);
+        makeGraphic("static7", "static", 30, 170, 320, 40, .80, "", .5);
+
+        // Animations:
+
+        makeGraphic("g1", "animated", 30, 285, 160, 40, 1.0, "Opacities sum to 100%", 1.0);
+        makeGraphic("g2", "animated", 30, 285, 320, 40, 0, "", .5);
+
+        makeGraphic("g3", "animated", 30, 335, 160, 40, 1.0, "Bottom opacity always 100%, top opacity fades slowly", 1.0);
+        makeGraphic("g4", "animated", 30, 335, 320, 40, 0, "", .5);
+
+        var interval = setInterval(function () {
+            var g1 = element("g1"),
+                g2 = element("g2");
+            if (opacity(g1) > 0) {
+                g2.setAttribute("opacity", String(opacity(g2) + .001));
+                var xScale = parseFloat(g2.transform.baseVal.getItem(1).matrix.a);
+                g2.transform.baseVal.getItem(1).setScale(xScale + .0005, 1.0);
+
+                g1.setAttribute("opacity", String(opacity(g1) - .001));
+                xScale = parseFloat(g1.transform.baseVal.getItem(1).matrix.a);
+                g1.transform.baseVal.getItem(1).setScale(xScale + .001, 1.0);
+            } else {
+                clearInterval(interval);
+            }
+        }, 10);
+
+        var interval2 = setInterval(function () {
+            var g3 = element("g3"),
+                g4 = element("g4");
+            if (opacity(g4) < 1) {
+                g4.setAttribute("opacity", String(opacity(g4) + .001));
+                var xScale = parseFloat(g4.transform.baseVal.getItem(1).matrix.a);
+                g4.transform.baseVal.getItem(1).setScale(xScale + .0005, 1.0);
+
+                //g3.setAttribute("opacity", String(opacity(g3) - .001));
+                var xScale = parseFloat(g3.transform.baseVal.getItem(1).matrix.a);
+                g3.transform.baseVal.getItem(1).setScale(xScale + .001, 1.0);
+            } else {
+                clearInterval(interval2);
+            }
+        }, 10);
+
+    </script>
+</body>
+
+</html>
