@@ -41,6 +41,12 @@ var render = {
         this.peel(level);
         this.render(topLeft, scale);
     },*/
+    pan: function(topLeft) {
+        for (key in meta.visibles) {
+            var visible = meta.visibles[key];
+            visible.layer.translate(topLeft.x, topLeft.y);
+        }
+    },
     shift: function(shift) {
         //var visibleLayer = this.getLayer(this.visible);
         //visibleLayer.shift(shift);
@@ -48,6 +54,7 @@ var render = {
         // to do : shift needs to be percentage based!!!!!!!!
         for (key in meta.visibles) {
             var visible = meta.visibles[key];
+            console.log("shift is : "+shift);
             visible.layer.shift(shift);
         }
     }

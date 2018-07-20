@@ -119,7 +119,7 @@ var meta = {
         for (key in this.visibles) {
             if (this.visibles[key].scale.x < 10000) {
                 this.visibles[key].scale.x += 5;
-            } else {
+            } else if (key < this.max) {
                 this.visibles[key].scale.x += 10;
             }
             if (this.visibles[key].scale.x >= 18000 && key < this.max) {
@@ -138,7 +138,7 @@ var meta = {
         for (key in this.visibles) {
             if (this.visibles[key].scale.x < 10000) {
                 this.visibles[key].scale.x -= 5;
-            } else {
+            } else if (!(key == this.min && this.visibles[key].scale.x == 10000)){
                 this.visibles[key].scale.x -= 10;
             }
 
@@ -157,9 +157,12 @@ var meta = {
     alpha: function(level) {
         var xScale = this.visibles[level].scale.x;
         if (xScale < 9000) {
-            return this.mapValueOntoRange(xScale, [6000, 9000], [.5, 1]);
+            // layer below
+            // background of layer on top is not transparent, so even if layers add up to 100% transparency, it will appear faded.
+            return this.mapValueOntoRange(xScale, [6000, 9000], [0, 1]); 
         } else if (xScale > 12000) {
-            return this.mapValueOntoRange(xScale, [12000, 19000], [1, .5]);
+            // layer on top
+            return this.mapValueOntoRange(xScale, [12000, 18000], [1, 0]); // on top
         } else {
             return 1;
         }

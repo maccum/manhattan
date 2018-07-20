@@ -15,7 +15,7 @@ var plot = {
     },
     zoom: function (focus, vertical) {
         //var currentLayer = new Layer(this.level);
-        if (Object.keys(meta.visibles).length == 0 ) throw "No Visibles!";
+        if (Object.keys(meta.visibles).length == 0 ) throw "zoom: No Visibles!";
         //console.log(meta.visibles);
         var currentVisible = meta.visibles[Object.keys(meta.visibles)[0]]; // gets first visible layer
         var percentageCoordinates = position.topLeftToPercentage(
@@ -144,12 +144,21 @@ var plot = {
         }
     },
     beforeDrag: function (mouseStart) {
-        var currentLayer = new Layer(this.level);
-        this.dragOffset.x = mouseStart.x - currentLayer.x();
+        //var currentLayer = new Layer(this.level);
+        if (Object.keys(meta.visibles).length == 0 ) throw "beforeDrag: No Visibles!";
+        var firstVisible = meta.visibles[Object.keys(meta.visibles)[0]]; // gets first visible layer
+
+        //this.dragOffset.x = mouseStart.x - currentLayer.x();
+
+        this.dragOffset.x = mouseStart.x - firstVisible.layer.x();
     },
     drag: function (mouseCurrent) {
-        // TODO: fix drag;
+        ///TODO: fix drag;
         //render.render({ x: mouseCurrent.x - this.dragOffset.x, y: 0 }, this.scaleInUnits());
+        // top left and scale -> focus and percentage
+
+        //this.shift(mouseCurrent.x - this.dragOffset.x);
+        render.pan({x: mouseCurrent.x - this.dragOffset.x, y: 0});
     },
     shift: function (horizontal) {
         render.shift(horizontal);
