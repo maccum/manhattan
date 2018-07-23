@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Slippy Plot V2</title>
+    <style></style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+
+    <h1>slippy plot v2</h1>
+    <p>Zoom:
+        <span id="zoom-div">2</span>
+    </p>
+    <p>Fractional Zoom:
+        <span id="fractional-zoom-div">1</span>
+    </p>
+    <p>Opacity:
+            <span id="opacity-div">1</span>
+        </p>
+
+    <input id="zoom-out-button" class="zoom-button" type="button" name="decrease" value="-" />
+    <input id="zoom-in-button" class="zoom-button" type="button" name="increase" value="+" />
+
+    <br>
+
+    <svg id="widget" width="1300" height="350">
+        <rect width="1300" height="350" fill="#dee0e2" stroke="black"></rect>
+        <svg id="plot" width="1024" height="256" x="60" y="30" onload="listenForDrag(evt)">
+            <rect width="1024" height="256" fill="white" stroke="black"></rect>
+            <!-- layers go here-->
+
+            <g id="layer-2" x="0" y="0" visibility="visible">
+                <svg id="svg-layer-2" width="1024" height="256">
+                    <image x="0" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/0.png" />
+                    <image x="256" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/1.png" />
+                    <image x="512" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/2.png" />
+                    <image x="768" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/2/3.png" />
+                </svg>
+            </g>
+
+            <g id="layer-3" x="0" y="0" visibility="hidden">
+                <svg id="svg-layer-3" width="2048" height="256">
+                    <image x="0" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/0.png" />
+                    <image x="256" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/1.png" />
+                    <image x="512" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/2.png" />
+                    <image x="768" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/3.png" />
+                    <image x="1024" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/4.png" />
+                    <image x="1280" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/5.png" />
+                    <image x="1536" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/6.png" />
+                    <image x="1792" y="0" width="256" height="256" xlink:href="../plots/svg_tutorial_plots/3/7.png" />
+                </svg>
+            </g>
+        </svg>
+    </svg>
+
+    <br>
+    <br>
+
+    <script type="text/javascript" src="../scripts/v2/src/plot/plot.js"></script>
+
+    <script type="text/javascript" src="../scripts/v2/src/gui/gui.js"></script>
+    <script type="text/javascript" src="../scripts/v2/src/gui/svg.js"></script>
+    <script type="text/javascript" src="../scripts/v2/src/gui/selectors.js"></script>
+    <script type="text/javascript" src="../scripts/v2/src/gui/page.js"></script>
+   
+</body>
+
+</html>

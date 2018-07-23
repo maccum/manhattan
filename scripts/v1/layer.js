@@ -1,7 +1,7 @@
 class Layer {
-    constructor(layer) {
-        this.layer = document.getElementById(meta.ids.layer(layer));
-        this.svgLayer = document.getElementById(meta.ids.svgLayer(layer));
+    constructor(level) {
+        this.layer = document.getElementById(meta.ids.layer(level));
+        this.svgLayer = document.getElementById(meta.ids.svgLayer(level));
         this.svg = document.getElementById(meta.ids.plot);
     }
 
