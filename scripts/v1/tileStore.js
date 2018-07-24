@@ -157,13 +157,12 @@ var meta = {
     alpha: function(level) {
         var xScale = this.visibles[level].scale.x;
         if (xScale < 9000) {
-            // layer below
-            // background of layer on top is not transparent, so even if layers add up to 100% transparency, it will appear faded.
-            return this.mapValueOntoRange(xScale, [6000, 9000], [0, 1]); 
-        } else if (xScale > 12000) {
-            // layer on top
-            return this.mapValueOntoRange(xScale, [12000, 18000], [1, 0]); // on top
-        } else {
+            // layer with higher zoom level 
+            return this.mapValueOntoRange(xScale, [6000, 9000], [0, 1]); // on top 
+        } /*else if (xScale > 12000) {
+            // layer with lower zoom level
+            return this.mapValueOntoRange(xScale, [12000, 18000], [1, 0]); // on bottom 
+        }*/ else {
             return 1;
         }
     },

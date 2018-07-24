@@ -18,7 +18,7 @@ var gui = {
             new editSVG()
                 .set(layer.level)
                 .translate(layer.topLeft.x, layer.topLeft.y)
-                .scale(layer.scale.x, layer.scale.y)
+                .scale(layer.scale.x/plot.scaleFactor, layer.scale.y/plot.scaleFactor) // where best to put scaleFactor
                 .fade(layer.opacity)
                 .show();
         }
