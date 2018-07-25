@@ -12,7 +12,13 @@ manhattan.iml
 
 # ignore hail tables and generated plots
 /data/
-/plots/
+/plots/caffeine/
+/plots/caffeine_plots/
+/plots/matplotlib/
+/plots/new_caffeine_plots/
+/plots/new_standing_height_plots
+/plots/sh_plots/
+/plots/svg_tutorial_plots
 
 slippyplot/test/test_resources/
 slippyplot/test/test_plotgen/test_resources
