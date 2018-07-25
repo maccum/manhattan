@@ -1,4 +1,3 @@
-
 var schema = {
     check: function (object, keys) {
         if (Object.keys(object).length != keys.length) {
@@ -15,7 +14,7 @@ var schema = {
         return schema.check(object, ['x', 'y']);
     },
     dimensions: function (object) {
-        return schema.xy(object);
+        return schema.check(object, ['width', 'height']);
     },
     point: function (object) {
         return schema.xy(object);
@@ -30,4 +29,4 @@ var schema = {
     },
 }
 
-module.exports = schema;
+//module.exports.schema = schema;

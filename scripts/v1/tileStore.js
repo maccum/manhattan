@@ -33,7 +33,7 @@ var tileStore = {
         var x = 0;
         for (var c = 0; c < columns; c++) {
             this.fetchTile(level, c);
-            x = x + 256
+            x = x + 256;
         }
     },
     createLayer: function (level) {

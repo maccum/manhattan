@@ -1,4 +1,4 @@
-var schema = require('../src/schema.js');
+var schema = require('../src/schema.js').schema;
 
 var assert = require('assert');
 
