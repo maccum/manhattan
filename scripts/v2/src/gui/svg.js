@@ -1,3 +1,5 @@
+var selectors = require('./selectors.js').selectors;
+
 var editSVG = function () {
     this.layer;
     this.plot;
@@ -87,3 +89,5 @@ l2.hide();
 
 l2.show();
 */
+
+module.exports.editSVG = editSVG;

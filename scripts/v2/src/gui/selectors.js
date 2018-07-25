@@ -10,3 +10,5 @@ var selectors = {
         },
     },
 }
+
+module.exports.selectors = selectors;

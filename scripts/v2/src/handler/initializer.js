@@ -1,3 +1,7 @@
+var page = require('../gui/page.js').page;
+var selectors = require('../gui/selectors.js').selectors;
+var plot = require('../plot/plot.js').plot;
+
 plot.initializeVisible(2, { width: 1024, height: 256 });
 plot.initializeHidden(3, { width: 2048, height: 256 });
 
@@ -26,15 +30,15 @@ function addAllTilesForLayer(level) {
     var columns = Math.pow(2, level);
     var x = 0;
     for (var c = 0; c < columns; c++) {
-        this.addTile(level, c);
+        addTile(level, c);
         x = x + 256;
     }
 }
 
 function addLayerToPage(level) {
-    console.log(selectors.plot);
+    //console.log(selectors.plot);
     var plt = new page().select(selectors.ids.plot);
-    console.log(plt.element);
+    //console.log(plt.element);
     var columns = Math.pow(2, level);
 
     var group = new page()
@@ -56,7 +60,8 @@ function addLayerToPage(level) {
     addAllTilesForLayer(level);
 
     plot.initializeHidden(level, { width: width, height: height });
-    console.log("Hiddens: " + plot.hiddens);
+    console.log(plot.hiddens);
+    //console.log("Hiddens: " + plot.hiddens);
 }
 
 addLayerToPage(4);

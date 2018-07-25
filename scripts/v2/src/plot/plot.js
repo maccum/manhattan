@@ -1,5 +1,5 @@
-//var schema = require('../plot/schema.js').schema;
-//var position = require("../plot/position.js").position;
+var schema = require('../plot/schema.js').schema;
+var position = require("../plot/position.js").position;
 
 var plot = {
     minimumLevel: 2,
@@ -184,4 +184,4 @@ var plot = {
     },
 }
 
-//module.exports.plot = plot;
+module.exports.plot = plot;

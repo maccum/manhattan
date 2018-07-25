@@ -1,15 +1,20 @@
+var editSVG = require('./svg.js').editSVG;
+var plot = require('../plot/plot.js').plot;
+var schema = require('../plot/schema.js').schema;
+
 var gui = {
     render: function (visibleLayers, hiddenLevels) {
 
         //console.log(hiddenLevels);
         if (!(visibleLayers.length > 0 && visibleLayers.length <= 2)) {
-            throw "Must have 1-2 visible layers.";
+            console.log(visibleLayers);
+            throw new Error("Must have 1-2 visible layers.");
         }
 
         for (index in hiddenLevels) {
             var level = hiddenLevels[index];
             if (Object.prototype.toString.call(level) != '[object Number]') {
-                throw "GUI ERROR: expected a list of numbers for hiddenLayers.";
+                throw new Error("GUI ERROR: expected a list of numbers for hiddenLayers.")
             }
             
             new editSVG().set(level).hide();
@@ -17,7 +22,7 @@ var gui = {
 
         for (index in visibleLayers) {
             var layer = visibleLayers[index];
-            if (!schema.layer(layer)) throw "GUI: expected layer schema.";
+            if (!schema.layer(layer)) throw new Error("GUI: expected layer schema.");
 
             
             new editSVG()
@@ -41,3 +46,5 @@ var gui = {
         $("#opacity-div").text(opacityString);
     },
 }
+
+module.exports.gui = gui;

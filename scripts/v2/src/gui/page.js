@@ -36,4 +36,4 @@ page.prototype.addHREF = function (href) {
     return this;
 }
 
-//module.exports.page = page;
+module.exports.page = page;

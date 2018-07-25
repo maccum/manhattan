@@ -29,4 +29,4 @@ var schema = {
     },
 }
 
-//module.exports.schema = schema;
+module.exports.schema = schema;

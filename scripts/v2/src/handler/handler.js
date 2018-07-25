@@ -1,3 +1,6 @@
+var gui = require('../gui/gui.js').gui;
+var plot = require('../plot/plot.js').plot;
+
 function listenForDrag(evt) {
     console.log("listenForDrag");
     var isDragging = false;
@@ -75,7 +78,6 @@ function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
     };
 }
 
-
 document.getElementById("plot").addEventListener("wheel", onWheel);
 
 document.getElementById("zoom-in-button").addEventListener("click", function (e) {
@@ -97,3 +99,5 @@ document.getElementById("zoom-out-button").addEventListener("click", function (e
     });
     gui.render(visibles, Array.from(plot.hiddens));
 });
+
+document.getElementById("plot").addEventListener("load", listenForDrag);

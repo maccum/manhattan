@@ -74,7 +74,8 @@ describe('Plot', function () {
             assert.equal(.5, plot.calculateOpacity({x: 7500, y: 1}));
         });
 
-        it('opacity should be 0 if xScale is 18000', function () {
+        // these tests are for when opacity of bottom layer is changing as well
+        /*it('opacity should be 0 if xScale is 18000', function () {
             assert.equal(0, plot.calculateOpacity({x: 18000, y: 1}));
         });
 
@@ -84,7 +85,7 @@ describe('Plot', function () {
 
         it('opacity should be .5 if xScale is 15000', function () {
             assert.equal(.5, plot.calculateOpacity({x: 15000, y: 1}));
-        });
+        });*/
     });
 
     describe('Scale', function () {

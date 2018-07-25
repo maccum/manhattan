@@ -19,4 +19,4 @@ var position = {
     }
 }
 
-//module.exports.position = position;
+module.exports.position = position;
