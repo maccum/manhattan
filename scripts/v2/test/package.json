@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "test": "mocha scripts/v2/test --recursive -R nyan"
+    }
+}
