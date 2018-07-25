@@ -41,10 +41,10 @@ var plot = {
         if (xScale < plot.scaleRangeInWhichHigherZoomLayerIsTransparent[1]) {
             // layer with higher zoom level (on top in current html)
             return plot.mapValueOntoRange(xScale, plot.scaleRangeInWhichHigherZoomLayerIsTransparent, [0, 1]);
-        } else if (xScale > plot.scaleRangeInWhichLowerZoomLayerIsTransparent[0]) {
+        } /*else if (xScale > plot.scaleRangeInWhichLowerZoomLayerIsTransparent[0]) {
             // layer with lower zoom level (below in current html)
             return plot.mapValueOntoRange(xScale, plot.scaleRangeInWhichLowerZoomLayerIsTransparent, [1, 0]);
-        } else {
+        }*/ else {
             return 1;
         }
     },
@@ -135,8 +135,9 @@ var plot = {
         var keys = Object.keys(plot.visibles);
         if (keys.length > 2 || keys.length < 1) throw "PLOT: expected 1-2 layers";
 
+        plot.zoom(focus, -5);
         var interval = setInterval(function () {
-            plot.zoom(focus, -5);
+            console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
             if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) > 5) {
                 plot.zoom(focus, -5);
             } else {
@@ -157,11 +158,10 @@ var plot = {
         var keys = Object.keys(plot.visibles);
         if (keys.length > 2 || keys.length < 1) throw "PLOT: expected 1-2 layers";
 
+        plot.zoom(focus, 5);
         var interval = setInterval(function () {
             console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
-            plot.zoom(focus, 5);
-            console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
-            if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) >= 5) {
+            if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) > 4) {
                 plot.zoom(focus, 5);
             } else {
                 for (key in plot.visibles) {
