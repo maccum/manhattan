@@ -1,6 +1,13 @@
 var gui = require('../gui/gui.js').gui;
 var plot = require('../plot/plot.js').plot;
 
+/*function callGUI() {
+    var visibles = Object.keys(plot.visibles).map(function(key) {
+        return plot.visibles[key];
+    });
+    gui.render(visibles, Array.from(plot.hiddens));
+}*/
+
 function listenForDrag(evt) {
     console.log("listenForDrag");
     var isDragging = false;

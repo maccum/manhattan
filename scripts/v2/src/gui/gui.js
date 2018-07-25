@@ -1,3 +1,4 @@
+//"use strict";
 var editSVG = require('./svg.js').editSVG;
 var plot = require('../plot/plot.js').plot;
 var schema = require('../plot/schema.js').schema;

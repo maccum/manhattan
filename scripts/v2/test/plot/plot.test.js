@@ -1,6 +1,9 @@
 var plot = require('../../src/plot/plot.js').plot;
 var schema = require('../../src/plot/schema.js').schema;
 var position = require('../../src/plot/position.js').position;
+var gui = require('../../src/gui/gui.js').gui;
+
+var sinon = require('sinon');
 
 var assert = require('chai').assert
 
@@ -174,5 +177,19 @@ describe('Plot', function () {
             assert.equal(10000, plot.visibles[3].scale.x);
             assert.equal(-512, plot.visibles[3].topLeft.x);
         });*/
+
+        it('snap zoom in when currently at scale-1', function () {
+            var clock = sinon.useFakeTimers();
+            var documentStub = sinon.stub(document);
+            //var document = sinon.fake();
+            plot.initializeVisible(2, {width: 1024, height: 512});
+            plot.initializeHidden(3, {width: 2048, height: 512});
+            plot.snapIn({x: 512, y:128});
+            clock.tick(100);
+            assert.ok(plot.hiddens.has(2), 'expected 2 to be hidden');
+            assert.equal(10000, plot.visibles[3].scale.x);
+            assert.equal(-512, plot.visibles[3].topLeft.x);
+            clock.restore();
+        }); 
     });
 });

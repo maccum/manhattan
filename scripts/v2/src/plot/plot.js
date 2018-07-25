@@ -1,5 +1,6 @@
 var schema = require('../plot/schema.js').schema;
 var position = require("../plot/position.js").position;
+//var gui = require('../gui/gui.js').gui; // <---- bug: circular dependency!
 
 var plot = {
     minimumLevel: 2,
