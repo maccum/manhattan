@@ -1,12 +1,10 @@
 var gui = require('../gui/gui.js').gui;
 var plot = require('../plot/plot.js').plot;
 
-/*function callGUI() {
-    var visibles = Object.keys(plot.visibles).map(function(key) {
-        return plot.visibles[key];
-    });
-    gui.render(visibles, Array.from(plot.hiddens));
-}*/
+function callGUI(visiblesAndHiddens) {
+    console.log(visiblesAndHiddens);
+    gui.render(visiblesAndHiddens[0], visiblesAndHiddens[1]);
+}
 
 function listenForDrag(evt) {
     console.log("listenForDrag");
@@ -43,10 +41,11 @@ function listenForDrag(evt) {
             console.log(changeInMousePosition);
             plot.drag(changeInMousePosition);
 
-            var visibles = Object.keys(plot.visibles).map(function(key) {
+            /*var visibles = Object.keys(plot.visibles).map(function(key) {
                 return plot.visibles[key];
             });
-            gui.render(visibles, Array.from(plot.hiddens));
+            gui.render(visibles, Array.from(plot.hiddens));*/
+            callGUI(plot.getInfoForGUI());
 
             mousePositionSinceLastMove = currentMousePosition;
         }
@@ -68,13 +67,14 @@ function onWheel(evt) {
         var mousePos = getMousePositionWithinObject(evt.clientX, evt.clientY, svg)
         plot.zoom(mousePos, vertical);
     } else {
-        plot.drag({x: horizontal, y: 0});
+        plot.drag({ x: horizontal, y: 0 });
     }
 
-    var visibles = Object.keys(plot.visibles).map(function(key) {
+    /*var visibles = Object.keys(plot.visibles).map(function(key) {
         return plot.visibles[key];
     });
-    gui.render(visibles, Array.from(plot.hiddens));
+    gui.render(visibles, Array.from(plot.hiddens));*/
+    callGUI(plot.getInfoForGUI());
 }
 
 function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
@@ -87,24 +87,53 @@ function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
 
 document.getElementById("plot").addEventListener("wheel", onWheel);
 
-document.getElementById("zoom-in-button").addEventListener("click", function (e) {
-    console.log("snap zoom in");
-    plot.snapIn({ x: 512, y: 128 });
+document.getElementById("zoom-in-button").addEventListener("click", function () {
+    
+    /*plot.snapIn({ x: 512, y: 128 });
 
     var visibles = Object.keys(plot.visibles).map(function(key) {
         return plot.visibles[key];
     });
-    gui.render(visibles, Array.from(plot.hiddens));
+    gui.render(visibles, Array.from(plot.hiddens));*/
+
+    plot.zoom({ x: 512, y: 128 }, -5);
+    var interval = setInterval(function () {
+        try {
+            if (plot.snapIn({ x: 512, y: 128 })) {
+                clearInterval(interval);
+            }
+            callGUI(plot.getInfoForGUI());
+        } catch (e) {
+            console.error(e.stack);
+            clearInterval(interval);
+        }
+    }, .1);
 });
 
-document.getElementById("zoom-out-button").addEventListener("click", function (e) {
+document.getElementById("zoom-out-button").addEventListener("click", function () {
     console.log("snap zoom out");
-    plot.snapOut({ x: 512, y: 128 });
+    console.log(plot.visibles);
+
+    /*plot.snapOut({ x: 512, y: 128 });
 
     var visibles = Object.keys(plot.visibles).map(function(key) {
         return plot.visibles[key];
     });
-    gui.render(visibles, Array.from(plot.hiddens));
+    gui.render(visibles, Array.from(plot.hiddens));*/
+
+    plot.zoom({ x: 512, y: 128 }, 5);
+    var interval = setInterval(function () {
+        try {
+            if (plot.snapOut({ x: 512, y: 128 })) {
+                clearInterval(interval);
+            }
+            callGUI(plot.getInfoForGUI());
+        } catch (e) {
+            console.error(e.stack);
+            clearInterval(interval);
+        }
+    }, .1);
+
 });
 
 document.getElementById("plot").addEventListener("load", listenForDrag);

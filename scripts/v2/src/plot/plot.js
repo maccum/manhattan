@@ -13,7 +13,22 @@ var plot = {
     hiddens: new Set([]),
     dimensions: {},
     unitScale: function (scale) {
+        if ((scale.x > .5 && scale.x < 2) || (scale.y > .5 && scale.y < 2)) throw new Error('scale already in unit scale');
         return { x: scale.x / plot.scaleFactor, y: scale.y / plot.scaleFactor };
+    },
+    getInfoForGUI: function () {
+        var listOfVisibles = Object.keys(plot.visibles).map(function (key) {
+            // convert scale for passing to GUI: 
+            var guiLayer = {
+                level: plot.visibles[key].level,
+                topLeft: plot.visibles[key].topLeft,
+                scale: plot.unitScale(plot.visibles[key].scale),
+                opacity: plot.visibles[key].opacity,
+            };
+            return guiLayer;
+        });
+        var listOfHiddens = Array.from(plot.hiddens);
+        return [listOfVisibles, listOfHiddens];
     },
     initializeVisible: function (level, dimensions) {
         if (level < plot.minimumLevel || level > plot.maximumLevel) throw new Error("Cannot add visible layer outside [min,max] zoom.");
@@ -27,7 +42,7 @@ var plot = {
         plot.hiddens.add(parseInt(level));
         plot.dimensions[level] = dimensions;
     },
-    show: function (level, topLeft, scale, opacity, dimensions) {
+    show: function (level, topLeft, scale, opacity) {
         if (!plot.hiddens.has(level)) throw "Tried to show a level that was not hidden.";
         plot.visibles[level] = { level: level, topLeft: topLeft, scale: scale, opacity: opacity };
         plot.hiddens.delete(level);
@@ -59,7 +74,7 @@ var plot = {
         return newValue;
     },
     increaseScale: function () {
-        for (key in plot.visibles) {
+        for (var key in plot.visibles) {
             if (plot.visibles[key].scale.x < plot.scaleFactor) {
                 plot.visibles[key].scale.x += plot.zoomIncrement;
             } else if (key < plot.maximumLevel) {
@@ -77,8 +92,8 @@ var plot = {
         }
     },
     decreaseScale: function () {
-        for (key in plot.visibles) {
-            if (!(key==plot.minimumLevel && plot.visibles[key].scale.x == plot.scaleFactor)) {
+        for (var key in plot.visibles) {
+            if (!(key == plot.minimumLevel && plot.visibles[key].scale.x == plot.scaleFactor)) {
                 if (plot.visibles[key].scale.x <= plot.scaleFactor) {
                     plot.visibles[key].scale.x -= plot.zoomIncrement;
                 } else {
@@ -98,22 +113,38 @@ var plot = {
         }
     },
     reposition: function (newTopLeft) {
-        for (key in plot.visibles) {
+        if ((!newTopLeft.x && newTopLeft.x != 0) || (!newTopLeft.y && newTopLeft.y != 0)) throw new Error("bad new Top Left: [" + newTopLeft.x + ", " + newTopLeft.y + "]");
+        for (var key in plot.visibles) {
             plot.visibles[key].topLeft = newTopLeft;
         }
     },
     resetOpacities: function () {
-        for (key in plot.visibles) {
+        for (var key in plot.visibles) {
             plot.visibles[key].opacity = plot.calculateOpacity(plot.visibles[key].scale);
         }
     },
     zoom: function (focus, vertical) {
+
         var firstKey = Object.keys(plot.visibles)[0],
             first = plot.visibles[firstKey],
             width = plot.dimensions[firstKey].width,
             height = plot.dimensions[firstKey].height;
 
+        if ((!first.topLeft.x && first.topLeft.x != 0) || (!first.topLeft.y && first.topLeft.y != 0)) { 
+            throw new Error("bad first top Left: [" + first.topLeft.x + ", " + first.topLeft.y + "]"); 
+        } else {
+            console.log(" okay : [" + first.topLeft.x + ", " + first.topLeft.y + "]");
+        }
+        console.log('focus');
+        console.log(focus);
+        console.log(first.topLeft);
+        console.log(plot.unitScale(first.scale));
+        console.log(width);
+        console.log(height);
         var percentageCoordinates = position.topLeftToPercentage(focus, first.topLeft, plot.unitScale(first.scale), width, height);
+        console.log(first.topLeft);
+        console.log('percentage coords: ');
+        console.log(percentageCoordinates);
 
         var howMuch = Math.floor(Math.abs(vertical) / 5);
         for (var i = 0; i < howMuch; i++) {
@@ -128,6 +159,7 @@ var plot = {
             newFirst = plot.visibles[newFirstKey],
             newWidth = plot.dimensions[newFirstKey].width,
             newHeight = plot.dimensions[newFirstKey].height;
+
         var newTopLeft = position.percentageToTopLeft(focus, percentageCoordinates, plot.unitScale(newFirst.scale), newWidth, newHeight);
         plot.reposition(newTopLeft);
         plot.resetOpacities();
@@ -136,13 +168,13 @@ var plot = {
         var keys = Object.keys(plot.visibles);
         if (keys.length > 2 || keys.length < 1) throw "PLOT: expected 1-2 layers";
 
-        plot.zoom(focus, -5);
+        /*plot.zoom(focus, -5);
         var interval = setInterval(function () {
             console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
             if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) > 5) {
                 plot.zoom(focus, -5);
             } else {
-                for (key in plot.visibles) {
+                for (var key in plot.visibles) {
                     plot.visibles[key].scale.x = 10000;
                 }
                 clearInterval(interval);
@@ -153,19 +185,31 @@ var plot = {
             });
             gui.render(visibles, Array.from(plot.hiddens));
 
-        }, .1);
+        }, .1);*/
+
+        //console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
+        if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) > 5) {
+            plot.zoom(focus, -5);
+            return false;
+        } else {
+            for (var key in plot.visibles) {
+                plot.visibles[key].scale.x = 10000;
+            }
+            return true;
+        }
     },
     snapOut: function (focus) {
         var keys = Object.keys(plot.visibles);
         if (keys.length > 2 || keys.length < 1) throw "PLOT: expected 1-2 layers";
 
+        /*
         plot.zoom(focus, 5);
         var interval = setInterval(function () {
             console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
             if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) > 4) {
                 plot.zoom(focus, 5);
             } else {
-                for (key in plot.visibles) {
+                for (var key in plot.visibles) {
                     plot.visibles[key].scale.x = 10000;
                 }
                 clearInterval(interval);
@@ -176,10 +220,21 @@ var plot = {
             });
             gui.render(visibles, Array.from(plot.hiddens));
 
-        }, .1);
+        }, .1);*/
+
+        //console.log(plot.visibles[Object.keys(plot.visibles)[0]].scale.x);
+        if (Math.abs(10000 - plot.visibles[Object.keys(plot.visibles)[0]].scale.x) > 4) {
+            plot.zoom(focus, 5);
+            return false;
+        } else {
+            for (var key in plot.visibles) {
+                plot.visibles[key].scale.x = 10000;
+            }
+            return true;
+        }
     },
     drag: function (changeInPosition) {
-        for (key in plot.visibles) {
+        for (var key in plot.visibles) {
             plot.visibles[key].topLeft.x += changeInPosition.x;
         }
     },

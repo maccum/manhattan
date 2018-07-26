@@ -1,5 +1,6 @@
 var position = {
     calculatePercent: function (positionA, positionB, lengthB, scaleB) {
+        if (lengthB <= 0) throw new Error("Length must be positive.");
         return (positionA - positionB) / (lengthB * scaleB);
     },
     calculatePosition: function (positionA, percentB, lengthB, scaleB) {

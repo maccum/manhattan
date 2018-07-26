@@ -32,6 +32,7 @@ editSVG.prototype.transformations = function () {
 
 editSVG.prototype.translate = function (shiftX, shiftY) {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
+    if ((!shiftX || !shiftY) && (shiftX != 0 && shiftY != 0)) throw new Error("Cannot translate SVG object with null, undefined, or empty shift values. shiftX: "+shiftX+" shiftY:"+shiftY);
     var translation = this.transformations().getItem(0);
     if (translation.type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) throw "editSVG: first transform is not a Translate.";
     translation.setTranslate(shiftX, shiftY);

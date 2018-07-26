@@ -34,6 +34,6 @@ page.prototype.remove = function (parent) {
 page.prototype.addHREF = function (href) {
     this.element.setAttributeNS("http://www.w3.org/1999/xlink", "href", href);
     return this;
-}
+};
 
 module.exports.page = page;
