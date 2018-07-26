@@ -3,7 +3,7 @@ var schema = {
         if (Object.keys(object).length != keys.length) {
             return false;
         }
-        for (index in keys) {
+        for (var index in keys) {
             if (!(keys[index] in object)) {
                 return false;
             }
@@ -27,6 +27,6 @@ var schema = {
             && schema.point(object['topLeft'])
             && schema.scale(object['scale']);
     },
-}
+};
 
 module.exports.schema = schema;

@@ -9,6 +9,6 @@ var selectors = {
             return "svg-layer-" + level;
         },
     },
-}
+};
 
 module.exports.selectors = selectors;

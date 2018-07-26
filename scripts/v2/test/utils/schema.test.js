@@ -1,6 +1,6 @@
-var schema = require('../../src/plot/schema.js').schema;
+var schema = require('../../src/utils/schema.js').schema;
 
-var assert = require('assert');
+var assert = require('chai').assert;
 
 describe('Schema Tests', function () {
     describe('xy schema', function () {

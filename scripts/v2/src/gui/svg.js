@@ -3,13 +3,13 @@ var selectors = require('./selectors.js').selectors;
 var editSVG = function () {
     this.layer;
     this.plot;
-}
+};
 
 editSVG.prototype.set = function (level) {
     this.layer = document.getElementById(selectors.ids.layer(level));
     this.plot = document.getElementById(selectors.ids.plot);
     return this;
-}
+};
 
 editSVG.prototype.transformations = function () {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
@@ -28,7 +28,7 @@ editSVG.prototype.transformations = function () {
         if (transformations.getItem(1).type !== SVGTransform.SVG_TRANSFORM_SCALE) "editSVG: transform is not a Scale.";
     }
     return this.layer.transform.baseVal;
-}
+};
 
 editSVG.prototype.translate = function (shiftX, shiftY) {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
@@ -37,32 +37,32 @@ editSVG.prototype.translate = function (shiftX, shiftY) {
     if (translation.type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) throw "editSVG: first transform is not a Translate.";
     translation.setTranslate(shiftX, shiftY);
     return this;
-}
+};
 
 editSVG.prototype.scale = function (scaleX, scaleY) {
     var scale = this.transformations().getItem(1);
     if (scale.type !== SVGTransform.SVG_TRANSFORM_SCALE) throw "editSVG: second transform is not a Scale.";
     scale.setScale(scaleX, scaleY);
     return this;
-}
+};
 
 editSVG.prototype.fade = function (opacity) {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
     this.layer.setAttribute("opacity", opacity);
     return this;
-}
+};
 
 editSVG.prototype.hide = function () {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
     this.layer.setAttribute("visibility", "hidden");
     return this;
-}
+};
 
 editSVG.prototype.show = function () {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
     this.layer.setAttribute("visibility", "visibile");
     return this;
-}
+};
 
 
 /*

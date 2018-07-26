@@ -18,6 +18,6 @@ var position = {
             y: position.calculatePosition(focus.y, percentage.y, height, scale.y),
         };
     }
-}
+};
 
 module.exports.position = position;

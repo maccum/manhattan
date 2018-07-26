@@ -16,7 +16,9 @@ function addTile(level, column) {
     var height = 256;
 
     var svg = new page().select(selectors.ids.svgLayer(level));
-    var tile = new page()
+    
+    //create tile
+    new page()
         .create('image')
         .attribute('x', String(x))
         .attribute('y', String(y))
@@ -50,7 +52,8 @@ function addLayerToPage(level) {
     var width = columns * 256;
     var height = 256;
 
-    var svg = new page()
+    //create <svg> inside <g>
+    new page()
         .create('svg')
         .attribute('id', 'svg-layer-' + level)
         .attribute('width', String(width))
@@ -61,7 +64,6 @@ function addLayerToPage(level) {
 
     plot.initializeHidden(level, { width: width, height: height });
     console.log(plot.hiddens);
-    //console.log("Hiddens: " + plot.hiddens);
 }
 
 addLayerToPage(4);

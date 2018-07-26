@@ -1,21 +1,17 @@
-//"use strict";
 var editSVG = require('./svg.js').editSVG;
-//var plot = require('../plot/plot.js').plot; // gui should not depend on plot
-var schema = require('../plot/schema.js').schema;
+var schema = require('../utils/schema.js').schema;
 
 var gui = {
     render: function (visibleLayers, hiddenLevels) {
 
-        //console.log(hiddenLevels);
         if (!(visibleLayers.length > 0 && visibleLayers.length <= 2)) {
-            console.log(visibleLayers);
             throw new Error("Must have 1-2 visible layers.");
         }
 
         for (var hiddenIndex in hiddenLevels) {
             var level = hiddenLevels[hiddenIndex];
             if (Object.prototype.toString.call(level) != '[object Number]') {
-                throw new Error("GUI ERROR: expected a list of numbers for hiddenLayers.")
+                throw new Error("GUI ERROR: expected a list of numbers for hiddenLayers.");
             }
             
             new editSVG().set(level).hide();
@@ -31,7 +27,7 @@ var gui = {
             new editSVG()
                 .set(layer.level)
                 .translate(layer.topLeft.x, layer.topLeft.y)
-                .scale(layer.scale.x, layer.scale.y) // where best to put scaleFactor
+                .scale(layer.scale.x, layer.scale.y)
                 .fade(layer.opacity)
                 .show();
         }
