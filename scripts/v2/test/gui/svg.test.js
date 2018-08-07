@@ -1,4 +1,4 @@
-var assert = require('assert');
+//var assert = require('chai').assert;
 
 /*describe('SVG DOM Tests', function () {
     var editSVGOnPage = require('../../src/gui/svg.js');

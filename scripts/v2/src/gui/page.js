@@ -29,7 +29,7 @@ page.prototype.append = function (child) {
 };
 
 page.prototype.place = function (parent) {
-    if (utils.nullOrUndefined(parent)) throw new Error("page().placec() must have a `parent` argument.");
+    if (utils.nullOrUndefined(parent)) throw new Error("page().place() must have a `parent` argument.");
     parent.element.appendChild(this.element);
     return this;
 };
