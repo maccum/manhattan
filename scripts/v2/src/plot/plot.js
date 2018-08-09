@@ -2,8 +2,8 @@ var schema = require('../utils/schema.js').schema;
 var position = require("../plot/position.js").position;
 
 var plot = (function () {
-    var minimumLevel = 2,
-        maximumLevel = 7,
+    var minimumLevel = parseInt(document.getElementById('smallest_zoom').innerHTML),
+        maximumLevel = parseInt(document.getElementById('largest_zoom').innerHTML),
         scaleFactor = 10000,
         zoomIncrement = 5,
         scaleRangeInWhichHigherZoomLayerIsTransparent = [6000, 9000],

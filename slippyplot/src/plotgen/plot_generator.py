@@ -103,7 +103,7 @@ class PlotGenerator:
     def collect_values(table):
         global_positions = []
         neg_log_pvals = []
-        colors = []
+        colors = [] 
         collected = table.collect()
         for i in range(0, len(collected)):
             global_positions.append(collected[i].global_position)
@@ -214,7 +214,7 @@ class PlotGenerator:
                 progress(iteration, num_cols, prefix='Zoom level: '+str(zoom))
 
             iteration = iteration+1
-        self.log.close
+        self.log.close()
 
     def generate_all(self, zoom_min, zoom_max, log_file_path='plot_generation.log'):
         self.generate(zoom_min, new_log_file=True, log_file_path=log_file_path)

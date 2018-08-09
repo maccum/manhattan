@@ -1,6 +1,8 @@
 var gui = require('../gui/gui.js').gui;
 var plot = require('../plot/plot.js').plot;
 
+//browserify --debug scripts/v2/src/handler/initializer.js scripts/v2/src/handler/handler.js -o bundles/v2/v2_bundle.js
+
 function callGUI(visiblesAndHiddens) {
     gui.render(visiblesAndHiddens[0], visiblesAndHiddens[1]);
 }

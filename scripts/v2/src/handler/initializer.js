@@ -5,7 +5,9 @@ var plot = require('../plot/plot.js').plot;
 plot.initializeVisible(2, { width: 1024, height: 256 });
 plot.initializeHidden(3, { width: 2048, height: 256 });
 
-var tileFolderPath = "../plots/svg_tutorial_plots/";
+//var tileFolderPath = "../plots/svg_tutorial_plots/";
+var tileFolderPath = document.getElementById('plot_url').innerHTML;
+console.log("tileFolderPath"+tileFolderPath);
 
 function addTile(level, column) {
     var tilePath = tileFolderPath + "/" + level + "/" + column + ".png";
@@ -37,7 +39,7 @@ function addAllTilesForLayer(level) {
     }
 }
 
-function addLayerToPage(level) {
+function addLayerToPage(level, visibility) {
     //console.log(selectors.plot);
     var plt = new page().select(selectors.ids.plot);
     //console.log(plt.element);
@@ -46,7 +48,7 @@ function addLayerToPage(level) {
     var group = new page()
         .create('g')
         .attribute('id', 'layer-' + level)
-        .attribute('visibility', 'hidden')
+        .attribute('visibility', visibility)
         .place(plt);
 
     var width = columns * 256;
@@ -66,7 +68,16 @@ function addLayerToPage(level) {
     console.log(plot.hiddens);
 }
 
+var smallestZoom = parseInt(document.getElementById('smallest_zoom').innerHTML);
+var largestZoom = parseInt(document.getElementById('largest_zoom').innerHTML);
+
+/*
 addLayerToPage(4);
 addLayerToPage(5);
 addLayerToPage(6);
-addLayerToPage(7);
+addLayerToPage(7);*/
+
+addLayerToPage(smallestZoom, 'visible');
+for (var i = smallestZoom+1; i<largestZoom+1; i++) {
+    addLayerToPage(i, 'hidden');
+}
