@@ -7,7 +7,6 @@ import hail as hl
 from src.plotgen.plot_generator import PlotGenerator
 import src.plotgen.constants as constants
 
-
 class PlotGeneratorSuite(unittest.TestCase):
     def setUp(self):
         self.temp_path = 'test_resources/temp'
