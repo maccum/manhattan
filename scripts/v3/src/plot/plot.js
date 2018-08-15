@@ -2,7 +2,8 @@ var schema = require('../utils/schema.js').schema;
 var position = require("../plot/position.js").position;
 
 var plot = (function () {
-    var minimumLevel = null,
+    var plotID = null,
+        minimumLevel = null,
         maximumLevel = null,
         scaleFactor = 10000,
         zoomIncrement = 5,
@@ -13,6 +14,7 @@ var plot = (function () {
         dimensions = {};
 
     function reset() {
+        plotID = null;
         minimumLevel = null;
         maximumLevel = null;
         visibles = {};
@@ -79,6 +81,9 @@ var plot = (function () {
     }
 
     return {
+        setPlotID: function(id) {
+            plotID = id;
+        },
         getInfoForGUI : function() {
             var listOfVisibles = Object.keys(visibles).map(function (key) {
                 // convert scale for passing to GUI: 
@@ -92,6 +97,9 @@ var plot = (function () {
             });
             var listOfHiddens = Array.from(hiddens);
             return [listOfVisibles, listOfHiddens];
+        },
+        getPlotID: function () {
+            return plotID;
         },
         clearForTesting: function () {
             // TODO: better way to clear singleton for testing?

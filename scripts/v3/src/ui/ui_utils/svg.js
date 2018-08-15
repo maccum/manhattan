@@ -60,7 +60,7 @@ editSVG.prototype.hide = function () {
 
 editSVG.prototype.show = function () {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
-    this.layer.setAttribute("visibility", "visibile");
+    this.layer.setAttribute("visibility", "visible");
     return this;
 };
 

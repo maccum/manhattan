@@ -21,19 +21,19 @@ var tag = require('./ui_utils/tag.js').tag;
 var setup = (function () {
 
     function addButtons(target) {
-        function addButton(id, name, value) {
-            new tag()
+
+        function addButton(id, _class, type, name, value) {
+            return new tag()
                 .create('input')
                 .attribute('id', id)
-                .attribute('class', 'zoom-button')
-                .attribute('type', 'button')
+                .attribute('class', _class)
+                .attribute('type', type)
                 .attribute('name', name)
-                .attribute('value', value)
                 .place(target);
         };
-
-        addButton('zoom-in-button', 'increase', '+');
-        addButton('zoom-out-button', 'decrease', '-');
+        addButton('searchbar', '', 'text', 'search').attribute('placeholder', 'Search for phenotypes...');
+        addButton('zoom-in-button', 'zoom-button', 'button', 'increase').attribute('value', '+');
+        addButton('zoom-out-button', 'zoom-button', 'button','decrease').attribute('value', '-');
     };
 
     function createWidgetAndBackground(target, widgetID, width, height, backgroundColor) {
@@ -78,12 +78,12 @@ var setup = (function () {
         return plotWindow;
     };
 
-    function addPlotToPage(target, plotID) {
-        // add svg for a single plot (phenotype), hidden with display=none
+    /*function addPlotToPage(target, plotID) {
+        // add g for a single plot (phenotype), hidden with display=none
         new tag()
-            .createNS('svg')
+            .createNS('g')
             .attribute('id', plotID)
-            .attribute('display', 'none')
+            //.attribute('display', 'none')
             .place(target);
     };
 
@@ -91,30 +91,31 @@ var setup = (function () {
         for (var i = 0; i < plotIDs.length; i++) {
             addPlotToPage(target, plotIDs[i]);
         }
-    };
+    };*/
 
-    function showPlot(plotID) {
-        new tag().select(plotID).attribute('display', 'inline');
+    /*function showPlot(plotID) {
+        //new tag().select(plotID).attribute('display', 'inline');
     };
 
     function hidePlot(plotID) {
         new tag().select(plotID).attribute('display', 'none');
-    };
+    };*/
 
     return {
         init: function (widgetID, width, height, backgroundColor, plotID, plotWindowWidth, plotWindowHeight, plotWindowX, plotWindowY, plotIDs) {
-            // target for where to insert elements is <body>
-            target = new tag().set(document.body);
+            // target for where to insert elements (make sure they are before the <script>!!!)
+            target = new tag().select('widget-div');
 
             addButtons(target);
             var widget = createWidgetAndBackground(target, widgetID, width, height, backgroundColor); //'#dee0e2'
+            console.log('plotID: '+plotID);
             var plotWindow = createPlotContainer(widget, plotID, plotWindowWidth, plotWindowHeight, plotWindowX, plotWindowY);
-            addMultiplePlotsToPage(plotWindow, plotIDs);
+            //addMultiplePlotsToPage(plotWindow, plotIDs);
             // set first plotID to be visible
-            showPlot(plotIDs[0]);
+            //showPlot(plotIDs[0]);
         },
-        showPlot: showPlot,
-        hidePlot: hidePlot,
+        //showPlot: showPlot,
+        //hidePlot: hidePlot,
     }
 }());
 
