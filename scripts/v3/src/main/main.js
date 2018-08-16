@@ -10,15 +10,8 @@ var handlers = require('../handlers/handlers.js').handlers;
 var main = (function () {
 
     function init(widgetID, plotID, currentPlot) {
-        //set up page
-        //set up image layers
-        // set up model
-        // render
-        // set up listeners
-
         // setup page
-        setup.init(widgetID, 1300, 350, '#e3e7ed', plotID, 1024, 256, 60, 30,
-            ['caffeine_consumption', 'standing_height']);
+        setup.init(widgetID, 1300, 350, '#e3e7ed', plotID, 1024, 256, 60, 30);
 
         // setup image layers
         layers.insertPlotImages('caffeine_consumption', 2, 7, '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 256, 256);

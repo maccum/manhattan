@@ -78,31 +78,9 @@ var setup = (function () {
         return plotWindow;
     };
 
-    /*function addPlotToPage(target, plotID) {
-        // add g for a single plot (phenotype), hidden with display=none
-        new tag()
-            .createNS('g')
-            .attribute('id', plotID)
-            //.attribute('display', 'none')
-            .place(target);
-    };
-
-    function addMultiplePlotsToPage(target, plotIDs) {
-        for (var i = 0; i < plotIDs.length; i++) {
-            addPlotToPage(target, plotIDs[i]);
-        }
-    };*/
-
-    /*function showPlot(plotID) {
-        //new tag().select(plotID).attribute('display', 'inline');
-    };
-
-    function hidePlot(plotID) {
-        new tag().select(plotID).attribute('display', 'none');
-    };*/
-
     return {
-        init: function (widgetID, width, height, backgroundColor, plotID, plotWindowWidth, plotWindowHeight, plotWindowX, plotWindowY, plotIDs) {
+        init: function (widgetID, width, height, backgroundColor, plotID, 
+            plotWindowWidth, plotWindowHeight, plotWindowX, plotWindowY) {
             // target for where to insert elements (make sure they are before the <script>!!!)
             target = new tag().select('widget-div');
 
@@ -110,12 +88,7 @@ var setup = (function () {
             var widget = createWidgetAndBackground(target, widgetID, width, height, backgroundColor); //'#dee0e2'
             console.log('plotID: '+plotID);
             var plotWindow = createPlotContainer(widget, plotID, plotWindowWidth, plotWindowHeight, plotWindowX, plotWindowY);
-            //addMultiplePlotsToPage(plotWindow, plotIDs);
-            // set first plotID to be visible
-            //showPlot(plotIDs[0]);
         },
-        //showPlot: showPlot,
-        //hidePlot: hidePlot,
     }
 }());
 
