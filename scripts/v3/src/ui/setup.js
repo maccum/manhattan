@@ -31,7 +31,7 @@ var setup = (function () {
                 .attribute('name', name)
                 .place(target);
         };
-        addButton('searchbar', '', 'text', 'search').attribute('placeholder', 'Search for phenotypes...');
+       //addButton('searchbar', '', 'text', 'search').attribute('placeholder', 'Search for phenotypes...');
         addButton('zoom-in-button', 'zoom-button', 'button', 'increase').attribute('value', '+');
         addButton('zoom-out-button', 'zoom-button', 'button','decrease').attribute('value', '-');
     };
@@ -51,6 +51,7 @@ var setup = (function () {
             .attribute('width', String(width))
             .attribute('height', String(height))
             .attribute('fill', backgroundColor) // '#dee0e2'
+            .attribute('stroke','#e3e7ed')
             .place(widget);
 
         return widget;

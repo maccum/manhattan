@@ -4,9 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Slippy Plot V3</title>
-    <style></style>
+    <style>
+        #widget-div {
+            width: 1124px;
+            display: block;
+            margin: 0 auto;
+        }
+        .zoom-button {
+            float: right;
+        }
+        .ui.search {
+            float:left;
+        }
+        .fa.fa-search.w3-large {
+            float: right;
+            position: relative;
+            left: -30px;
+            top: 10px;
+        }
+
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!-- W3 search icon image-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- semantic ui for searchbar, docs here: https://semantic-ui.com/modules/search.html#/definition -->
+    <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.min.css">
+    <script src="../semantic/dist/semantic.min.js"></script>
 </head>
 
 <body>
@@ -24,6 +51,21 @@
     </p>
 
     <div id="widget-div">
+        <!--
+            Live seach bar depends on Semantic UI.
+            icon with class="fa fa-search w3-large" is not part of Semantic UI.
+        -->
+        <div class="ui search">
+            <div class="ui icon input">
+                <input class="prompt" id='searchbar' type="text" placeholder="Search phenotypes...">
+                <!--<i class="search icon"></i>-->
+                <i class="fa fa-search w3-large"></i>
+            </div>
+            <div class="results"></div>
+        </div>
+
+        <!--Widget goes here-->
+
     </div>
 
     <script src="../bundles/v3/v3_bundle.js"></script>

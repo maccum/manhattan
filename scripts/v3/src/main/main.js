@@ -3,6 +3,7 @@ var layers = require('../ui/layers.js').layers;
 var plot = require('../plot/plot.js').plot;
 var gui = require('../ui/gui.js').gui;
 var handlers = require('../handlers/handlers.js').handlers;
+require('../searchbar/searchbar.js');
 
 // MAP : plot name => literal with url, minZoom, maxZoom
 // 'standing_height' : { url: '/path/to/standing_height/plots', minZoom: 2, maxZoom: 8 },
@@ -11,7 +12,7 @@ var main = (function () {
 
     function init(widgetID, plotID, currentPlot) {
         // setup page
-        setup.init(widgetID, 1300, 350, '#e3e7ed', plotID, 1024, 256, 60, 30);
+        setup.init(widgetID, 1124, 350, 'white', plotID, 1024, 256, 50, 30);
 
         // setup image layers
         layers.insertPlotImages('caffeine_consumption', 2, 7, '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 256, 256);
