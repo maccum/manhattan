@@ -87,7 +87,6 @@ var setup = (function () {
 
             addButtons(target);
             var widget = createWidgetAndBackground(target, widgetID, width, height, backgroundColor); //'#dee0e2'
-            console.log('plotID: '+plotID);
             var plotWindow = createPlotContainer(widget, plotID, plotWindowWidth, plotWindowHeight, plotWindowX, plotWindowY);
         },
     }

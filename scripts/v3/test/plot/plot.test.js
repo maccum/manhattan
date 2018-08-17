@@ -18,12 +18,14 @@ describe('Plot', function () {
             var expectedVisible = [{level: 2, topLeft: {x: 0, y: 0}, scale: {x: 1, y: 1}, opacity: 1}];
             
             plot.initializeVisible(2, {width: 1024, height: 512});
-            assert.deepEqual([expectedVisible, []], plot.getInfoForGUI());
+            var res = plot.getInfoForGUI();
+            assert.deepEqual([expectedVisible, []], [res.visibleLayers, res.hiddenLevels]);
         });
 
         it('initialize hidden', function () {
             plot.initializeHidden(2, {width: 1024, height: 512});
-            assert.deepEqual([[], [2]], plot.getInfoForGUI());
+            var res = plot.getInfoForGUI();
+            assert.deepEqual([[], [2]], [res.visibleLayers, res.hiddenLevels]);
         });
 
         // hide is now a private method
@@ -98,12 +100,14 @@ describe('Plot', function () {
 
             var expectedVisible = [{level: 2, topLeft: {x: 0, y: 0}, scale: {x: 1, y: 1}, opacity: 1}];
             var expectedHidden = [3];
-            assert.deepEqual(plot.getInfoForGUI(), [expectedVisible, expectedHidden]);
+            var res = plot.getInfoForGUI();
+            assert.deepEqual([res.visibleLayers, res.hiddenLevels], [expectedVisible, expectedHidden]);
 
             plot.increaseScale();
 
             var expectedVisibleAfterScale = [{level: 2, topLeft: {x: 0, y: 0}, scale: {x: 1.0010, y: 1}, opacity: 1}];
-            assert.deepEqual(plot.getInfoForGUI(), [expectedVisibleAfterScale, expectedHidden]);
+            res = plot.getInfoForGUI();
+            assert.deepEqual([res.visibleLayers, res.hiddenLevels], [expectedVisibleAfterScale, expectedHidden]);
         });
 
         it('Increasing scale to 12000 causes next layer to appear at scale 6000', function () {
@@ -121,8 +125,8 @@ describe('Plot', function () {
             //assert.equal(plot.visibles[2].scale.x, 12000);
 
             //assert.equal(plot.visibles[3].scale.x, 6000);
-
-            assert.deepEqual(plot.getInfoForGUI(), [expectedVisible, []]);
+            var res = plot.getInfoForGUI();
+            assert.deepEqual([res.visibleLayers, res.hiddenLevels], [expectedVisible, []]);
         });
 
         it('Increasing scale to 18000 causes that layer to disappear', function () {

@@ -8,8 +8,15 @@ var editSVG = function () {
 editSVG.prototype.set = function (plotID, level) {
     this.layer = document.getElementById(selectors.ids.group(plotID, level));
     this.plot = document.getElementById(selectors.ids.plot);
+    this.innerContainer = document.getElementById(selectors.ids.svgLayer(plotID, level));
     return this;
 };
+
+editSVG.prototype.dimensions = function () {
+    if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
+    if (!this.innerContainer) throw ('editSVG: innerContainer must be initialized');
+    return [this.innerContainer.getBBox().width, this.innerContainer.getBBox().height];
+}
 
 editSVG.prototype.transformations = function () {
     if (!this.layer || !this.plot) throw "editSVG: layer and plot must be initialized.";
