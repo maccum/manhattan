@@ -3,7 +3,7 @@ var plotNames = [
     { title: 'standing_height', description: 'height' }
 ];
 
-// semantic ui interface
+// semantic ui (live search bar)
 $('.ui.search').search({
     source: plotNames,
 });

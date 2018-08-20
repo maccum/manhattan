@@ -1,0 +1,119 @@
+<html>
+
+
+<head>
+    <style>
+        text {
+            font-size: 10px;
+            font-family: 'Courier';
+        }
+    </style>
+</head>
+
+<body>
+    <svg id='root' width='1000' height='300'>
+        <rect width='1000' height='300' fill='grey' stroke='black'></rect>
+        <circle cx='50' cy='50' r='3' fill='green'></circle>
+    </svg>
+
+    <script>
+
+        function insertTextbox(parent) {
+            // make svg to contain textbox
+            var textbox = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+            textbox.setAttribute('id', "textbox");
+            textbox.setAttribute('x', "0");
+            textbox.setAttribute('y', "0");
+            textbox.setAttribute('visibility', "hidden");
+            parent.appendChild(textbox);
+
+            // insert rect background with line into first svg element
+            var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+            rect.setAttribute('id', 'textboxRect');
+            rect.setAttribute('x', '0');
+            rect.setAttribute('y', '0');
+            rect.setAttribute('fill', 'white');
+            textbox.appendChild(rect);
+
+            // make container for text (with margins) inside textbox
+            var innerText = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+            innerText.setAttribute('id', 'textboxInner');
+            innerText.setAttribute('x', '5');
+            innerText.setAttribute('y', '5');
+            textbox.appendChild(innerText);
+
+            var text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+            text.setAttribute('id', 'textboxText');
+            text.setAttribute('y', '5');
+            text.setAttribute('font-size', '10');
+            text.setAttribute('dy', '0');
+
+            // insert text into second svg element
+            innerText.appendChild(text);
+        }
+
+        function displayTextBox(x, y, lines) {
+            var textbox = document.getElementById('textbox');
+            textbox.setAttribute('x', String(x+5));
+            textbox.setAttribute('y', String(y));
+            textbox.setAttribute('visibility', "visible");
+
+            // add tspans to text element with tspans
+            var lineCount = lines.length;
+            var tspans = '<tspan x="0" dy="0.6em" xml:space="preserve">' + lines[0] + '</tspan>';
+            for (var i = 1; i < lineCount; i++) {
+                console.log(tspans);
+                tspans += '<tspan x="0" dy="1.2em" xml:space="preserve">' + lines[i] + '</tspan>';
+            }
+            var text = document.getElementById('textboxText');
+            text.innerHTML = tspans;
+
+            // get width and height of text element
+            var width = text.getBBox().width;
+            var height = text.getBBox().height;
+
+            // set width/height of background rect
+            var rect = document.getElementById('textboxRect');
+            rect.setAttribute('width', width + 15);
+            rect.setAttribute('height', height + 15);
+
+            // set width/height of whole textbox
+            textbox.setAttribute('width', width + 15);
+            textbox.setAttribute('height', height + 15);
+            
+            // set width/height of text container
+            var innerText = document.getElementById('textboxInner');
+            innerText.setAttribute('width', width + 10);
+            innerText.setAttribute('height', height + 10);
+        }
+
+        function hideTextBox() {
+            var textbox = document.getElementById('textbox');
+            textbox.setAttribute('visibility', "hidden");
+        }
+
+        function getMousePositionWithinObject(mouseX, mouseY, boundingObject) {
+            var ctm = boundingObject.getScreenCTM();
+            return {
+                x: (mouseX - ctm.e) / ctm.a,
+                y: (mouseY - ctm.f) / ctm.d
+            };
+        };
+        
+        insertTextbox(document.getElementById('root'));
+        document.getElementById('root').addEventListener('mousemove', function (e) {
+            mousepos = getMousePositionWithinObject(e.clientX, e.clientY, document.getElementById('root'));
+            console.log('mouse pos: ' + mousepos.x + " " + mousepos.y);
+
+            // check if mouse is over 50,50 circle with radius 3
+            if (Math.abs(mousepos.x - 50) < 5 && Math.abs(mousepos.y - 50) < 5) {
+                //makeTextBox(['1:200,000,000', 'alleles: T/C', 'rsid: rs142134', 'gene: foo gene', '5.3e-61'], 50, 50, document.getElementById('root'));
+                displayTextBox(50, 50, ['1:200,000,000', 'T/C', 'rs142134', 'foo gene', '5.3e-61']);
+            } else {
+                hideTextBox();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -3,9 +3,6 @@ var gui = require('../ui/gui.js').gui;
 
 var handlers = {
     callGUI: function () {
-        //var plotID = plot.getPlotID();
-        //var visiblesAndHiddens = plot.getInfoForGUI();
-        //gui.render(plotID, visiblesAndHiddens[0], visiblesAndHiddens[1]);
         gui.render(plot.getInfoForGUI());
     },
 
