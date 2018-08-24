@@ -9,4 +9,3 @@ $('.ui.search').search({
 });
 
 
-
