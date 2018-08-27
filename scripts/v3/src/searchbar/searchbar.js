@@ -1,6 +1,7 @@
 var plotNames = [
     { title: 'caffeine_consumption', description: 'caffeine consumption' },
-    { title: 'standing_height', description: 'height' }
+    { title: 'standing_height', description: 'height' },
+    { title: 'caffeine_consumption2', description: 'caf 2' }
 ];
 
 // semantic ui (live search bar)

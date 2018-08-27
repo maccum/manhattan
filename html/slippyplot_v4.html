@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Slippy Plot V4</title>
+    <style>
+        #widget-div {
+            width: 1124px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .zoom-button {
+            float: right;
+        }
+
+        table {
+            font-family: 'Courier';
+            font-size: 10px;
+            width: 500px;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>slippy plot v4</h1>
+
+    <p>Zoom:
+        <span id="zoom-div">2</span>
+        <br> Fractional Zoom:
+        <span id="fractional-zoom-div">1</span>
+        <br> Opacity:
+        <span id="opacity-div">1</span>
+    </p>
+
+    <div>
+        <div id="widget-div">
+            <!--Widget goes here-->
+        </div>
+        <input class="prompt" id='searchbar' type="text" placeholder="Search phenotypes...">
+        <div id='searchbar_target'></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../node_modules/fuse.js/dist/fuse.min.js"></script>
+    <script src="../bundles/v4/v4_bundle.js"></script>
+</body>
+
+</html>

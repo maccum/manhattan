@@ -73,7 +73,7 @@ var setup = (function () {
             .createNS('rect')
             .attribute('width', width)
             .attribute('height', height)
-            .attribute('fill', 'white')
+            .attribute('fill', '#e8ebef')
             .place(plotWindow);
 
         return plotWindow;

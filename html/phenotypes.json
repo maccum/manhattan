@@ -1,0 +1,15 @@
+{ 
+    "items":[{
+        "id": 0,
+        "title": "standing height",
+        "url": "/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height",
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed"
+    },
+    {
+        "id": 1,
+        "title": "caffeine consumption",
+        "url": "/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption",
+        "desc": "do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+]
+}
