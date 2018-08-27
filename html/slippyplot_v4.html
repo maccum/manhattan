@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Slippy Plot V4</title>
     <style>
+        #manhattan {
+            width: 1124px;
+            display: block;
+            margin: 0 auto;
+        }
+
         #widget-div {
             width: 1124px;
             display: block;
@@ -11,7 +17,7 @@
         }
 
         .zoom-button {
-            float: right;
+            float: left;
         }
 
         table {
@@ -45,10 +51,11 @@
         <span id="opacity-div">1</span>
     </p>
 
-    <div>
+    <div id='manhattan'>
         <div id="widget-div">
             <!--Widget goes here-->
         </div>
+        <br>
         <input class="prompt" id='searchbar' type="text" placeholder="Search phenotypes...">
         <div id='searchbar_target'></div>
     </div>

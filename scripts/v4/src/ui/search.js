@@ -1,3 +1,6 @@
+var plot = require('../plot/plot.js').plot;
+var gui = require('../ui/gui.js').gui;
+
 /* 
 Search bar for displaying results of query.
 
@@ -11,16 +14,22 @@ var search = (function () {
     var phenotypes = [
         {
             id: 0,
-            title: "standing height",
+            title: "standing_height",
             url: '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height',
             desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed',
         },
         {
             id: 1,
-            title: "caffeine consumption",
+            title: "caffeine_consumption",
             url: '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption',
             desc: 'do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         },
+        {
+            id: 2,
+            title: "caffeine_consumption2",
+            url: '/Users/maccum/manhattan_data/plots/caffeine_plots2/caffeine_consumption',
+            desc: 'transparent background',
+        }
     ];
 
     // fuse options
@@ -91,6 +100,7 @@ var search = (function () {
                 if (res.length > 0) {
                     if (res[0].score == 0) {
                         console.log('perfect match');
+                        switchPlots(query);
                         return;
                     }
                 }
@@ -112,6 +122,15 @@ var search = (function () {
         }
         $(".row").children('td').css('border', '1px solid #dddddd');
         $(".row:nth-of-type(" + focus + ")").children('td').css('border', '1px solid #000000');
+    }
+
+    function switchPlots(plotName) {
+        // change visible plot!
+        console.log('changing plots');
+        var oldPlotID = plot.getPlotID();
+        plot.switchPlots(plotName);
+        gui.hide(oldPlotID);
+        gui.render(plot.getInfoForGUI());
     }
 
     $('#searchbar').on('keyup', searchBarKeyUp);
