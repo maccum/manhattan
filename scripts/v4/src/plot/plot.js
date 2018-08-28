@@ -106,11 +106,11 @@ var plot = (function () {
         var xScale = scale.x;
         if (xScale < scaleRangeInWhichHigherZoomLayerIsTransparent[1]) {
             // layer with higher zoom level (on top in current html)
-            return mapValueOntoRange(xScale, scaleRangeInWhichHigherZoomLayerIsTransparent, [0, 1]);
-        } /*else if (xScale > plot.scaleRangeInWhichLowerZoomLayerIsTransparent[0]) {
+            return mapValueOntoRange(xScale, scaleRangeInWhichHigherZoomLayerIsTransparent, [.2, 1]);
+        } else if (xScale > scaleRangeInWhichLowerZoomLayerIsTransparent[0]) {
             // layer with lower zoom level (below in current html)
-            return plot.mapValueOntoRange(xScale, plot.scaleRangeInWhichLowerZoomLayerIsTransparent, [1, 0]);
-        }*/ else {
+            return mapValueOntoRange(xScale, scaleRangeInWhichLowerZoomLayerIsTransparent, [1, .2]);
+        } else {
             return 1;
         }
     }

@@ -7,6 +7,8 @@ var gui = require('./ui/gui.js').gui;
 
 var handlers = require('./ui/handlers.js').handlers;
 
+var hover = require('./ui/hover.js').hover;
+
 function init() {
     // add widget stuff to page
     var widget = setup.setUpWidget('widget-div', selectors.ids.widget, 1124, 350, '#e8ebef');
@@ -15,12 +17,12 @@ function init() {
     // add images
     setup.insertPlotImages('caffeine_consumption', 2, 7, '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 256, 256);
     setup.insertPlotImages('standing_height', 2, 8, '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height', 256, 256);
-    setup.insertPlotImages('caffeine_consumption2', 2, 3, '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 256, 256);
+    setup.insertPlotImages('caffeine_consumption2', 2, 8, '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 256, 256);
 
     // initialize info about each plot's name, url, min/max zoom level
     plot.addPlotByName('caffeine_consumption', '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 2, 7);
     plot.addPlotByName('standing_height', '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height', 2, 8);
-    plot.addPlotByName('caffeine_consumption2', '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 2, 3);
+    plot.addPlotByName('caffeine_consumption2', '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 2, 8);
 
     // set up default plot for model
     plot.switchPlots('caffeine_consumption2');
@@ -33,6 +35,10 @@ function init() {
     document.getElementById("plot").addEventListener("wheel", handlers.onWheel);
     document.getElementById("zoom-in-button").addEventListener("click", handlers.onButtonClickZoomIn);
     document.getElementById("zoom-out-button").addEventListener("click", handlers.onButtonClickZoomOut);
+
+    // hover listener
+    hover.insertTextbox('plot');
+    document.getElementById('plot').addEventListener('mousemove', hover.hoverListener);
 }
 
 init();
