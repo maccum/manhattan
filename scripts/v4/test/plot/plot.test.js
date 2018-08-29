@@ -188,7 +188,7 @@ describe('Plot', function () {
             assert.ok(plot.getHiddens().has(2), 'layer 2 is not hidden after snapping in');
             assert.equal(10000, plot.getVisibles()[3].scale.x, 'layer 3 is not at scale 100% after snapping in');
             
-            // TODO: precision problem, floating point:
+            // TODO: floating point precision :
             //assert.equal(-512, plot.getVisibles()[3].topLeft.x); 
 
             assert.closeTo(plot.getVisibles()[3].topLeft.x, -512, 1, 'position of Layer 3 is not centered after snapping in.');

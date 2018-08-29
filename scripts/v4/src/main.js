@@ -15,14 +15,14 @@ function init() {
     setup.setUpPlot(widget, selectors.ids.plot, 1024, 256, 50, 30);
 
     // add images
-    setup.insertPlotImages('caffeine_consumption', 2, 7, '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 256, 256);
-    setup.insertPlotImages('standing_height', 2, 8, '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height', 256, 256);
-    setup.insertPlotImages('caffeine_consumption2', 2, 8, '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 256, 256);
+    setup.insertPlotImages('caffeine_consumption', 2, 7, '../plots/caffeine_plots/caffeine_consumption', 256, 256);
+    setup.insertPlotImages('standing_height', 2, 8, '../plots/standing_height_plots/standing_height', 256, 256);
+    setup.insertPlotImages('caffeine_consumption2', 2, 8, '../plots/caffeine_plots_2/caffeine_consumption', 256, 256);
 
     // initialize info about each plot's name, url, min/max zoom level
-    plot.addPlotByName('caffeine_consumption', '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 2, 7);
-    plot.addPlotByName('standing_height', '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height', 2, 8);
-    plot.addPlotByName('caffeine_consumption2', '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 2, 8);
+    plot.addPlotByName('caffeine_consumption', '../plots/caffeine_plots/caffeine_consumption', 2, 7);
+    plot.addPlotByName('standing_height', '../plots/standing_height_plots/standing_height', 2, 8);
+    plot.addPlotByName('caffeine_consumption2', '../plots/caffeine_plots_2/caffeine_consumption', 2, 8);
 
     // set up default plot for model
     plot.switchPlots('caffeine_consumption2');

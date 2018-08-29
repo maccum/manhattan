@@ -19,6 +19,8 @@ manhattan.iml
 /plots/new_standing_height_plots
 /plots/sh_plots/
 /plots/svg_tutorial_plots
+/plots/caffeine_plots_2/
+/plots/standing_height_plots/
 
 slippyplot/test/test_resources/
 slippyplot/test/test_plotgen/test_resources

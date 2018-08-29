@@ -31,7 +31,6 @@ var handlers = {
 
         function beginDrag(evt) {
             evt.preventDefault();
-            console.log("beginDrag");
             isDragging = true;
             var mousePositionOnStartDrag = getMousePosition(evt);
             mousePositionSinceLastMove = mousePositionOnStartDrag;
@@ -39,7 +38,6 @@ var handlers = {
 
         function drag(evt) {
             if (isDragging) {
-                console.log('dragging');
                 evt.preventDefault();
                 var currentMousePosition = getMousePosition(evt);
                 var changeInMousePosition = {
@@ -92,7 +90,6 @@ var handlers = {
     },
 
     onButtonClickZoomOut: function () {
-        console.log("snap zoom out");
 
         plot.zoom({ x: 512, y: 128 }, 5);
         var interval = setInterval(function () {

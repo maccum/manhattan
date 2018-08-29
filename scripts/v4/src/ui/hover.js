@@ -54,7 +54,6 @@ var hover = (function () {
         var lineCount = lines.length;
         var tspans = '<tspan x="0" dy="0.6em" xml:space="preserve">' + lines[0] + '</tspan>';
         for (var i = 1; i < lineCount; i++) {
-            console.log(tspans);
             tspans += '<tspan x="0" dy="1.2em" xml:space="preserve">' + lines[i] + '</tspan>';
         }
         var text = document.getElementById('textboxText');
@@ -92,8 +91,7 @@ var hover = (function () {
         };
     };
 
-    // convert x,y in viewing window coordinates to graph coordinates
-    function _getCoordinates(x, y) {
+    function _getFirstPlotLayerInfo() {
         var args = plot.getInfoForGUI();
         var visibles = args.visibleLayers;
         var dimensions = args.dimensions;
@@ -102,8 +100,26 @@ var hover = (function () {
             firstKey = first.level,
             width = dimensions[firstKey].width,
             height = dimensions[firstKey].height;
+
+        var nCols = Math.pow(2, first.level);
+
+        return [first.topLeft, first.scale, width, height, first.level, nCols];
+    }
+
+    // convert x,y in viewing window coordinates to graph coordinates
+    function _getCoordinates(x, y) {
+        /*var args = plot.getInfoForGUI();
+        var visibles = args.visibleLayers;
+        var dimensions = args.dimensions;
+
+        var first = visibles[0],
+            firstKey = first.level,
+            width = dimensions[firstKey].width,
+            height = dimensions[firstKey].height;*/
+        var res = _getFirstPlotLayerInfo();
+        var topLeft = res[0], scale = res[1], width = res[2], height = res[3];
         
-        var percentageCoordinates = position.topLeftToPercentage({x: x, y: y}, first.topLeft, first.scale, width, height);
+        var percentageCoordinates = position.topLeftToPercentage({x: x, y: y}, topLeft, scale, width, height);
         var pixelCoordinates = {x: percentageCoordinates.x * width, y: percentageCoordinates.y * height};
         
         // map % coordinates to graph coordinates
@@ -113,36 +129,67 @@ var hover = (function () {
         return [pixelCoordinates, width, height];
     }
 
+    function _getTilesInView(topLeft, scale, width, height, nCols) {
+        // get plot coordinate of top left corner of viewing window 
+        var percentageCoordinates = position.topLeftToPercentage({x:0,y:0}, topLeft, scale, width, height);
+        var topLeftPercent = percentageCoordinates.x;
+        // get visible tiles
+        var firstTileInView = Math.floor(topLeftPercent * nCols);
+        var tilesInView = [firstTileInView, firstTileInView+1, firstTileInView+2, firstTileInView+3];
+        return tilesInView;
+    }
+
+    function _afterLoadingPoints(points, x_axis_range, y_axis_range, width, height, graphCoords) {
+        //console.log(points);
+        for (var i = 0; i< points.length; i++) {
+            var pixelPoint = {x: plot._mapValueOntoRange(points[i].gp, [x_axis_range[0], x_axis_range[1]], [0,width]), 
+                y: plot._mapValueOntoRange(points[i].nlp, [y_axis_range[0], y_axis_range[1]], [height,0])};
+
+            if (Math.abs(graphCoords.x - pixelPoint.x) < 2 && Math.abs(graphCoords.y - pixelPoint.y) < 2) {
+                //_displayTextBox(mousepos.x, mousepos.y, [points[i].chrPos, points[i].alleles, 'rs0', 'gene label...', points[i].p]);
+                console.log('display text box');
+                _displayTextBox(mousepos.x, mousepos.y, points[i].label);
+                return;
+            } else {
+                _hideTextBox();
+            }
+        }
+    }
+
     return {
         insertTextbox: insertTextbox,
         hoverListener: function (e) {
             if (typecheck.nullOrUndefined(hoverArea)) throw new Error("hover: hoverArea must be initialized.");
             mousepos = _getMousePositionWithinObject(e.clientX, e.clientY, hoverArea);
-            //console.log('mouse pos: ' + mousepos.x + " " + mousepos.y);
 
             var res = _getCoordinates(mousepos.x, mousepos.y);
             var graphCoords = res[0], width = res[1], height = res[2];
-            console.log('pixel pos: ' + graphCoords.x + " " + graphCoords.y);
 
-            var points = [
-                {x: 504127070, y: 8.19918, chrPos: "3:11677077", alleles: '[C,T]', p: 2.74879},
-                {x: 544549434, y: 9.76749, chrPos: "3:52099441", alleles: '[T,C]', p: 5.72837},
-                {x: 2706668928, y: 8.41574, chrPos: "19:47224607", alleles: '[C,T]', p: 2.21356},
-            ];
-        
-            // check if mouse is over 50,50 circle with radius 3
-            for (var i = 0; i< points.length; i++) {
-                var pixelPoint = {x: plot._mapValueOntoRange(points[i].x, [-9095836,3045120653], [0,width]), y: plot._mapValueOntoRange(points[i].y, [-1.9999969651507141,11.767494897838054], [height,0])};
+            var x_axis_range = null, y_axis_range = null;
+            $.getJSON('../plots/caffeine_plots_2/caffeine_consumption/metadata.json', function(data) {
+                x_axis_range = data.x_axis_range;
+                y_axis_range = data.y_axis_range;
 
-                if (Math.abs(graphCoords.x - pixelPoint.x) < 2 && Math.abs(graphCoords.y - pixelPoint.y) < 2) {
-                    //makeTextBox(['1:200,000,000', 'alleles: T/C', 'rsid: rs142134', 'gene: foo gene', '5.3e-61'], 50, 50, document.getElementById('root'));
-                    console.log('match!');
-                    _displayTextBox(mousepos.x, mousepos.y, [points[i].chrPos, points[i].alleles, 'rs0', 'gene label...', points[i].p]);
-                    return;
-                } else {
-                    _hideTextBox();
-                }
-            }
+                var res = _getFirstPlotLayerInfo();
+                var topLeft = res[0], scale = res[1], width = res[2], height = res[3], zoomLevel = res[4], nCols = res[5];
+                $.getJSON('../plots/caffeine_plots_2/caffeine_consumption/'+zoomLevel+'/hover.json', function (data) {
+                    var tilesWithHoverData = new Set(data);
+                    var points = [];
+                    var tilesInView = _getTilesInView(topLeft, scale, width, height, nCols);
+                    console.log(new Date().getTime());
+                    console.log(tilesInView);
+                    for (var i = 0; i<tilesInView.length; i++) {
+                        if (tilesWithHoverData.has(tilesInView[i])) {
+                            $.getJSON('../plots/caffeine_plots_2/caffeine_consumption/'+zoomLevel+'/'+tilesInView[i]+'.json', function (data) {
+                                console.log(new Date().getTime());
+                                console.log('loadingpoints');
+                                points.push.apply(points,data);
+                                _afterLoadingPoints(points, x_axis_range, y_axis_range, width, height, graphCoords);
+                            });
+                        }                        
+                    }  
+                });
+            });
         }
     };
 }());
