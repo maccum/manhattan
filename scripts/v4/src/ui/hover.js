@@ -17,7 +17,9 @@ var hover = (function () {
         textbox.setAttribute('x', "0");
         textbox.setAttribute('y', "0");
         textbox.setAttribute('visibility', "hidden");
-        hoverArea.appendChild(textbox);
+        textbox.setAttribute('overflow', 'visible');
+        //hoverArea.appendChild(textbox);
+        document.getElementById('widget').appendChild(textbox);
     
         // insert rect background with line into first svg element
         var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
@@ -46,6 +48,11 @@ var hover = (function () {
 
     function _displayTextBox(x, y, lines) {
         var textbox = document.getElementById('textbox');
+
+        // offset of plot svg inside widget svg
+        x = x+50;
+        y = y+30;
+
         textbox.setAttribute('x', String(x+5));
         textbox.setAttribute('y', String(y));
         textbox.setAttribute('visibility', "visible");
@@ -108,24 +115,12 @@ var hover = (function () {
 
     // convert x,y in viewing window coordinates to graph coordinates
     function _getCoordinates(x, y) {
-        /*var args = plot.getInfoForGUI();
-        var visibles = args.visibleLayers;
-        var dimensions = args.dimensions;
-
-        var first = visibles[0],
-            firstKey = first.level,
-            width = dimensions[firstKey].width,
-            height = dimensions[firstKey].height;*/
         var res = _getFirstPlotLayerInfo();
         var topLeft = res[0], scale = res[1], width = res[2], height = res[3];
         
         var percentageCoordinates = position.topLeftToPercentage({x: x, y: y}, topLeft, scale, width, height);
         var pixelCoordinates = {x: percentageCoordinates.x * width, y: percentageCoordinates.y * height};
         
-        // map % coordinates to graph coordinates
-        //var graphX = plot._mapValueOntoRange(percentageCoordinates.x, [0,1], [-9095836,3045120653]);
-        //var graphY = plot._mapValueOntoRange(percentageCoordinates.y, [1,0], [-1.9999969651507141,11.767494897838054]);
-
         return [pixelCoordinates, width, height];
     }
 
@@ -140,13 +135,11 @@ var hover = (function () {
     }
 
     function _afterLoadingPoints(points, x_axis_range, y_axis_range, width, height, graphCoords) {
-        //console.log(points);
         for (var i = 0; i< points.length; i++) {
             var pixelPoint = {x: plot._mapValueOntoRange(points[i].gp, [x_axis_range[0], x_axis_range[1]], [0,width]), 
                 y: plot._mapValueOntoRange(points[i].nlp, [y_axis_range[0], y_axis_range[1]], [height,0])};
 
             if (Math.abs(graphCoords.x - pixelPoint.x) < 2 && Math.abs(graphCoords.y - pixelPoint.y) < 2) {
-                //_displayTextBox(mousepos.x, mousepos.y, [points[i].chrPos, points[i].alleles, 'rs0', 'gene label...', points[i].p]);
                 console.log('display text box');
                 _displayTextBox(mousepos.x, mousepos.y, points[i].label);
                 return;
@@ -166,13 +159,16 @@ var hover = (function () {
             var graphCoords = res[0], width = res[1], height = res[2];
 
             var x_axis_range = null, y_axis_range = null;
-            $.getJSON('../plots/caffeine_plots_2/caffeine_consumption/metadata.json', function(data) {
+
+            var url = plot.getPlotsByName()[plot.getPlotID()].url;
+            var metadata_url = url + "/metadata.json";
+            $.getJSON(metadata_url, function(data) {
                 x_axis_range = data.x_axis_range;
                 y_axis_range = data.y_axis_range;
 
                 var res = _getFirstPlotLayerInfo();
                 var topLeft = res[0], scale = res[1], width = res[2], height = res[3], zoomLevel = res[4], nCols = res[5];
-                $.getJSON('../plots/caffeine_plots_2/caffeine_consumption/'+zoomLevel+'/hover.json', function (data) {
+                $.getJSON(url+"/"+zoomLevel+'/hover.json', function (data) {
                     var tilesWithHoverData = new Set(data);
                     var points = [];
                     var tilesInView = _getTilesInView(topLeft, scale, width, height, nCols);
@@ -180,9 +176,7 @@ var hover = (function () {
                     console.log(tilesInView);
                     for (var i = 0; i<tilesInView.length; i++) {
                         if (tilesWithHoverData.has(tilesInView[i])) {
-                            $.getJSON('../plots/caffeine_plots_2/caffeine_consumption/'+zoomLevel+'/'+tilesInView[i]+'.json', function (data) {
-                                console.log(new Date().getTime());
-                                console.log('loadingpoints');
+                            $.getJSON(url+"/"+zoomLevel+'/'+tilesInView[i]+'.json', function (data) {
                                 points.push.apply(points,data);
                                 _afterLoadingPoints(points, x_axis_range, y_axis_range, width, height, graphCoords);
                             });

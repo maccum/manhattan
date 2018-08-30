@@ -3,8 +3,7 @@ var position = require("./position.js").position;
 
 var plot = (function () {
     var plotsByName = {
-        //'caffeine_consumption': {url: '/path/here/', minZoom: 2, maxZoom: 7},
-        //'standing_height' : {url: '/path/here/', minZoom: 2, maxZoom: 8},
+        // id: {id: , title: , minZoom: , maxZoom},
     }
 
     var plotID = null,
@@ -39,8 +38,9 @@ var plot = (function () {
         return hiddens;
     }
 
-    function addPlotByName(name, url, minZoom, maxZoom) {
-        plotsByName[name] = { url: url, minZoom: minZoom, maxZoom: maxZoom };
+    function addPlotByName(id, title, minZoom, maxZoom, url) {
+        //plotsByName[name] = { url: url, minZoom: minZoom, maxZoom: maxZoom };
+        plotsByName[id] = { id: id, title: title, minZoom: minZoom, maxZoom: maxZoom, url: url};
     }
 
     function reset() {
@@ -70,11 +70,11 @@ var plot = (function () {
         dimensions[level] = dims;
     }
 
-    function switchPlots(name) {
+    function switchPlots(id) {
         reset();
-        plotID = name;
-        var minZoom = plotsByName[name].minZoom,
-            maxZoom = plotsByName[name].maxZoom;
+        plotID = id;
+        var minZoom = plotsByName[id].minZoom,
+            maxZoom = plotsByName[id].maxZoom;
         setMinMaxLevel(minZoom, maxZoom);
 
         // TODO: make width and height of plots flexible
@@ -156,7 +156,7 @@ var plot = (function () {
         var listOfHiddens = Array.from(hiddens);
         //return [listOfVisibles, listOfHiddens];
         return {
-            plotID: plotID,
+            plotID: plotsByName[plotID].title,
             visibleLayers: listOfVisibles,
             hiddenLevels: listOfHiddens,
             dimensions: getDimensions(),

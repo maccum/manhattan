@@ -6,11 +6,11 @@ Search bar for displaying results of query.
 
 dependency: fuse 
 */
-var search = (function () {
+var search = function (phenotypes) {
 
     var results = []; // result from search query
     var focus = 1; // n-th row of results table we're focused on
-
+/*
     var phenotypes = [
         {
             id: 0,
@@ -30,7 +30,7 @@ var search = (function () {
             url: '/Users/maccum/manhattan_data/plots/caffeine_plots2/caffeine_consumption',
             desc: 'transparent background',
         }
-    ];
+    ];*/
 
     // fuse options
     var options = {
@@ -100,7 +100,8 @@ var search = (function () {
                 if (res.length > 0) {
                     if (res[0].score == 0) {
                         console.log('perfect match');
-                        switchPlots(query);
+                        //switchPlots(query);
+                        switchPlots(res[0].item.id);
                         return;
                     }
                 }
@@ -124,12 +125,13 @@ var search = (function () {
         $(".row:nth-of-type(" + focus + ")").children('td').css('border', '1px solid #000000');
     }
 
-    function switchPlots(plotName) {
+    function switchPlots(plotID) {
         // change visible plot!
-        console.log('changing plots');
-        var oldPlotID = plot.getPlotID();
-        plot.switchPlots(plotName);
-        gui.hide(oldPlotID);
+        console.log('changing plots: '+plotID);
+        var oldPlotID = plot.getPlotID(); // id number
+        plot.switchPlots(plotID);
+        console.log('hiding: '+plot.getPlotsByName()[oldPlotID].title);
+        gui.hide(plot.getPlotsByName()[oldPlotID].title);
         gui.render(plot.getInfoForGUI());
     }
 
@@ -137,6 +139,6 @@ var search = (function () {
     $('#searchbar').on('keypress', searchBarKeyPress);
     $('#searchbar').on('keydown', searchBarKeyDown);
 
-}());
+};
 
 module.exports.search = search;
