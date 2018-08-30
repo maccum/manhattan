@@ -63,16 +63,17 @@ describe('Plot', function () {
     });
 
     describe('Opacity', function () {
-        it('opacity should be 0 if xScale is 6000', function () {
-            assert.equal(0, plot._calculateOpacity({x: 6000, y: 1}));
+        it('opacity should be .2 if xScale is 6000', function () {
+            assert.equal(.2, plot._calculateOpacity({x: 6000, y: 1}));
         });
 
         it('opacity should be 1 if xScale is 9000', function () {
             assert.equal(1, plot._calculateOpacity({x: 9000, y: 1}));
         });
 
-        it('opacity should be .5 if xScale is 7500', function () {
-            assert.equal(.5, plot._calculateOpacity({x: 7500, y: 1}));
+        it('opacity should be .6 if xScale is 7500', function () {
+            //assert.equal(.6, plot._calculateOpacity({x: 7500, y: 1}));
+            assert.approximately(.6, plot._calculateOpacity({x: 7500, y: 1}), 0.00001);
         });
 
         // these tests are for when opacity of bottom layer is changing as well
@@ -115,7 +116,7 @@ describe('Plot', function () {
 
             var expectedVisible = [
                 {level: 2, topLeft: {x: 0, y: 0}, scale: {x: 1.2, y: 1}, opacity: 1},
-                {level: 3, topLeft: {x: 0, y: 0}, scale: {x: .6, y: 1}, opacity: 0}
+                {level: 3, topLeft: {x: 0, y: 0}, scale: {x: .6, y: 1}, opacity: .2}
             ];
 
             assert.equal(plot.getVisibles()[2].scale.x, 12000);

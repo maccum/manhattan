@@ -12,15 +12,15 @@ var main = (function () {
         setup.init(widgetID, 1124, 350, '#e8ebef', plotID, 1024, 256, 50, 30);
 
         // setup image layers
-        layers.insertPlotImages('caffeine_consumption', 2, 7, '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 256, 256);
-        layers.insertPlotImages('standing_height', 2, 8, '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height', 256, 256);
-        layers.insertPlotImages('caffeine_consumption2', 2, 3, '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 256, 256);
+        layers.insertPlotImages('caffeine_consumption', 2, 7, '../plots/caffeine_plots/caffeine_consumption', 256, 256);
+        layers.insertPlotImages('standing_height', 2, 8, '../plots/standing_height_plots/standing_height', 256, 256);
+        layers.insertPlotImages('caffeine_consumption2', 2, 3, '../plots/caffeine_plots_2/caffeine_consumption', 256, 256);
         layers.showPlot(currentPlot);
 
         // setup model
-        plot.addPlotByName('caffeine_consumption', '/Users/maccum/manhattan_data/plots/caffeine_plots/caffeine_consumption', 2, 7);
-        plot.addPlotByName('standing_height', '/Users/maccum/manhattan_data/plots/standing_height_plots/standing_height', 2, 8);
-        plot.addPlotByName('caffeine_consumption2', '/Users/maccum/manhattan_data/plots/caffeine_plots_2/caffeine_consumption', 2, 3);
+        plot.addPlotByName('caffeine_consumption', '../plots/caffeine_plots/caffeine_consumption', 2, 7);
+        plot.addPlotByName('standing_height', '../plots/standing_height_plots/standing_height', 2, 8);
+        plot.addPlotByName('caffeine_consumption2', '../plots/caffeine_plots_2/caffeine_consumption', 2, 3);
         /*plot.setPlotID(currentPlot);
         plot.setMinMaxLevel(2, 7);
         plot.initializeVisible(2, { width: 1024, height: 256 });
