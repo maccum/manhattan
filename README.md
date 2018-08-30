@@ -33,6 +33,7 @@ use hail script to generate images
 
 image folders will have format:
 
+```
 plot/
     phenotype_name_1/
         metadata.json          --- metadata about plot such as axis bounds that were used, min and max zoom levels, id, title
@@ -50,3 +51,4 @@ plot/
         4/
     phenotype_name_2/
     phenotype_name_3/
+```
