@@ -2,8 +2,11 @@
 
 ### files
 src/     --------- source code
+<br>
 test/    --------- test code
+<br>
 bundles/ --------- single .js file with all packaged code from src
+
 
 ### setting up 
 1. clone repository
@@ -26,10 +29,10 @@ After edits are made to files in src, package them into a single js file.
 ### Generating plots
 javascript code requires a folder that already contains all of the images for each plot
 
-to generate images:
-- use hail script
+use hail script to generate images
 
 image folders will have format:
+
 plot/
     phenotype_name_1/
         metadata.json          --- metadata about plot such as axis bounds that were used, min and max zoom levels, id, title
