@@ -1,0 +1,40 @@
+#manhattan {
+    width: 1124px;
+    display: block;
+    margin: 0 auto;
+}
+
+#widget-div {
+    width: 1124px;
+    display: block;
+    margin: 0 auto;
+}
+
+.zoom-button {
+    float: left;
+}
+
+/*table (query results) styling */
+table {
+    font-family: 'Courier';
+    font-size: 10px;
+    width: 500px;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+}
+
+/*every other row of search table is grey */
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+/*textbox (hover data) styling */
+text {
+    font-size: 10px;
+    font-family: 'Courier';
+}

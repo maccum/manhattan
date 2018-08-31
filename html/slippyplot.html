@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Manhattan Slippy Plot</title>
+    <link rel="stylesheet" href="../css/slippyplot.css">
+</head>
+
+<body>
+
+    <h1>scalable slippy plot for interactive visualization of large datasets</h1>
+
+    <!--these are just for showing the fractional zoom and opacity on 
+    screen during development; can be deleted -->
+    <p>Zoom:
+        <span id="zoom-div">2</span>
+        <br> Fractional Zoom:
+        <span id="fractional-zoom-div">1</span>
+        <br> Opacity:
+        <span id="opacity-div">1</span>
+    </p>
+
+    <div id='manhattan'>
+        <div id="widget-div"><!--Widget goes here--></div>
+        <br>
+        <input class="prompt" id='searchbar' type="text" placeholder="Search phenotypes...">
+        <div id='searchbar_target'></div>
+    </div>
+
+    <!--dependencies are jquery and fuse-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../node_modules/fuse.js/dist/fuse.min.js"></script>
+    <script src="../scripts/bundles/slippyplot.js"></script>
+</body>
+
+</html>

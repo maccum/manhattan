@@ -1,0 +1,52 @@
+[
+    {
+        "id": 0,
+        "title": "caffeine_consumption",
+        "minZoom": 2,
+        "maxZoom": 7,
+        "url": "../plots/caffeine_plots/caffeine_consumption",
+        "tileWidth": 256,
+        "tileHeight": 256,
+        "desc": "gwas tutorial data green/black"
+    },
+    {
+        "id": 1,
+        "title": "standing_height",
+        "minZoom": 2,
+        "maxZoom": 8,
+        "url": "../plots/standing_height_plots/standing_height",
+        "tileWidth": 256,
+        "tileHeight": 256,
+        "desc": "standing height ukbb data green/black"
+    },
+    {
+        "id": 2,
+        "title": "caffeine_consumption_2",
+        "minZoom": 2,
+        "maxZoom": 8,
+        "url": "../plots/caffeine_plots_2/caffeine_consumption",
+        "tileWidth": 256,
+        "tileHeight": 256,
+        "desc": "caffeine consumption red/black"
+    },
+    {
+        "id": 3,
+        "title": "standing_height_2",
+        "minZoom": 2,
+        "maxZoom": 8,
+        "url": "../plots/standing_height_plots/standing_height_2",
+        "tileWidth": 256,
+        "tileHeight": 256,
+        "desc": "standing height ukbb data blue/blue"
+    },
+    {
+        "id": 4,
+        "title": "caffeine_consumption_3",
+        "minZoom": 2,
+        "maxZoom": 8,
+        "url": "../plots/caffeine_plots_3/caffeine_consumption",
+        "tileWidth": 256,
+        "tileHeight": 256,
+        "desc": "caffeine consumption blue/blue"
+    }
+]
